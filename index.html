@@ -1,1 +1,681 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
 
+<meta charset="UTF-8">
+
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
+
+<title>Kulzzy Radio Navigation</title>
+
+<style>
+
+/* =========================================
+   KULZZY RADIO FLOATING TOP NAVIGATION
+   ========================================= */
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+}
+
+
+/* FLOATING NAVIGATION */
+
+#kulzzyNav {
+    position: fixed;
+
+    top: 8px;
+    left: 50%;
+
+    transform: translateX(-50%);
+
+    width: calc(100% - 16px);
+    max-width: 520px;
+
+    height: 48px;
+
+    background: rgba(7, 21, 47, 0.98);
+
+    border: 1px solid rgba(255, 215, 0, 0.45);
+
+    border-radius: 14px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: space-around;
+
+    padding: 4px;
+
+    z-index: 999999;
+
+    box-shadow:
+        0 4px 18px rgba(0,0,0,0.25);
+}
+
+
+/* NAVIGATION BUTTONS */
+
+.kulzzyNavBtn {
+
+    flex: 1;
+
+    height: 40px;
+
+    border: none;
+
+    background: transparent;
+
+    color: white;
+
+    font-size: 11px;
+
+    font-weight: bold;
+
+    border-radius: 10px;
+
+    cursor: pointer;
+
+    white-space: nowrap;
+
+    transition: 0.2s ease;
+}
+
+
+/* HOVER */
+
+.kulzzyNavBtn:hover {
+
+    background: rgba(255,215,0,0.15);
+
+    color: #ffd700;
+}
+
+
+/* ACTIVE BUTTON */
+
+.kulzzyNavBtn.active {
+
+    background: #ffd700;
+
+    color: #07152f;
+}
+
+
+/* =========================================
+   CONTENT AREA
+   ========================================= */
+
+#kulzzyContent {
+
+    width: 100%;
+
+    margin: 0;
+
+    padding: 70px 12px 30px;
+
+}
+
+
+/* EACH SECTION */
+
+.kulzzySection {
+
+    display: none;
+
+    width: 100%;
+
+    max-width: 700px;
+
+    margin: 0 auto;
+
+}
+
+
+/* SHOW ACTIVE SECTION */
+
+.kulzzySection.active {
+
+    display: block;
+
+}
+
+
+/* =========================================
+   SECTION BOX
+   ========================================= */
+
+.kulzzyBox {
+
+    width: 100%;
+
+    background: #07152f;
+
+    color: white;
+
+    border-radius: 15px;
+
+    padding: 20px;
+
+    text-align: center;
+
+    border: 1px solid rgba(255,215,0,0.35);
+
+}
+
+
+/* TITLE */
+
+.kulzzyBox h2 {
+
+    margin-top: 0;
+
+    color: #ffd700;
+
+    font-size: 22px;
+
+}
+
+
+/* TEXT */
+
+.kulzzyBox p {
+
+    font-size: 14px;
+
+    line-height: 1.6;
+
+    margin-bottom: 15px;
+
+}
+
+
+/* =========================================
+   ACTION BUTTONS
+   ========================================= */
+
+.kulzzyAction {
+
+    width: 100%;
+
+    padding: 13px;
+
+    margin-top: 10px;
+
+    border: none;
+
+    border-radius: 10px;
+
+    background: #ffd700;
+
+    color: #07152f;
+
+    font-size: 14px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+}
+
+
+.kulzzyAction:hover {
+
+    opacity: 0.85;
+
+}
+
+
+/* =========================================
+   MOBILE
+   ========================================= */
+
+@media (max-width: 360px) {
+
+    #kulzzyNav {
+
+        width: calc(100% - 8px);
+
+        top: 5px;
+
+        height: 44px;
+
+    }
+
+    .kulzzyNavBtn {
+
+        height: 36px;
+
+        font-size: 9px;
+
+    }
+
+    #kulzzyContent {
+
+        padding-top: 62px;
+
+    }
+
+}
+
+
+/* =========================================
+   LARGER MOBILE
+   ========================================= */
+
+@media (min-width: 361px) and (max-width: 600px) {
+
+    .kulzzyNavBtn {
+
+        font-size: 10px;
+
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<!-- =====================================
+     FLOATING TOP NAVIGATION
+     ===================================== -->
+
+<nav id="kulzzyNav">
+
+    <button
+        class="kulzzyNavBtn active"
+        onclick="kulzzyOpen('home', this)">
+        Home
+    </button>
+
+
+    <button
+        class="kulzzyNavBtn"
+        onclick="kulzzyOpen('request', this)">
+        Request
+    </button>
+
+
+    <button
+        class="kulzzyNavBtn"
+        onclick="kulzzyOpen('wishes', this)">
+        Wishes
+    </button>
+
+
+    <button
+        class="kulzzyNavBtn"
+        onclick="kulzzyOpen('market', this)">
+        Market
+    </button>
+
+
+    <button
+        class="kulzzyNavBtn"
+        onclick="kulzzyOpen('more', this)">
+        More
+    </button>
+
+</nav>
+
+
+
+<!-- =====================================
+     CONTENT
+     ===================================== -->
+
+<div id="kulzzyContent">
+
+
+    <!-- ================= HOME ================= -->
+
+    <section
+        id="kulzzy-home"
+        class="kulzzySection active">
+
+        <div class="kulzzyBox">
+
+            <h2>🎙️ KULZZY RADIO</h2>
+
+            <p>
+                Celebrating Lives Everyday
+            </p>
+
+            <p>
+                Welcome to Kulzzy Radio Network.
+                Enjoy our programs, celebrations,
+                requests and community services.
+            </p>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- ================= REQUEST ================= -->
+
+    <section
+        id="kulzzy-request"
+        class="kulzzySection">
+
+        <div class="kulzzyBox">
+
+            <h2>📻 REQUEST</h2>
+
+            <p>
+                Request your favourite song
+                or send a message to Kulzzy Radio.
+            </p>
+
+            <button
+                class="kulzzyAction"
+                onclick="kulzzyRequest()">
+
+                🎵 MAKE A REQUEST
+
+            </button>
+
+            <div
+                id="requestMessage"
+                style="
+                    margin-top:15px;
+                    display:none;
+                ">
+
+                Your request section is ready.
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- ================= WISHES ================= -->
+
+    <section
+        id="kulzzy-wishes"
+        class="kulzzySection">
+
+        <div class="kulzzyBox">
+
+            <h2>💛 WISHES</h2>
+
+            <p>
+                Send birthday wishes,
+                celebration messages and
+                special greetings.
+            </p>
+
+            <button
+                class="kulzzyAction"
+                onclick="kulzzyWish()">
+
+                🎉 SEND A WISH
+
+            </button>
+
+            <div
+                id="wishMessage"
+                style="
+                    margin-top:15px;
+                    display:none;
+                ">
+
+                Your wishes section is ready.
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- ================= MARKET ================= -->
+
+    <section
+        id="kulzzy-market"
+        class="kulzzySection">
+
+        <div class="kulzzyBox">
+
+            <h2>🛍️ MARKET</h2>
+
+            <p>
+                Discover products and services
+                promoted through Kulzzy Radio.
+            </p>
+
+            <button
+                class="kulzzyAction"
+                onclick="kulzzyMarket()">
+
+                🛒 VIEW MARKET
+
+            </button>
+
+            <div
+                id="marketMessage"
+                style="
+                    margin-top:15px;
+                    display:none;
+                ">
+
+                Kulzzy Market is ready.
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- ================= MORE ================= -->
+
+    <section
+        id="kulzzy-more"
+        class="kulzzySection">
+
+        <div class="kulzzyBox">
+
+            <h2>☰ MORE</h2>
+
+            <p>
+                More Kulzzy Radio services
+                and community features.
+            </p>
+
+            <button
+                class="kulzzyAction"
+                onclick="kulzzyMore()">
+
+                ✨ EXPLORE MORE
+
+            </button>
+
+            <div
+                id="moreMessage"
+                style="
+                    margin-top:15px;
+                    display:none;
+                ">
+
+                More options will appear here.
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+</div>
+
+
+
+<!-- =====================================
+     JAVASCRIPT
+     ===================================== -->
+
+<script>
+
+/*
+================================================
+KULZZY RADIO NAVIGATION SYSTEM
+================================================
+*/
+
+
+function kulzzyOpen(section, button) {
+
+
+    /* Hide all sections */
+
+    const sections =
+        document.querySelectorAll(
+            ".kulzzySection"
+        );
+
+
+    sections.forEach(function(item) {
+
+        item.classList.remove("active");
+
+    });
+
+
+    /* Remove active from buttons */
+
+    const buttons =
+        document.querySelectorAll(
+            ".kulzzyNavBtn"
+        );
+
+
+    buttons.forEach(function(item) {
+
+        item.classList.remove("active");
+
+    });
+
+
+    /* Show selected section */
+
+    const selected =
+        document.getElementById(
+            "kulzzy-" + section
+        );
+
+
+    if (selected) {
+
+        selected.classList.add("active");
+
+    }
+
+
+    /* Activate selected button */
+
+    if (button) {
+
+        button.classList.add("active");
+
+    }
+
+
+    /*
+    Scroll back to the top of the
+    content without leaving the website.
+    */
+
+    window.scrollTo({
+
+        top: 0,
+
+        behavior: "smooth"
+
+    });
+
+}
+
+
+
+/* REQUEST */
+
+function kulzzyRequest() {
+
+    const box =
+        document.getElementById(
+            "requestMessage"
+        );
+
+    box.style.display = "block";
+
+}
+
+
+
+/* WISHES */
+
+function kulzzyWish() {
+
+    const box =
+        document.getElementById(
+            "wishMessage"
+        );
+
+    box.style.display = "block";
+
+}
+
+
+
+/* MARKET */
+
+function kulzzyMarket() {
+
+    const box =
+        document.getElementById(
+            "marketMessage"
+        );
+
+    box.style.display = "block";
+
+}
+
+
+
+/* MORE */
+
+function kulzzyMore() {
+
+    const box =
+        document.getElementById(
+            "moreMessage"
+        );
+
+    box.style.display = "block";
+
+}
+
+</script>
+
+
+</body>
+
+</html>
