@@ -8,8 +8,7 @@
 <meta name="viewport"
       content="width=device-width, initial-scale=1.0">
 
-<title>Kulzzy Panel</title>
-
+<title>Kulzzy Radio Panel</title>
 
 <style>
 
@@ -32,7 +31,7 @@ body {
 }
 
 
-.kulzzy-panel {
+.kulzzyPanel {
 
     width: 100%;
 
@@ -43,11 +42,11 @@ body {
 }
 
 
-.panel-header {
+.panelHeader {
 
     background: #0d2145;
 
-    border: 1px solid #d4af37;
+    border: 1px solid rgba(255,215,0,0.45);
 
     border-radius: 16px;
 
@@ -58,32 +57,27 @@ body {
 }
 
 
-.panel-header h1 {
+.panelHeader h1 {
 
     margin: 0;
 
     color: #ffd700;
 
-    font-size: 24px;
-
 }
 
 
-.panel-header p {
+.panelHeader p {
 
     margin-bottom: 0;
 
-    color: #d9d9d9;
-
 }
 
 
-.login-box,
-.editor-box {
+.panelBox {
 
     background: #0d2145;
 
-    border: 1px solid rgba(255,215,0,0.4);
+    border: 1px solid rgba(255,215,0,0.35);
 
     border-radius: 16px;
 
@@ -98,43 +92,39 @@ label {
 
     display: block;
 
-    margin-bottom: 8px;
+    color: #ffd700;
 
     font-weight: bold;
 
-    color: #ffd700;
+    margin-bottom: 8px;
 
 }
 
 
 input,
-textarea,
-select {
+select,
+textarea {
 
     width: 100%;
-
-    border: 1px solid #405577;
-
-    border-radius: 10px;
 
     background: #06132c;
 
     color: white;
 
-    padding: 13px;
+    border: 1px solid #405577;
 
-    font-family: Arial, sans-serif;
+    border-radius: 10px;
+
+    padding: 13px;
 
     outline: none;
 
 }
 
 
-input:focus,
-textarea:focus,
-select:focus {
+select {
 
-    border-color: #ffd700;
+    cursor: pointer;
 
 }
 
@@ -176,8 +166,7 @@ button {
 }
 
 
-.login-button,
-.publish-button {
+.loginButton {
 
     background: #ffd700;
 
@@ -186,18 +175,27 @@ button {
 }
 
 
-.logout-button {
+.publishButton {
 
-    background: #b00020;
+    background: #ffd700;
+
+    color: #07152f;
+
+}
+
+
+.previewButton {
+
+    background: #31598f;
 
     color: white;
 
 }
 
 
-.preview-button {
+.logoutButton {
 
-    background: #31598f;
+    background: #b00020;
 
     color: white;
 
@@ -217,15 +215,13 @@ button {
 
 .status {
 
-    padding: 12px;
-
-    border-radius: 10px;
+    margin-top: 15px;
 
     background: #06132c;
 
-    margin-top: 15px;
+    border-radius: 10px;
 
-    font-size: 14px;
+    padding: 12px;
 
 }
 
@@ -237,28 +233,11 @@ button {
 }
 
 
-.preview {
+#previewArea {
+
+    display: none;
 
     margin-top: 20px;
-
-    border: 1px solid rgba(255,215,0,0.3);
-
-    border-radius: 12px;
-
-    overflow: hidden;
-
-}
-
-
-.preview-title {
-
-    background: #06132c;
-
-    padding: 12px;
-
-    color: #ffd700;
-
-    font-weight: bold;
 
 }
 
@@ -269,18 +248,37 @@ button {
 
     min-height: 400px;
 
-    border: 0;
+    border: none;
 
     background: white;
+
+    border-radius: 10px;
 
 }
 
 
-.logged-in {
+.loggedIn {
 
     color: #7cff9b;
 
     font-weight: bold;
+
+}
+
+
+.defaultNotice {
+
+    background: rgba(255,215,0,0.08);
+
+    border: 1px solid rgba(255,215,0,0.25);
+
+    padding: 12px;
+
+    border-radius: 10px;
+
+    margin-bottom: 18px;
+
+    line-height: 1.5;
 
 }
 
@@ -290,12 +288,6 @@ button {
     body {
 
         padding: 10px;
-
-    }
-
-    .panel-header h1 {
-
-        font-size: 20px;
 
     }
 
@@ -315,28 +307,28 @@ button {
 <body>
 
 
-<div class="kulzzy-panel">
+<div class="kulzzyPanel">
 
 
-    <div class="panel-header">
+    <div class="panelHeader">
 
         <h1>
             🎙️ KULZZY PANEL
         </h1>
 
         <p>
-            Manage Home, Request, Wishes,
-            Market and More from one place.
+            Manage additional HTML content for
+            your Kulzzy Radio navigation sections.
         </p>
 
     </div>
 
 
 
-    <!-- LOGIN -->
+    <!-- ================= LOGIN ================= -->
 
     <div
-        class="login-box"
+        class="panelBox"
         id="loginBox">
 
         <h2>
@@ -353,7 +345,7 @@ button {
             <input
                 type="email"
                 id="email"
-                placeholder="Your Firebase admin email">
+                placeholder="Admin email">
 
         </div>
 
@@ -367,14 +359,14 @@ button {
             <input
                 type="password"
                 id="password"
-                placeholder="Your password">
+                placeholder="Password">
 
         </div>
 
 
         <button
-            class="login-button"
-            onclick="login()">
+            class="loginButton"
+            id="loginButton">
 
             LOGIN
 
@@ -393,16 +385,14 @@ button {
 
 
 
-    <!-- EDITOR -->
+    <!-- ================= EDITOR ================= -->
 
     <div
-        class="editor-box"
+        class="panelBox"
         id="editorArea">
 
 
-        <div
-            class="logged-in"
-            id="loggedInText">
+        <div class="loggedIn">
 
             ● Logged in
 
@@ -412,15 +402,30 @@ button {
         <br>
 
 
+        <div class="defaultNotice">
+
+            <strong>
+                Important:
+            </strong>
+
+            Your original Kulzzy write-ups remain
+            on the website. HTML published here is
+            added inside the selected section and
+            does not remove the original write-up.
+
+        </div>
+
+
+
+        <!-- SECTION -->
+
         <div class="field">
 
             <label>
                 Select Section
             </label>
 
-            <select
-                id="section"
-                onchange="loadSection()">
+            <select id="section">
 
                 <option value="home">
                     Home
@@ -448,30 +453,17 @@ button {
 
 
 
-        <div class="field">
-
-            <label>
-                Section Title
-            </label>
-
-            <input
-                type="text"
-                id="title"
-                placeholder="Example: Kulzzy Radio Home">
-
-        </div>
-
-
+        <!-- HTML -->
 
         <div class="field">
 
             <label>
-                Paste HTML Code
+                HTML Code To Publish
             </label>
 
             <textarea
                 id="htmlCode"
-                placeholder="Paste your complete HTML here..."></textarea>
+                placeholder="Paste the HTML you want to display inside this section..."></textarea>
 
         </div>
 
@@ -480,8 +472,8 @@ button {
         <div class="buttons">
 
             <button
-                class="publish-button"
-                onclick="publishContent()">
+                class="publishButton"
+                id="publishButton">
 
                 🚀 PUBLISH
 
@@ -489,8 +481,8 @@ button {
 
 
             <button
-                class="preview-button"
-                onclick="previewHTML()">
+                class="previewButton"
+                id="previewButton">
 
                 👁️ PREVIEW
 
@@ -498,8 +490,8 @@ button {
 
 
             <button
-                class="logout-button"
-                onclick="logout()">
+                class="logoutButton"
+                id="logoutButton">
 
                 LOGOUT
 
@@ -513,31 +505,28 @@ button {
             class="status"
             id="publishStatus">
 
-            Select a section.
+            Select a section and publish your HTML.
 
         </div>
 
 
 
-        <div class="preview">
+        <div
+            id="previewArea">
 
-            <div class="preview-title">
-
+            <h3>
                 HTML PREVIEW
-
-            </div>
+            </h3>
 
             <iframe
                 id="previewFrame"
                 sandbox="allow-scripts allow-forms allow-modals allow-popups">
-
             </iframe>
 
         </div>
 
 
     </div>
-
 
 </div>
 
@@ -556,8 +545,8 @@ import {
 
     getDatabase,
     ref,
-    set,
-    get
+    get,
+    set
 
 } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-database.js";
 
@@ -575,25 +564,33 @@ import {
 
 /*
 ================================================
-PASTE YOUR FIREBASE CONFIG HERE
+YOUR FIREBASE CONFIG
 ================================================
+
+PASTE THE SAME CONFIG USED BY YOUR WEBSITE.
 */
 
 const firebaseConfig = {
 
     apiKey: "PASTE_YOUR_API_KEY",
 
-    authDomain: "PASTE_YOUR_PROJECT.firebaseapp.com",
+    authDomain:
+        "PASTE_YOUR_PROJECT.firebaseapp.com",
 
-    databaseURL: "https://PASTE_YOUR_DATABASE_URL",
+    databaseURL:
+        "https://PASTE_YOUR_DATABASE_URL",
 
-    projectId: "PASTE_YOUR_PROJECT_ID",
+    projectId:
+        "PASTE_YOUR_PROJECT_ID",
 
-    storageBucket: "PASTE_YOUR_STORAGE_BUCKET",
+    storageBucket:
+        "PASTE_YOUR_STORAGE_BUCKET",
 
-    messagingSenderId: "PASTE_YOUR_MESSAGING_SENDER_ID",
+    messagingSenderId:
+        "PASTE_YOUR_MESSAGING_SENDER_ID",
 
-    appId: "PASTE_YOUR_APP_ID"
+    appId:
+        "PASTE_YOUR_APP_ID"
 
 };
 
@@ -601,7 +598,7 @@ const firebaseConfig = {
 
 /*
 ================================================
-FIREBASE INITIALIZATION
+INITIALIZE FIREBASE
 ================================================
 */
 
@@ -620,24 +617,56 @@ const auth =
 
 /*
 ================================================
-SECTION ELEMENTS
+ELEMENTS
 ================================================
 */
 
 const loginBox =
-    document.getElementById("loginBox");
+    document.getElementById(
+        "loginBox"
+    );
 
 
 const editorArea =
-    document.getElementById("editorArea");
+    document.getElementById(
+        "editorArea"
+    );
 
 
 const loginStatus =
-    document.getElementById("loginStatus");
+    document.getElementById(
+        "loginStatus"
+    );
 
 
 const publishStatus =
-    document.getElementById("publishStatus");
+    document.getElementById(
+        "publishStatus"
+    );
+
+
+const sectionSelect =
+    document.getElementById(
+        "section"
+    );
+
+
+const htmlCode =
+    document.getElementById(
+        "htmlCode"
+    );
+
+
+const previewArea =
+    document.getElementById(
+        "previewArea"
+    );
+
+
+const previewFrame =
+    document.getElementById(
+        "previewFrame"
+    );
 
 
 
@@ -647,56 +676,67 @@ LOGIN
 ================================================
 */
 
-window.login = async function() {
-
-    const email =
-        document.getElementById("email")
-        .value
-        .trim();
-
-
-    const password =
-        document.getElementById("password")
-        .value;
+document
+.getElementById("loginButton")
+.addEventListener(
+    "click",
+    async function() {
 
 
-    if (!email || !password) {
+        const email =
+            document
+            .getElementById("email")
+            .value
+            .trim();
+
+
+        const password =
+            document
+            .getElementById("password")
+            .value;
+
+
+        if (!email || !password) {
+
+            loginStatus.textContent =
+                "Enter your email and password.";
+
+            return;
+
+        }
+
 
         loginStatus.textContent =
-            "Enter your email and password.";
+            "Logging in...";
 
-        return;
+
+        try {
+
+            await signInWithEmailAndPassword(
+                auth,
+                email,
+                password
+            );
+
+
+            loginStatus.textContent =
+                "Login successful.";
+
+        }
+
+
+        catch(error) {
+
+            console.error(error);
+
+            loginStatus.textContent =
+                "Login failed: " +
+                error.message;
+
+        }
 
     }
-
-
-    loginStatus.textContent =
-        "Logging in...";
-
-
-    try {
-
-        await signInWithEmailAndPassword(
-            auth,
-            email,
-            password
-        );
-
-
-        loginStatus.textContent =
-            "Login successful.";
-
-
-    } catch (error) {
-
-        console.error(error);
-
-        loginStatus.textContent =
-            "Login failed: " + error.message;
-
-    }
-
-};
+);
 
 
 
@@ -710,20 +750,26 @@ onAuthStateChanged(
     auth,
     function(user) {
 
+
         if (user) {
 
             loginBox.style.display =
                 "none";
 
+
             editorArea.style.display =
                 "block";
 
+
             loadSection();
 
-        } else {
+        }
+
+        else {
 
             loginBox.style.display =
                 "block";
+
 
             editorArea.style.display =
                 "none";
@@ -737,19 +783,21 @@ onAuthStateChanged(
 
 /*
 ================================================
-LOAD SECTION FROM FIREBASE
+LOAD PUBLISHED HTML
 ================================================
 */
 
-window.loadSection = async function() {
+async function loadSection() {
+
 
     const section =
-        document.getElementById("section")
-        .value;
+        sectionSelect.value;
 
 
     publishStatus.textContent =
-        "Loading " + section + "...";
+        "Loading " +
+        section +
+        "...";
 
 
     try {
@@ -771,125 +819,28 @@ window.loadSection = async function() {
                 snapshot.val();
 
 
-            document.getElementById(
-                "title"
-            ).value =
-                data.title || "";
-
-
-            document.getElementById(
-                "htmlCode"
-            ).value =
+            htmlCode.value =
                 data.html || "";
 
 
             publishStatus.textContent =
                 section.toUpperCase() +
-                " loaded.";
+                " HTML loaded.";
 
-        } else {
+        }
 
-            document.getElementById(
-                "title"
-            ).value = "";
+        else {
 
-
-            document.getElementById(
-                "htmlCode"
-            ).value = "";
+            htmlCode.value =
+                "";
 
 
             publishStatus.textContent =
-                "No content published for " +
+                "No HTML published for " +
                 section +
                 " yet.";
 
         }
-
-
-    } catch (error) {
-
-        console.error(error);
-
-        publishStatus.textContent =
-            "Could not load content.";
-
-    }
-
-};
-
-
-
-/*
-================================================
-PUBLISH
-================================================
-*/
-
-window.publishContent = async function() {
-
-    const section =
-        document.getElementById("section")
-        .value;
-
-
-    const title =
-        document.getElementById("title")
-        .value
-        .trim();
-
-
-    const html =
-        document.getElementById("htmlCode")
-        .value;
-
-
-    if (!html.trim()) {
-
-        publishStatus.textContent =
-            "Please paste HTML code first.";
-
-        return;
-
-    }
-
-
-    publishStatus.textContent =
-        "Publishing...";
-
-
-    try {
-
-        await set(
-
-            ref(
-                db,
-                "kulzzyContent/" + section
-            ),
-
-            {
-
-                title: title,
-
-                html: html,
-
-                updatedAt:
-                    Date.now(),
-
-                updatedBy:
-                    auth.currentUser
-                    ? auth.currentUser.uid
-                    : ""
-
-            }
-
-        );
-
-
-        publishStatus.textContent =
-            "✅ " +
-            section.toUpperCase() +
-            " published successfully.";
 
     }
 
@@ -899,12 +850,123 @@ window.publishContent = async function() {
         console.error(error);
 
         publishStatus.textContent =
-            "❌ Publish failed: " +
-            error.message;
+            "Unable to load section.";
 
     }
 
-};
+}
+
+
+
+/*
+================================================
+SECTION CHANGED
+================================================
+*/
+
+sectionSelect.addEventListener(
+    "change",
+    loadSection
+);
+
+
+
+/*
+================================================
+PUBLISH
+================================================
+*/
+
+document
+.getElementById("publishButton")
+.addEventListener(
+    "click",
+    async function() {
+
+
+        const section =
+            sectionSelect.value;
+
+
+        const html =
+            htmlCode.value;
+
+
+        if (!html.trim()) {
+
+            publishStatus.textContent =
+                "Please paste HTML code first.";
+
+            return;
+
+        }
+
+
+        const user =
+            auth.currentUser;
+
+
+        if (!user) {
+
+            publishStatus.textContent =
+                "You are not logged in.";
+
+            return;
+
+        }
+
+
+        publishStatus.textContent =
+            "Publishing...";
+
+
+        try {
+
+
+            await set(
+
+                ref(
+                    db,
+                    "kulzzyContent/" +
+                    section
+                ),
+
+                {
+
+                    html:
+                        html,
+
+                    updatedAt:
+                        Date.now(),
+
+                    updatedBy:
+                        user.uid
+
+                }
+
+            );
+
+
+            publishStatus.textContent =
+                "✅ " +
+                section.toUpperCase() +
+                " HTML published successfully.";
+
+        }
+
+
+        catch(error) {
+
+            console.error(error);
+
+            publishStatus.textContent =
+                "❌ Publish failed: " +
+                error.message;
+
+        }
+
+    }
+);
 
 
 
@@ -914,22 +976,22 @@ PREVIEW
 ================================================
 */
 
-window.previewHTML = function() {
-
-    const html =
-        document.getElementById("htmlCode")
-        .value;
-
-
-    const frame =
-        document.getElementById(
-            "previewFrame"
-        );
+document
+.getElementById("previewButton")
+.addEventListener(
+    "click",
+    function() {
 
 
-    frame.srcdoc = html;
+        previewArea.style.display =
+            "block";
 
-};
+
+        previewFrame.srcdoc =
+            htmlCode.value;
+
+    }
+);
 
 
 
@@ -939,11 +1001,16 @@ LOGOUT
 ================================================
 */
 
-window.logout = async function() {
+document
+.getElementById("logoutButton")
+.addEventListener(
+    "click",
+    async function() {
 
-    await signOut(auth);
+        await signOut(auth);
 
-};
+    }
+);
 
 </script>
 
