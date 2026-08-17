@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 
 <meta charset="UTF-8">
@@ -29,6 +30,7 @@ body {
 /* FLOATING NAVIGATION */
 
 #kulzzyNav {
+
     position: fixed;
 
     top: 8px;
@@ -58,6 +60,7 @@ body {
 
     box-shadow:
         0 4px 18px rgba(0,0,0,0.25);
+
 }
 
 
@@ -86,26 +89,25 @@ body {
     white-space: nowrap;
 
     transition: 0.2s ease;
+
 }
 
-
-/* HOVER */
 
 .kulzzyNavBtn:hover {
 
     background: rgba(255,215,0,0.15);
 
     color: #ffd700;
+
 }
 
-
-/* ACTIVE BUTTON */
 
 .kulzzyNavBtn.active {
 
     background: #ffd700;
 
     color: #07152f;
+
 }
 
 
@@ -222,12 +224,65 @@ body {
     font-weight: bold;
 
     cursor: pointer;
+
 }
 
 
 .kulzzyAction:hover {
 
     opacity: 0.85;
+
+}
+
+
+/* =========================================
+   PUBLISHED HTML
+   ========================================= */
+
+.kulzzyPublishedContent {
+
+    width: 100%;
+
+    margin: 15px 0 0;
+
+    padding: 0;
+
+}
+
+
+/*
+Make published HTML fit inside the
+Kulzzy section.
+*/
+
+.kulzzyPublishedContent img {
+
+    max-width: 100%;
+
+    height: auto;
+
+}
+
+
+.kulzzyPublishedContent iframe {
+
+    max-width: 100%;
+
+}
+
+
+.kulzzyPublishedContent video {
+
+    max-width: 100%;
+
+}
+
+
+.kulzzyPublishedContent table {
+
+    max-width: 100%;
+
+    overflow-x: auto;
 
 }
 
@@ -248,6 +303,7 @@ body {
 
     }
 
+
     .kulzzyNavBtn {
 
         height: 36px;
@@ -255,6 +311,7 @@ body {
         font-size: 9px;
 
     }
+
 
     #kulzzyContent {
 
@@ -293,39 +350,51 @@ body {
 
 <nav id="kulzzyNav">
 
+
     <button
         class="kulzzyNavBtn active"
         onclick="kulzzyOpen('home', this)">
+
         Home
+
     </button>
 
 
     <button
         class="kulzzyNavBtn"
         onclick="kulzzyOpen('request', this)">
+
         Request
+
     </button>
 
 
     <button
         class="kulzzyNavBtn"
         onclick="kulzzyOpen('wishes', this)">
+
         Wishes
+
     </button>
 
 
     <button
         class="kulzzyNavBtn"
         onclick="kulzzyOpen('market', this)">
+
         Market
+
     </button>
 
 
     <button
         class="kulzzyNavBtn"
         onclick="kulzzyOpen('more', this)">
+
         More
+
     </button>
+
 
 </nav>
 
@@ -344,21 +413,42 @@ body {
         id="kulzzy-home"
         class="kulzzySection active">
 
+
         <div class="kulzzyBox">
 
-            <h2>🎙️ KULZZY RADIO</h2>
+
+            <h2>
+                🎙️ KULZZY RADIO
+            </h2>
+
 
             <p>
+
                 Celebrating Lives Everyday
+
             </p>
 
+
             <p>
+
                 Welcome to Kulzzy Radio Network.
                 Enjoy our programs, celebrations,
                 requests and community services.
+
             </p>
 
+
         </div>
+
+
+        <!-- PUBLISHED HOME HTML -->
+
+        <div
+            id="kulzzyPublished-home"
+            class="kulzzyPublishedContent">
+
+        </div>
+
 
     </section>
 
@@ -370,14 +460,22 @@ body {
         id="kulzzy-request"
         class="kulzzySection">
 
+
         <div class="kulzzyBox">
 
-            <h2>📻 REQUEST</h2>
+
+            <h2>
+                📻 REQUEST
+            </h2>
+
 
             <p>
+
                 Request your favourite song
                 or send a message to Kulzzy Radio.
+
             </p>
+
 
             <button
                 class="kulzzyAction"
@@ -386,6 +484,7 @@ body {
                 🎵 MAKE A REQUEST
 
             </button>
+
 
             <div
                 id="requestMessage"
@@ -398,7 +497,18 @@ body {
 
             </div>
 
+
         </div>
+
+
+        <!-- PUBLISHED REQUEST HTML -->
+
+        <div
+            id="kulzzyPublished-request"
+            class="kulzzyPublishedContent">
+
+        </div>
+
 
     </section>
 
@@ -410,15 +520,23 @@ body {
         id="kulzzy-wishes"
         class="kulzzySection">
 
+
         <div class="kulzzyBox">
 
-            <h2>💛 WISHES</h2>
+
+            <h2>
+                💛 WISHES
+            </h2>
+
 
             <p>
+
                 Send birthday wishes,
                 celebration messages and
                 special greetings.
+
             </p>
+
 
             <button
                 class="kulzzyAction"
@@ -427,6 +545,7 @@ body {
                 🎉 SEND A WISH
 
             </button>
+
 
             <div
                 id="wishMessage"
@@ -439,7 +558,18 @@ body {
 
             </div>
 
+
         </div>
+
+
+        <!-- PUBLISHED WISHES HTML -->
+
+        <div
+            id="kulzzyPublished-wishes"
+            class="kulzzyPublishedContent">
+
+        </div>
+
 
     </section>
 
@@ -451,14 +581,22 @@ body {
         id="kulzzy-market"
         class="kulzzySection">
 
+
         <div class="kulzzyBox">
 
-            <h2>🛍️ MARKET</h2>
+
+            <h2>
+                🛍️ MARKET
+            </h2>
+
 
             <p>
+
                 Discover products and services
                 promoted through Kulzzy Radio.
+
             </p>
+
 
             <button
                 class="kulzzyAction"
@@ -467,6 +605,7 @@ body {
                 🛒 VIEW MARKET
 
             </button>
+
 
             <div
                 id="marketMessage"
@@ -479,7 +618,18 @@ body {
 
             </div>
 
+
         </div>
+
+
+        <!-- PUBLISHED MARKET HTML -->
+
+        <div
+            id="kulzzyPublished-market"
+            class="kulzzyPublishedContent">
+
+        </div>
+
 
     </section>
 
@@ -491,14 +641,22 @@ body {
         id="kulzzy-more"
         class="kulzzySection">
 
+
         <div class="kulzzyBox">
 
-            <h2>☰ MORE</h2>
+
+            <h2>
+                ☰ MORE
+            </h2>
+
 
             <p>
+
                 More Kulzzy Radio services
                 and community features.
+
             </p>
+
 
             <button
                 class="kulzzyAction"
@@ -507,6 +665,7 @@ body {
                 ✨ EXPLORE MORE
 
             </button>
+
 
             <div
                 id="moreMessage"
@@ -519,7 +678,18 @@ body {
 
             </div>
 
+
         </div>
+
+
+        <!-- PUBLISHED MORE HTML -->
+
+        <div
+            id="kulzzyPublished-more"
+            class="kulzzyPublishedContent">
+
+        </div>
+
 
     </section>
 
@@ -529,10 +699,378 @@ body {
 
 
 <!-- =====================================
-     JAVASCRIPT
+     KULZZY FIREBASE SYSTEM
+     ===================================== -->
+
+<script type="module">
+
+
+/*
+================================================
+FIREBASE APP
+================================================
+*/
+
+import {
+
+    initializeApp
+
+}
+
+from
+"https://www.gstatic.com/firebasejs/12.16.0/firebase-app.js";
+
+
+
+/*
+================================================
+FIREBASE REALTIME DATABASE
+================================================
+*/
+
+import {
+
+    getDatabase,
+
+    ref,
+
+    onValue
+
+}
+
+from
+"https://www.gstatic.com/firebasejs/12.16.0/firebase-database.js";
+
+
+
+/*
+================================================
+YOUR KULZZY FIREBASE CONFIG
+================================================
+*/
+
+const firebaseConfig = {
+
+
+    apiKey:
+        "AIzaSyBH85NGWsSAK5cubbPdnmunwYZFZpj_CB0",
+
+
+    authDomain:
+        "kulzzy-radio-chat.firebaseapp.com",
+
+
+    databaseURL:
+        "https://kulzzy-radio-chat-default-rtdb.europe-west1.firebasedatabase.app",
+
+
+    projectId:
+        "kulzzy-radio-chat",
+
+
+    storageBucket:
+        "kulzzy-radio-chat.firebasestorage.app",
+
+
+    messagingSenderId:
+        "510100635134",
+
+
+    appId:
+        "1:510100635134:web:9d3b2e983eb6e9a385d4af"
+
+};
+
+
+
+/*
+================================================
+INITIALIZE FIREBASE
+================================================
+*/
+
+const app =
+    initializeApp(firebaseConfig);
+
+
+
+/*
+================================================
+INITIALIZE DATABASE
+================================================
+*/
+
+const db =
+    getDatabase(app);
+
+
+
+/*
+================================================
+LOAD PUBLISHED HTML
+================================================
+*/
+
+function loadKulzzyPublishedHTML(section) {
+
+
+    const contentRef =
+        ref(
+
+            db,
+
+            "kulzzyContent/" +
+            section
+
+        );
+
+
+    onValue(
+
+        contentRef,
+
+        function(snapshot) {
+
+
+            const container =
+                document.getElementById(
+
+                    "kulzzyPublished-" +
+                    section
+
+                );
+
+
+            if (!container) {
+
+                return;
+
+            }
+
+
+            /*
+            ----------------------------------------
+            NO PUBLISHED HTML
+            ----------------------------------------
+            */
+
+            if (!snapshot.exists()) {
+
+
+                container.innerHTML = "";
+
+
+                return;
+
+            }
+
+
+            /*
+            ----------------------------------------
+            GET FIREBASE DATA
+            ----------------------------------------
+            */
+
+            const data =
+                snapshot.val();
+
+
+            const html =
+                data.html || "";
+
+
+            /*
+            ----------------------------------------
+            CLEAR PREVIOUS HTML
+            ----------------------------------------
+            */
+
+            container.innerHTML = "";
+
+
+            /*
+            ----------------------------------------
+            CREATE PUBLISHED CONTENT
+            ----------------------------------------
+            */
+
+            const published =
+                document.createElement(
+                    "div"
+                );
+
+
+            published.innerHTML =
+                html;
+
+
+            /*
+            ----------------------------------------
+            ADD TO SECTION
+            ----------------------------------------
+            */
+
+            container.appendChild(
+                published
+            );
+
+
+            /*
+            ----------------------------------------
+            EXECUTE SCRIPTS
+            ----------------------------------------
+            */
+
+            executePublishedScripts(
+                published
+            );
+
+
+        },
+
+        function(error) {
+
+
+            console.error(
+
+                "Kulzzy Firebase error for " +
+                section +
+                ":",
+
+                error
+
+            );
+
+
+        }
+
+    );
+
+}
+
+
+
+/*
+================================================
+EXECUTE SCRIPTS INSIDE PUBLISHED HTML
+================================================
+*/
+
+function executePublishedScripts(container) {
+
+
+    const scripts =
+        container.querySelectorAll(
+            "script"
+        );
+
+
+    scripts.forEach(
+
+        function(oldScript) {
+
+
+            const newScript =
+                document.createElement(
+                    "script"
+                );
+
+
+            /*
+            Copy attributes
+            */
+
+            Array.from(
+                oldScript.attributes
+            ).forEach(
+
+                function(attribute) {
+
+
+                    newScript.setAttribute(
+
+                        attribute.name,
+
+                        attribute.value
+
+                    );
+
+                }
+
+            );
+
+
+            /*
+            Copy script content
+            */
+
+            newScript.textContent =
+                oldScript.textContent;
+
+
+            /*
+            Replace old script
+            */
+
+            oldScript.parentNode.replaceChild(
+
+                newScript,
+
+                oldScript
+
+            );
+
+
+        }
+
+    );
+
+}
+
+
+
+/*
+================================================
+LOAD ALL FIVE SECTIONS
+================================================
+*/
+
+loadKulzzyPublishedHTML(
+    "home"
+);
+
+
+loadKulzzyPublishedHTML(
+    "request"
+);
+
+
+loadKulzzyPublishedHTML(
+    "wishes"
+);
+
+
+loadKulzzyPublishedHTML(
+    "market"
+);
+
+
+loadKulzzyPublishedHTML(
+    "more"
+);
+
+
+
+</script>
+
+
+
+<!-- =====================================
+     NAVIGATION JAVASCRIPT
      ===================================== -->
 
 <script>
+
 
 /*
 ================================================
@@ -540,11 +1078,14 @@ KULZZY RADIO NAVIGATION SYSTEM
 ================================================
 */
 
-
 function kulzzyOpen(section, button) {
 
 
-    /* Hide all sections */
+    /*
+    --------------------------------------------
+    HIDE ALL SECTIONS
+    --------------------------------------------
+    */
 
     const sections =
         document.querySelectorAll(
@@ -552,14 +1093,26 @@ function kulzzyOpen(section, button) {
         );
 
 
-    sections.forEach(function(item) {
+    sections.forEach(
 
-        item.classList.remove("active");
-
-    });
+        function(item) {
 
 
-    /* Remove active from buttons */
+            item.classList.remove(
+                "active"
+            );
+
+
+        }
+
+    );
+
+
+    /*
+    --------------------------------------------
+    REMOVE ACTIVE FROM BUTTONS
+    --------------------------------------------
+    */
 
     const buttons =
         document.querySelectorAll(
@@ -567,40 +1120,68 @@ function kulzzyOpen(section, button) {
         );
 
 
-    buttons.forEach(function(item) {
+    buttons.forEach(
 
-        item.classList.remove("active");
-
-    });
+        function(item) {
 
 
-    /* Show selected section */
+            item.classList.remove(
+                "active"
+            );
+
+
+        }
+
+    );
+
+
+    /*
+    --------------------------------------------
+    SHOW SELECTED SECTION
+    --------------------------------------------
+    */
 
     const selected =
         document.getElementById(
-            "kulzzy-" + section
+
+            "kulzzy-" +
+            section
+
         );
 
 
     if (selected) {
 
-        selected.classList.add("active");
 
-    }
+        selected.classList.add(
+            "active"
+        );
 
-
-    /* Activate selected button */
-
-    if (button) {
-
-        button.classList.add("active");
 
     }
 
 
     /*
-    Scroll back to the top of the
-    content without leaving the website.
+    --------------------------------------------
+    ACTIVATE SELECTED BUTTON
+    --------------------------------------------
+    */
+
+    if (button) {
+
+
+        button.classList.add(
+            "active"
+        );
+
+
+    }
+
+
+    /*
+    --------------------------------------------
+    SCROLL TO TOP
+    --------------------------------------------
     */
 
     window.scrollTo({
@@ -611,67 +1192,93 @@ function kulzzyOpen(section, button) {
 
     });
 
+
 }
 
 
 
-/* REQUEST */
+/* =========================================
+   REQUEST
+   ========================================= */
 
 function kulzzyRequest() {
+
 
     const box =
         document.getElementById(
             "requestMessage"
         );
 
-    box.style.display = "block";
+
+    box.style.display =
+        "block";
+
 
 }
 
 
 
-/* WISHES */
+/* =========================================
+   WISHES
+   ========================================= */
 
 function kulzzyWish() {
+
 
     const box =
         document.getElementById(
             "wishMessage"
         );
 
-    box.style.display = "block";
+
+    box.style.display =
+        "block";
+
 
 }
 
 
 
-/* MARKET */
+/* =========================================
+   MARKET
+   ========================================= */
 
 function kulzzyMarket() {
+
 
     const box =
         document.getElementById(
             "marketMessage"
         );
 
-    box.style.display = "block";
+
+    box.style.display =
+        "block";
+
 
 }
 
 
 
-/* MORE */
+/* =========================================
+   MORE
+   ========================================= */
 
 function kulzzyMore() {
+
 
     const box =
         document.getElementById(
             "moreMessage"
         );
 
-    box.style.display = "block";
+
+    box.style.display =
+        "block";
+
 
 }
+
 
 </script>
 
