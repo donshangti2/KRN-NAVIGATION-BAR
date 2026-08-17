@@ -27,7 +27,9 @@ body {
 }
 
 
-/* FLOATING NAVIGATION */
+/* =========================================
+   FLOATING NAVIGATION
+   ========================================= */
 
 #kulzzyNav {
 
@@ -64,7 +66,9 @@ body {
 }
 
 
-/* NAVIGATION BUTTONS */
+/* =========================================
+   NAVIGATION BUTTONS
+   ========================================= */
 
 .kulzzyNavBtn {
 
@@ -89,6 +93,8 @@ body {
     white-space: nowrap;
 
     transition: 0.2s ease;
+
+    -webkit-tap-highlight-color: transparent;
 
 }
 
@@ -126,7 +132,9 @@ body {
 }
 
 
-/* EACH SECTION */
+/* =========================================
+   EACH SECTION
+   ========================================= */
 
 .kulzzySection {
 
@@ -141,8 +149,6 @@ body {
 }
 
 
-/* SHOW ACTIVE SECTION */
-
 .kulzzySection.active {
 
     display: block;
@@ -151,7 +157,7 @@ body {
 
 
 /* =========================================
-   SECTION BOX
+   ORIGINAL SECTION BOX
    ========================================= */
 
 .kulzzyBox {
@@ -173,7 +179,9 @@ body {
 }
 
 
-/* TITLE */
+/* =========================================
+   TITLE
+   ========================================= */
 
 .kulzzyBox h2 {
 
@@ -186,7 +194,9 @@ body {
 }
 
 
-/* TEXT */
+/* =========================================
+   TEXT
+   ========================================= */
 
 .kulzzyBox p {
 
@@ -225,6 +235,8 @@ body {
 
     cursor: pointer;
 
+    -webkit-tap-highlight-color: transparent;
+
 }
 
 
@@ -236,7 +248,7 @@ body {
 
 
 /* =========================================
-   PUBLISHED HTML
+   FIREBASE PUBLISHED HTML
    ========================================= */
 
 .kulzzyPublishedContent {
@@ -247,12 +259,24 @@ body {
 
     padding: 0;
 
+    overflow: visible;
+
 }
 
 
 /*
-Make published HTML fit inside the
-Kulzzy section.
+Published content must fit the website.
+*/
+
+.kulzzyPublishedContent * {
+
+    max-width: 100%;
+
+}
+
+
+/*
+Images inside published HTML.
 */
 
 .kulzzyPublishedContent img {
@@ -264,25 +288,43 @@ Kulzzy section.
 }
 
 
-.kulzzyPublishedContent iframe {
-
-    max-width: 100%;
-
-}
-
+/*
+Videos inside published HTML.
+*/
 
 .kulzzyPublishedContent video {
 
     max-width: 100%;
 
+    height: auto;
+
 }
 
+
+/*
+Iframes published from the panel.
+*/
+
+.kulzzyPublishedContent iframe {
+
+    display: block;
+
+    width: 100%;
+
+    max-width: 100%;
+
+    border: 0;
+
+}
+
+
+/*
+Tables should not break the page.
+*/
 
 .kulzzyPublishedContent table {
 
     max-width: 100%;
-
-    overflow-x: auto;
 
 }
 
@@ -352,6 +394,7 @@ Kulzzy section.
 
 
     <button
+        type="button"
         class="kulzzyNavBtn active"
         onclick="kulzzyOpen('home', this)">
 
@@ -361,6 +404,7 @@ Kulzzy section.
 
 
     <button
+        type="button"
         class="kulzzyNavBtn"
         onclick="kulzzyOpen('request', this)">
 
@@ -370,6 +414,7 @@ Kulzzy section.
 
 
     <button
+        type="button"
         class="kulzzyNavBtn"
         onclick="kulzzyOpen('wishes', this)">
 
@@ -379,6 +424,7 @@ Kulzzy section.
 
 
     <button
+        type="button"
         class="kulzzyNavBtn"
         onclick="kulzzyOpen('market', this)">
 
@@ -388,6 +434,7 @@ Kulzzy section.
 
 
     <button
+        type="button"
         class="kulzzyNavBtn"
         onclick="kulzzyOpen('more', this)">
 
@@ -407,7 +454,10 @@ Kulzzy section.
 <div id="kulzzyContent">
 
 
-    <!-- ================= HOME ================= -->
+
+    <!-- =================================
+         HOME
+         ================================= -->
 
     <section
         id="kulzzy-home"
@@ -416,32 +466,26 @@ Kulzzy section.
 
         <div class="kulzzyBox">
 
-
             <h2>
                 🎙️ KULZZY RADIO
             </h2>
 
 
             <p>
-
                 Celebrating Lives Everyday
-
             </p>
 
 
             <p>
-
                 Welcome to Kulzzy Radio Network.
                 Enjoy our programs, celebrations,
                 requests and community services.
-
             </p>
-
 
         </div>
 
 
-        <!-- PUBLISHED HOME HTML -->
+        <!-- FIREBASE HOME CONTENT -->
 
         <div
             id="kulzzyPublished-home"
@@ -454,7 +498,9 @@ Kulzzy section.
 
 
 
-    <!-- ================= REQUEST ================= -->
+    <!-- =================================
+         REQUEST
+         ================================= -->
 
     <section
         id="kulzzy-request"
@@ -463,21 +509,19 @@ Kulzzy section.
 
         <div class="kulzzyBox">
 
-
             <h2>
                 📻 REQUEST
             </h2>
 
 
             <p>
-
                 Request your favourite song
                 or send a message to Kulzzy Radio.
-
             </p>
 
 
             <button
+                type="button"
                 class="kulzzyAction"
                 onclick="kulzzyRequest()">
 
@@ -497,11 +541,10 @@ Kulzzy section.
 
             </div>
 
-
         </div>
 
 
-        <!-- PUBLISHED REQUEST HTML -->
+        <!-- FIREBASE REQUEST CONTENT -->
 
         <div
             id="kulzzyPublished-request"
@@ -514,7 +557,9 @@ Kulzzy section.
 
 
 
-    <!-- ================= WISHES ================= -->
+    <!-- =================================
+         WISHES
+         ================================= -->
 
     <section
         id="kulzzy-wishes"
@@ -523,22 +568,20 @@ Kulzzy section.
 
         <div class="kulzzyBox">
 
-
             <h2>
                 💛 WISHES
             </h2>
 
 
             <p>
-
                 Send birthday wishes,
                 celebration messages and
                 special greetings.
-
             </p>
 
 
             <button
+                type="button"
                 class="kulzzyAction"
                 onclick="kulzzyWish()">
 
@@ -558,11 +601,10 @@ Kulzzy section.
 
             </div>
 
-
         </div>
 
 
-        <!-- PUBLISHED WISHES HTML -->
+        <!-- FIREBASE WISHES CONTENT -->
 
         <div
             id="kulzzyPublished-wishes"
@@ -575,7 +617,9 @@ Kulzzy section.
 
 
 
-    <!-- ================= MARKET ================= -->
+    <!-- =================================
+         MARKET
+         ================================= -->
 
     <section
         id="kulzzy-market"
@@ -584,21 +628,19 @@ Kulzzy section.
 
         <div class="kulzzyBox">
 
-
             <h2>
                 🛍️ MARKET
             </h2>
 
 
             <p>
-
                 Discover products and services
                 promoted through Kulzzy Radio.
-
             </p>
 
 
             <button
+                type="button"
                 class="kulzzyAction"
                 onclick="kulzzyMarket()">
 
@@ -618,11 +660,10 @@ Kulzzy section.
 
             </div>
 
-
         </div>
 
 
-        <!-- PUBLISHED MARKET HTML -->
+        <!-- FIREBASE MARKET CONTENT -->
 
         <div
             id="kulzzyPublished-market"
@@ -635,7 +676,9 @@ Kulzzy section.
 
 
 
-    <!-- ================= MORE ================= -->
+    <!-- =================================
+         MORE
+         ================================= -->
 
     <section
         id="kulzzy-more"
@@ -644,21 +687,19 @@ Kulzzy section.
 
         <div class="kulzzyBox">
 
-
             <h2>
                 ☰ MORE
             </h2>
 
 
             <p>
-
                 More Kulzzy Radio services
                 and community features.
-
             </p>
 
 
             <button
+                type="button"
                 class="kulzzyAction"
                 onclick="kulzzyMore()">
 
@@ -678,11 +719,10 @@ Kulzzy section.
 
             </div>
 
-
         </div>
 
 
-        <!-- PUBLISHED MORE HTML -->
+        <!-- FIREBASE MORE CONTENT -->
 
         <div
             id="kulzzyPublished-more"
@@ -699,7 +739,7 @@ Kulzzy section.
 
 
 <!-- =====================================
-     KULZZY FIREBASE SYSTEM
+     FIREBASE SYSTEM
      ===================================== -->
 
 <script type="module">
@@ -731,9 +771,7 @@ FIREBASE REALTIME DATABASE
 import {
 
     getDatabase,
-
     ref,
-
     onValue
 
 }
@@ -745,36 +783,29 @@ from
 
 /*
 ================================================
-YOUR KULZZY FIREBASE CONFIG
+YOUR FIREBASE CONFIGURATION
 ================================================
 */
 
 const firebaseConfig = {
 
-
     apiKey:
         "AIzaSyBH85NGWsSAK5cubbPdnmunwYZFZpj_CB0",
-
 
     authDomain:
         "kulzzy-radio-chat.firebaseapp.com",
 
-
     databaseURL:
         "https://kulzzy-radio-chat-default-rtdb.europe-west1.firebasedatabase.app",
-
 
     projectId:
         "kulzzy-radio-chat",
 
-
     storageBucket:
         "kulzzy-radio-chat.firebasestorage.app",
 
-
     messagingSenderId:
         "510100635134",
-
 
     appId:
         "1:510100635134:web:9d3b2e983eb6e9a385d4af"
@@ -790,7 +821,9 @@ INITIALIZE FIREBASE
 */
 
 const app =
-    initializeApp(firebaseConfig);
+    initializeApp(
+        firebaseConfig
+    );
 
 
 
@@ -807,21 +840,52 @@ const db =
 
 /*
 ================================================
-LOAD PUBLISHED HTML
+SECTIONS TO LOAD
 ================================================
 */
 
-function loadKulzzyPublishedHTML(section) {
+const kulzzySections = [
+
+    "home",
+
+    "request",
+
+    "wishes",
+
+    "market",
+
+    "more"
+
+];
+
+
+
+/*
+================================================
+LOAD ONE PUBLISHED SECTION
+================================================
+*/
+
+function loadKulzzySection(section) {
+
+
+    const container =
+        document.getElementById(
+            "kulzzyPublished-" + section
+        );
+
+
+    if (!container) {
+
+        return;
+
+    }
 
 
     const contentRef =
         ref(
-
             db,
-
-            "kulzzyContent/" +
-            section
-
+            "kulzzyContent/" + section
         );
 
 
@@ -832,44 +896,20 @@ function loadKulzzyPublishedHTML(section) {
         function(snapshot) {
 
 
-            const container =
-                document.getElementById(
-
-                    "kulzzyPublished-" +
-                    section
-
-                );
-
-
-            if (!container) {
-
-                return;
-
-            }
-
-
             /*
-            ----------------------------------------
-            NO PUBLISHED HTML
-            ----------------------------------------
+            ========================================
+            NOTHING PUBLISHED
+            ========================================
             */
 
             if (!snapshot.exists()) {
 
-
                 container.innerHTML = "";
-
 
                 return;
 
             }
 
-
-            /*
-            ----------------------------------------
-            GET FIREBASE DATA
-            ----------------------------------------
-            */
 
             const data =
                 snapshot.val();
@@ -880,19 +920,28 @@ function loadKulzzyPublishedHTML(section) {
 
 
             /*
-            ----------------------------------------
-            CLEAR PREVIOUS HTML
-            ----------------------------------------
+            ========================================
+            EMPTY HTML
+            ========================================
+            */
+
+            if (!html.trim()) {
+
+                container.innerHTML = "";
+
+                return;
+
+            }
+
+
+            /*
+            ========================================
+            CREATE A NEW CONTAINER
+            ========================================
             */
 
             container.innerHTML = "";
 
-
-            /*
-            ----------------------------------------
-            CREATE PUBLISHED CONTENT
-            ----------------------------------------
-            */
 
             const published =
                 document.createElement(
@@ -904,21 +953,15 @@ function loadKulzzyPublishedHTML(section) {
                 html;
 
 
-            /*
-            ----------------------------------------
-            ADD TO SECTION
-            ----------------------------------------
-            */
-
             container.appendChild(
                 published
             );
 
 
             /*
-            ----------------------------------------
-            EXECUTE SCRIPTS
-            ----------------------------------------
+            ========================================
+            RUN SCRIPTS FROM PUBLISHED HTML
+            ========================================
             */
 
             executePublishedScripts(
@@ -928,19 +971,19 @@ function loadKulzzyPublishedHTML(section) {
 
         },
 
+
         function(error) {
 
 
             console.error(
 
-                "Kulzzy Firebase error for " +
-                section +
-                ":",
+                "Kulzzy Firebase read error:",
+
+                section,
 
                 error
 
             );
-
 
         }
 
@@ -952,11 +995,13 @@ function loadKulzzyPublishedHTML(section) {
 
 /*
 ================================================
-EXECUTE SCRIPTS INSIDE PUBLISHED HTML
+EXECUTE PUBLISHED SCRIPTS
 ================================================
 */
 
-function executePublishedScripts(container) {
+function executePublishedScripts(
+    container
+) {
 
 
     const scripts =
@@ -977,7 +1022,7 @@ function executePublishedScripts(container) {
 
 
             /*
-            Copy attributes
+            Copy script attributes
             */
 
             Array.from(
@@ -1001,7 +1046,7 @@ function executePublishedScripts(container) {
 
 
             /*
-            Copy script content
+            Copy script code
             */
 
             newScript.textContent =
@@ -1012,14 +1057,19 @@ function executePublishedScripts(container) {
             Replace old script
             */
 
-            oldScript.parentNode.replaceChild(
+            if (
+                oldScript.parentNode
+            ) {
 
-                newScript,
+                oldScript.parentNode.replaceChild(
 
-                oldScript
+                    newScript,
 
-            );
+                    oldScript
 
+                );
+
+            }
 
         }
 
@@ -1031,34 +1081,21 @@ function executePublishedScripts(container) {
 
 /*
 ================================================
-LOAD ALL FIVE SECTIONS
+START ALL FIVE FIREBASE LISTENERS
 ================================================
 */
 
-loadKulzzyPublishedHTML(
-    "home"
+kulzzySections.forEach(
+
+    function(section) {
+
+        loadKulzzySection(
+            section
+        );
+
+    }
+
 );
-
-
-loadKulzzyPublishedHTML(
-    "request"
-);
-
-
-loadKulzzyPublishedHTML(
-    "wishes"
-);
-
-
-loadKulzzyPublishedHTML(
-    "market"
-);
-
-
-loadKulzzyPublishedHTML(
-    "more"
-);
-
 
 
 </script>
@@ -1078,13 +1115,16 @@ KULZZY RADIO NAVIGATION SYSTEM
 ================================================
 */
 
-function kulzzyOpen(section, button) {
+function kulzzyOpen(
+    section,
+    button
+) {
 
 
     /*
-    --------------------------------------------
+    ============================================
     HIDE ALL SECTIONS
-    --------------------------------------------
+    ============================================
     */
 
     const sections =
@@ -1097,11 +1137,9 @@ function kulzzyOpen(section, button) {
 
         function(item) {
 
-
             item.classList.remove(
                 "active"
             );
-
 
         }
 
@@ -1109,9 +1147,9 @@ function kulzzyOpen(section, button) {
 
 
     /*
-    --------------------------------------------
+    ============================================
     REMOVE ACTIVE FROM BUTTONS
-    --------------------------------------------
+    ============================================
     */
 
     const buttons =
@@ -1124,11 +1162,9 @@ function kulzzyOpen(section, button) {
 
         function(item) {
 
-
             item.classList.remove(
                 "active"
             );
-
 
         }
 
@@ -1136,52 +1172,45 @@ function kulzzyOpen(section, button) {
 
 
     /*
-    --------------------------------------------
+    ============================================
     SHOW SELECTED SECTION
-    --------------------------------------------
+    ============================================
     */
 
     const selected =
         document.getElementById(
-
-            "kulzzy-" +
-            section
-
+            "kulzzy-" + section
         );
 
 
     if (selected) {
 
-
         selected.classList.add(
             "active"
         );
-
 
     }
 
 
     /*
-    --------------------------------------------
-    ACTIVATE SELECTED BUTTON
-    --------------------------------------------
+    ============================================
+    ACTIVATE BUTTON
+    ============================================
     */
 
     if (button) {
-
 
         button.classList.add(
             "active"
         );
 
-
     }
 
 
     /*
-    --------------------------------------------
-    SCROLL TO TOP
-    --------------------------------------------
+    ============================================
+    RETURN TO TOP
+    ============================================
     */
 
     window.scrollTo({
@@ -1192,14 +1221,15 @@ function kulzzyOpen(section, button) {
 
     });
 
-
 }
 
 
 
-/* =========================================
-   REQUEST
-   ========================================= */
+/*
+================================================
+REQUEST BUTTON
+================================================
+*/
 
 function kulzzyRequest() {
 
@@ -1210,17 +1240,22 @@ function kulzzyRequest() {
         );
 
 
-    box.style.display =
-        "block";
+    if (box) {
 
+        box.style.display =
+            "block";
+
+    }
 
 }
 
 
 
-/* =========================================
-   WISHES
-   ========================================= */
+/*
+================================================
+WISH BUTTON
+================================================
+*/
 
 function kulzzyWish() {
 
@@ -1231,17 +1266,22 @@ function kulzzyWish() {
         );
 
 
-    box.style.display =
-        "block";
+    if (box) {
 
+        box.style.display =
+            "block";
+
+    }
 
 }
 
 
 
-/* =========================================
-   MARKET
-   ========================================= */
+/*
+================================================
+MARKET BUTTON
+================================================
+*/
 
 function kulzzyMarket() {
 
@@ -1252,17 +1292,22 @@ function kulzzyMarket() {
         );
 
 
-    box.style.display =
-        "block";
+    if (box) {
 
+        box.style.display =
+            "block";
+
+    }
 
 }
 
 
 
-/* =========================================
-   MORE
-   ========================================= */
+/*
+================================================
+MORE BUTTON
+================================================
+*/
 
 function kulzzyMore() {
 
@@ -1273,9 +1318,12 @@ function kulzzyMore() {
         );
 
 
-    box.style.display =
-        "block";
+    if (box) {
 
+        box.style.display =
+            "block";
+
+    }
 
 }
 
