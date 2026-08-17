@@ -1,0 +1,1280 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
+
+<title>Kulzzy Radio Panel</title>
+
+<style>
+
+* {
+    box-sizing: border-box;
+}
+
+
+body {
+
+    margin: 0;
+
+    padding: 20px;
+
+    background: #07152f;
+
+    color: white;
+
+    font-family: Arial, sans-serif;
+
+}
+
+
+.kulzzyPanel {
+
+    width: 100%;
+
+    max-width: 900px;
+
+    margin: auto;
+
+}
+
+
+.panelHeader {
+
+    background: #0d2145;
+
+    border: 1px solid rgba(255,215,0,0.45);
+
+    border-radius: 16px;
+
+    padding: 20px;
+
+    margin-bottom: 20px;
+
+}
+
+
+.panelHeader h1 {
+
+    margin: 0;
+
+    color: #ffd700;
+
+}
+
+
+.panelHeader p {
+
+    margin-bottom: 0;
+
+    line-height: 1.6;
+
+}
+
+
+.panelBox {
+
+    background: #0d2145;
+
+    border: 1px solid rgba(255,215,0,0.35);
+
+    border-radius: 16px;
+
+    padding: 20px;
+
+    margin-bottom: 20px;
+
+}
+
+
+label {
+
+    display: block;
+
+    color: #ffd700;
+
+    font-weight: bold;
+
+    margin-bottom: 8px;
+
+}
+
+
+input,
+select,
+textarea {
+
+    width: 100%;
+
+    background: #06132c;
+
+    color: white;
+
+    border: 1px solid #405577;
+
+    border-radius: 10px;
+
+    padding: 13px;
+
+    outline: none;
+
+}
+
+
+input:focus,
+select:focus,
+textarea:focus {
+
+    border-color: #ffd700;
+
+}
+
+
+select {
+
+    cursor: pointer;
+
+}
+
+
+textarea {
+
+    min-height: 350px;
+
+    resize: vertical;
+
+    font-family: monospace;
+
+    font-size: 13px;
+
+    line-height: 1.5;
+
+}
+
+
+.field {
+
+    margin-bottom: 18px;
+
+}
+
+
+button {
+
+    border: none;
+
+    border-radius: 10px;
+
+    padding: 13px 18px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+}
+
+
+.loginButton {
+
+    background: #ffd700;
+
+    color: #07152f;
+
+}
+
+
+.publishButton {
+
+    background: #ffd700;
+
+    color: #07152f;
+
+}
+
+
+.previewButton {
+
+    background: #31598f;
+
+    color: white;
+
+}
+
+
+.logoutButton {
+
+    background: #b00020;
+
+    color: white;
+
+}
+
+
+.buttons {
+
+    display: flex;
+
+    gap: 10px;
+
+    flex-wrap: wrap;
+
+}
+
+
+.status {
+
+    margin-top: 15px;
+
+    background: #06132c;
+
+    border-radius: 10px;
+
+    padding: 12px;
+
+    line-height: 1.5;
+
+}
+
+
+#editorArea {
+
+    display: none;
+
+}
+
+
+#previewArea {
+
+    display: none;
+
+    margin-top: 20px;
+
+}
+
+
+#previewFrame {
+
+    width: 100%;
+
+    min-height: 400px;
+
+    border: none;
+
+    background: white;
+
+    border-radius: 10px;
+
+}
+
+
+.loggedIn {
+
+    color: #7cff9b;
+
+    font-weight: bold;
+
+}
+
+
+.defaultNotice {
+
+    background: rgba(255,215,0,0.08);
+
+    border: 1px solid rgba(255,215,0,0.25);
+
+    padding: 12px;
+
+    border-radius: 10px;
+
+    margin-bottom: 18px;
+
+    line-height: 1.6;
+
+}
+
+
+.sectionInfo {
+
+    background: #06132c;
+
+    border-radius: 10px;
+
+    padding: 12px;
+
+    margin-bottom: 18px;
+
+    line-height: 1.6;
+
+}
+
+
+@media(max-width:600px) {
+
+    body {
+
+        padding: 10px;
+
+    }
+
+
+    textarea {
+
+        min-height: 280px;
+
+    }
+
+
+    .panelBox {
+
+        padding: 15px;
+
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<div class="kulzzyPanel">
+
+
+    <!-- =====================================
+         HEADER
+         ===================================== -->
+
+    <div class="panelHeader">
+
+        <h1>
+            🎙️ KULZZY PANEL
+        </h1>
+
+        <p>
+            Manage additional HTML content for
+            your Kulzzy Radio navigation sections.
+        </p>
+
+    </div>
+
+
+
+    <!-- =====================================
+         LOGIN
+         ===================================== -->
+
+    <div
+        class="panelBox"
+        id="loginBox">
+
+        <h2>
+            🔐 Admin Login
+        </h2>
+
+
+        <div class="field">
+
+            <label>
+                Email
+            </label>
+
+            <input
+                type="email"
+                id="email"
+                placeholder="Admin email"
+                autocomplete="email">
+
+        </div>
+
+
+        <div class="field">
+
+            <label>
+                Password
+            </label>
+
+            <input
+                type="password"
+                id="password"
+                placeholder="Password"
+                autocomplete="current-password">
+
+        </div>
+
+
+        <button
+            type="button"
+            class="loginButton"
+            id="loginButton">
+
+            LOGIN
+
+        </button>
+
+
+        <div
+            class="status"
+            id="loginStatus">
+
+            Please login.
+
+        </div>
+
+    </div>
+
+
+
+    <!-- =====================================
+         EDITOR
+         ===================================== -->
+
+    <div
+        class="panelBox"
+        id="editorArea">
+
+
+        <div class="loggedIn">
+
+            ● Logged in
+
+        </div>
+
+
+        <br>
+
+
+        <div class="defaultNotice">
+
+            <strong>
+                Important:
+            </strong>
+
+            Your original Kulzzy write-ups remain
+            on the website. HTML published here is
+            added inside the selected section and
+            does not remove the original write-up.
+
+        </div>
+
+
+
+        <!-- =================================
+             SECTION SELECTOR
+             ================================= -->
+
+        <div class="field">
+
+            <label>
+                Select Section
+            </label>
+
+            <select id="section">
+
+                <option value="home">
+                    Home
+                </option>
+
+                <option value="request">
+                    Request
+                </option>
+
+                <option value="wishes">
+                    Wishes
+                </option>
+
+                <option value="market">
+                    Market
+                </option>
+
+                <option value="more">
+                    More
+                </option>
+
+            </select>
+
+        </div>
+
+
+
+        <!-- =================================
+             SECTION INFORMATION
+             ================================= -->
+
+        <div
+            class="sectionInfo"
+            id="sectionInfo">
+
+            You are editing the HOME section.
+
+        </div>
+
+
+
+        <!-- =================================
+             HTML EDITOR
+             ================================= -->
+
+        <div class="field">
+
+            <label>
+                HTML Code To Publish
+            </label>
+
+            <textarea
+                id="htmlCode"
+                placeholder="Paste the HTML you want to display inside this section..."></textarea>
+
+        </div>
+
+
+
+        <!-- =================================
+             BUTTONS
+             ================================= -->
+
+        <div class="buttons">
+
+            <button
+                type="button"
+                class="publishButton"
+                id="publishButton">
+
+                🚀 PUBLISH
+
+            </button>
+
+
+            <button
+                type="button"
+                class="previewButton"
+                id="previewButton">
+
+                👁️ PREVIEW
+
+            </button>
+
+
+            <button
+                type="button"
+                class="logoutButton"
+                id="logoutButton">
+
+                LOGOUT
+
+            </button>
+
+        </div>
+
+
+
+        <!-- =================================
+             STATUS
+             ================================= -->
+
+        <div
+            class="status"
+            id="publishStatus">
+
+            Select a section and publish your HTML.
+
+        </div>
+
+
+
+        <!-- =================================
+             PREVIEW
+             ================================= -->
+
+        <div
+            id="previewArea">
+
+            <h3>
+                HTML PREVIEW
+            </h3>
+
+            <iframe
+                id="previewFrame"
+                sandbox="allow-scripts allow-forms allow-modals allow-popups">
+            </iframe>
+
+        </div>
+
+
+    </div>
+
+</div>
+
+
+
+<!-- =========================================
+     FIREBASE
+     ========================================= -->
+
+<script type="module">
+
+
+/*
+================================================
+IMPORT FIREBASE APP
+================================================
+*/
+
+import {
+
+    initializeApp
+
+} from "https://www.gstatic.com/firebasejs/12.16.0/firebase-app.js";
+
+
+
+/*
+================================================
+IMPORT REALTIME DATABASE
+================================================
+*/
+
+import {
+
+    getDatabase,
+    ref,
+    get,
+    set
+
+} from "https://www.gstatic.com/firebasejs/12.16.0/firebase-database.js";
+
+
+
+/*
+================================================
+IMPORT FIREBASE AUTHENTICATION
+================================================
+*/
+
+import {
+
+    getAuth,
+    signInWithEmailAndPassword,
+    onAuthStateChanged,
+    signOut
+
+} from "https://www.gstatic.com/firebasejs/12.16.0/firebase-auth.js";
+
+
+
+/*
+================================================
+YOUR KULZZY RADIO FIREBASE CONFIGURATION
+================================================
+*/
+
+const firebaseConfig = {
+
+    apiKey:
+        "AIzaSyBH85NGWsSAK5cubbPdnmunwYZFZpj_CB0",
+
+    authDomain:
+        "kulzzy-radio-chat.firebaseapp.com",
+
+    databaseURL:
+        "https://kulzzy-radio-chat-default-rtdb.europe-west1.firebasedatabase.app",
+
+    projectId:
+        "kulzzy-radio-chat",
+
+    storageBucket:
+        "kulzzy-radio-chat.firebasestorage.app",
+
+    messagingSenderId:
+        "510100635134",
+
+    appId:
+        "1:510100635134:web:9d3b2e983eb6e9a385d4af"
+
+};
+
+
+
+/*
+================================================
+INITIALIZE FIREBASE
+================================================
+*/
+
+const app =
+    initializeApp(firebaseConfig);
+
+
+
+/*
+================================================
+INITIALIZE DATABASE
+================================================
+*/
+
+const db =
+    getDatabase(app);
+
+
+
+/*
+================================================
+INITIALIZE AUTHENTICATION
+================================================
+*/
+
+const auth =
+    getAuth(app);
+
+
+
+/*
+================================================
+ELEMENTS
+================================================
+*/
+
+const loginBox =
+    document.getElementById(
+        "loginBox"
+    );
+
+
+const editorArea =
+    document.getElementById(
+        "editorArea"
+    );
+
+
+const loginStatus =
+    document.getElementById(
+        "loginStatus"
+    );
+
+
+const publishStatus =
+    document.getElementById(
+        "publishStatus"
+    );
+
+
+const sectionSelect =
+    document.getElementById(
+        "section"
+    );
+
+
+const sectionInfo =
+    document.getElementById(
+        "sectionInfo"
+    );
+
+
+const htmlCode =
+    document.getElementById(
+        "htmlCode"
+    );
+
+
+const previewArea =
+    document.getElementById(
+        "previewArea"
+    );
+
+
+const previewFrame =
+    document.getElementById(
+        "previewFrame"
+    );
+
+
+
+/*
+================================================
+SECTION DESCRIPTIONS
+================================================
+*/
+
+const sectionDescriptions = {
+
+    home:
+        "You are editing the HOME section.",
+
+    request:
+        "You are editing the REQUEST section.",
+
+    wishes:
+        "You are editing the WISHES section.",
+
+    market:
+        "You are editing the MARKET section.",
+
+    more:
+        "You are editing the MORE section."
+
+};
+
+
+
+/*
+================================================
+UPDATE SECTION INFORMATION
+================================================
+*/
+
+function updateSectionInfo() {
+
+    const section =
+        sectionSelect.value;
+
+
+    sectionInfo.textContent =
+        sectionDescriptions[section] ||
+        "You are editing this section.";
+
+}
+
+
+
+/*
+================================================
+LOGIN
+================================================
+*/
+
+document
+.getElementById("loginButton")
+.addEventListener(
+    "click",
+    async function() {
+
+
+        const email =
+            document
+            .getElementById("email")
+            .value
+            .trim();
+
+
+        const password =
+            document
+            .getElementById("password")
+            .value;
+
+
+        if (!email || !password) {
+
+            loginStatus.textContent =
+                "Enter your email and password.";
+
+            return;
+
+        }
+
+
+        loginStatus.textContent =
+            "Logging in...";
+
+
+        try {
+
+
+            await signInWithEmailAndPassword(
+
+                auth,
+
+                email,
+
+                password
+
+            );
+
+
+            loginStatus.textContent =
+                "Login successful.";
+
+
+        }
+
+
+        catch(error) {
+
+
+            console.error(error);
+
+
+            loginStatus.textContent =
+                "Login failed: " +
+                error.message;
+
+        }
+
+    }
+
+);
+
+
+
+/*
+================================================
+AUTH STATE
+================================================
+*/
+
+onAuthStateChanged(
+
+    auth,
+
+    function(user) {
+
+
+        if (user) {
+
+
+            loginBox.style.display =
+                "none";
+
+
+            editorArea.style.display =
+                "block";
+
+
+            updateSectionInfo();
+
+
+            loadSection();
+
+
+        }
+
+        else {
+
+
+            loginBox.style.display =
+                "block";
+
+
+            editorArea.style.display =
+                "none";
+
+        }
+
+    }
+
+);
+
+
+
+/*
+================================================
+LOAD HTML FOR SELECTED SECTION
+================================================
+*/
+
+async function loadSection() {
+
+
+    const section =
+        sectionSelect.value;
+
+
+    updateSectionInfo();
+
+
+    publishStatus.textContent =
+        "Loading " +
+        section +
+        "...";
+
+
+    try {
+
+
+        const contentRef =
+            ref(
+
+                db,
+
+                "kulzzyContent/" +
+                section
+
+            );
+
+
+        const snapshot =
+            await get(
+                contentRef
+            );
+
+
+        if (snapshot.exists()) {
+
+
+            const data =
+                snapshot.val();
+
+
+            htmlCode.value =
+                data.html || "";
+
+
+            publishStatus.textContent =
+                section.toUpperCase() +
+                " HTML loaded.";
+
+
+        }
+
+        else {
+
+
+            htmlCode.value =
+                "";
+
+
+            publishStatus.textContent =
+                "No HTML published for " +
+                section +
+                " yet.";
+
+        }
+
+    }
+
+
+    catch(error) {
+
+
+        console.error(error);
+
+
+        publishStatus.textContent =
+            "Unable to load section: " +
+            error.message;
+
+    }
+
+}
+
+
+
+/*
+================================================
+SECTION CHANGED
+================================================
+*/
+
+sectionSelect.addEventListener(
+
+    "change",
+
+    function() {
+
+        updateSectionInfo();
+
+        loadSection();
+
+    }
+
+);
+
+
+
+/*
+================================================
+PUBLISH HTML
+================================================
+*/
+
+document
+.getElementById("publishButton")
+.addEventListener(
+
+    "click",
+
+    async function() {
+
+
+        const section =
+            sectionSelect.value;
+
+
+        const html =
+            htmlCode.value;
+
+
+        if (!html.trim()) {
+
+
+            publishStatus.textContent =
+                "Please paste HTML code first.";
+
+
+            return;
+
+        }
+
+
+        const user =
+            auth.currentUser;
+
+
+        if (!user) {
+
+
+            publishStatus.textContent =
+                "You are not logged in.";
+
+
+            return;
+
+        }
+
+
+        publishStatus.textContent =
+            "Publishing " +
+            section +
+            "...";
+
+
+        try {
+
+
+            await set(
+
+                ref(
+
+                    db,
+
+                    "kulzzyContent/" +
+                    section
+
+                ),
+
+                {
+
+                    html:
+                        html,
+
+                    updatedAt:
+                        Date.now(),
+
+                    updatedBy:
+                        user.uid
+
+                }
+
+            );
+
+
+            publishStatus.textContent =
+                "✅ " +
+                section.toUpperCase() +
+                " HTML published successfully.";
+
+
+        }
+
+
+        catch(error) {
+
+
+            console.error(error);
+
+
+            publishStatus.textContent =
+                "❌ Publish failed: " +
+                error.message;
+
+        }
+
+    }
+
+);
+
+
+
+/*
+================================================
+PREVIEW HTML
+================================================
+*/
+
+document
+.getElementById("previewButton")
+.addEventListener(
+
+    "click",
+
+    function() {
+
+
+        const html =
+            htmlCode.value;
+
+
+        previewArea.style.display =
+            "block";
+
+
+        previewFrame.srcdoc =
+            html;
+
+    }
+
+);
+
+
+
+/*
+================================================
+LOGOUT
+================================================
+*/
+
+document
+.getElementById("logoutButton")
+.addEventListener(
+
+    "click",
+
+    async function() {
+
+
+        try {
+
+
+            await signOut(auth);
+
+
+            loginStatus.textContent =
+                "Logged out successfully.";
+
+
+        }
+
+
+        catch(error) {
+
+
+            console.error(error);
+
+        }
+
+    }
+
+);
+
+
+</script>
+
+
+</body>
+
+</html>
