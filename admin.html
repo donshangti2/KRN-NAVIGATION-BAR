@@ -312,6 +312,217 @@ button {
 }
 
 
+/* =========================================
+   PUBLISHED HTML BLOCKS
+   ========================================= */
+
+#publishedCodesArea {
+
+    margin-top: 25px;
+
+}
+
+
+.publishedCodesTitle {
+
+    color: #ffd700;
+
+    margin-bottom: 12px;
+
+}
+
+
+.codeBlock {
+
+    background: #06132c;
+
+    border: 1px solid #405577;
+
+    border-radius: 12px;
+
+    padding: 14px;
+
+    margin-bottom: 12px;
+
+}
+
+
+.codeBlockHeader {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 10px;
+
+    flex-wrap: wrap;
+
+    margin-bottom: 10px;
+
+}
+
+
+.codeBlockName {
+
+    color: #ffd700;
+
+    font-weight: bold;
+
+    word-break: break-word;
+
+}
+
+
+.codeBlockNumber {
+
+    color: #ffffff;
+
+    font-size: 13px;
+
+    opacity: 0.8;
+
+}
+
+
+.codeBlockPreview {
+
+    background: #0d2145;
+
+    border-radius: 8px;
+
+    padding: 10px;
+
+    margin-bottom: 10px;
+
+    max-height: 120px;
+
+    overflow: hidden;
+
+    color: #ffffff;
+
+    font-family: monospace;
+
+    font-size: 12px;
+
+    white-space: pre-wrap;
+
+    word-break: break-word;
+
+}
+
+
+.codeBlockButtons {
+
+    display: flex;
+
+    gap: 7px;
+
+    flex-wrap: wrap;
+
+}
+
+
+.blockButton {
+
+    padding: 9px 11px;
+
+    font-size: 12px;
+
+}
+
+
+.editBlockButton {
+
+    background: #31598f;
+
+    color: white;
+
+}
+
+
+.deleteBlockButton {
+
+    background: #b00020;
+
+    color: white;
+
+}
+
+
+.upBlockButton {
+
+    background: #ffd700;
+
+    color: #07152f;
+
+}
+
+
+.downBlockButton {
+
+    background: #ffd700;
+
+    color: #07152f;
+
+}
+
+
+.newCodeButton {
+
+    background: #20a05a;
+
+    color: white;
+
+    margin-bottom: 15px;
+
+}
+
+
+.emptyCodes {
+
+    background: #06132c;
+
+    border-radius: 10px;
+
+    padding: 14px;
+
+    color: #ffffff;
+
+    opacity: 0.85;
+
+    line-height: 1.5;
+
+}
+
+
+.editingNotice {
+
+    background: rgba(49,89,143,0.25);
+
+    border: 1px solid #31598f;
+
+    border-radius: 10px;
+
+    padding: 12px;
+
+    margin-bottom: 15px;
+
+    line-height: 1.5;
+
+}
+
+
+.cancelEditButton {
+
+    background: #555;
+
+    color: white;
+
+}
+
+
 @media(max-width:600px) {
 
     body {
@@ -331,6 +542,22 @@ button {
     .panelBox {
 
         padding: 15px;
+
+    }
+
+
+    .codeBlockButtons {
+
+        width: 100%;
+
+    }
+
+
+    .blockButton {
+
+        flex: 1;
+
+        min-width: 75px;
 
     }
 
@@ -518,6 +745,21 @@ button {
 
 
         <!-- =================================
+             EDITING NOTICE
+             ================================= -->
+
+        <div
+            class="editingNotice"
+            id="editingNotice"
+            style="display:none;">
+
+            Editing published HTML code.
+
+        </div>
+
+
+
+        <!-- =================================
              HTML EDITOR
              ================================= -->
 
@@ -563,6 +805,17 @@ button {
 
             <button
                 type="button"
+                class="cancelEditButton"
+                id="cancelEditButton"
+                style="display:none;">
+
+                CANCEL EDIT
+
+            </button>
+
+
+            <button
+                type="button"
                 class="logoutButton"
                 id="logoutButton">
 
@@ -583,6 +836,38 @@ button {
             id="publishStatus">
 
             Select a section and publish your HTML.
+
+        </div>
+
+
+
+        <!-- =================================
+             PUBLISHED CODES
+             ================================= -->
+
+        <div id="publishedCodesArea">
+
+            <h3 class="publishedCodesTitle">
+
+                📋 PUBLISHED HTML CODES
+
+            </h3>
+
+
+            <button
+                type="button"
+                class="newCodeButton"
+                id="newCodeButton">
+
+                ➕ NEW HTML CODE
+
+            </button>
+
+
+            <div
+                id="publishedCodesList">
+
+            </div>
 
         </div>
 
@@ -645,7 +930,8 @@ import {
     getDatabase,
     ref,
     get,
-    set
+    set,
+    remove
 
 } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-database.js";
 
@@ -794,6 +1080,30 @@ const previewFrame =
     );
 
 
+const publishedCodesList =
+    document.getElementById(
+        "publishedCodesList"
+    );
+
+
+const editingNotice =
+    document.getElementById(
+        "editingNotice"
+    );
+
+
+const cancelEditButton =
+    document.getElementById(
+        "cancelEditButton"
+    );
+
+
+const newCodeButton =
+    document.getElementById(
+        "newCodeButton"
+    );
+
+
 
 /*
 ================================================
@@ -824,6 +1134,25 @@ const sectionDescriptions = {
 
 /*
 ================================================
+CURRENT EDITING INFORMATION
+================================================
+*/
+
+let editingBlockId = null;
+
+
+/*
+================================================
+CURRENT BLOCKS
+================================================
+*/
+
+let currentBlocks = [];
+
+
+
+/*
+================================================
 UPDATE SECTION INFORMATION
 ================================================
 */
@@ -837,6 +1166,25 @@ function updateSectionInfo() {
     sectionInfo.textContent =
         sectionDescriptions[section] ||
         "You are editing this section.";
+
+}
+
+
+
+/*
+================================================
+CREATE UNIQUE BLOCK ID
+================================================
+*/
+
+function createBlockId() {
+
+    return "block_" +
+        Date.now() +
+        "_" +
+        Math.random()
+        .toString(36)
+        .substring(2, 9);
 
 }
 
@@ -993,6 +1341,15 @@ async function loadSection() {
         "...";
 
 
+    editingBlockId = null;
+
+    editingNotice.style.display =
+        "none";
+
+    cancelEditButton.style.display =
+        "none";
+
+
     try {
 
 
@@ -1020,8 +1377,91 @@ async function loadSection() {
                 snapshot.val();
 
 
-            htmlCode.value =
-                data.html || "";
+            /*
+            ====================================
+            NEW MULTI-BLOCK FORMAT
+            ====================================
+            */
+
+            if (
+                data.blocks &&
+                typeof data.blocks === "object"
+            ) {
+
+                currentBlocks =
+                    Object.keys(
+                        data.blocks
+                    )
+                    .map(function(id) {
+
+                        return {
+
+                            id: id,
+
+                            html:
+                                data.blocks[id].html ||
+                                "",
+
+                            createdAt:
+                                data.blocks[id].createdAt ||
+                                0
+
+                        };
+
+                    });
+
+            }
+
+            else {
+
+                currentBlocks = [];
+
+            }
+
+
+            /*
+            ====================================
+            OLD HTML FORMAT
+            ====================================
+            */
+
+            if (
+                currentBlocks.length === 0 &&
+                typeof data.html === "string" &&
+                data.html.trim()
+            ) {
+
+
+                currentBlocks = [
+
+                    {
+
+                        id:
+                            "legacy_" +
+                            Date.now(),
+
+                        html:
+                            data.html,
+
+                        createdAt:
+                            data.updatedAt ||
+                            Date.now()
+
+                    }
+
+                ];
+
+            }
+
+
+            /*
+            ====================================
+            LOAD EDITOR
+            ====================================
+            */
+
+           htmlCode.value =
+                "";
 
 
             publishStatus.textContent =
@@ -1029,13 +1469,21 @@ async function loadSection() {
                 " HTML loaded.";
 
 
+            renderPublishedCodes();
+
         }
 
         else {
 
 
+            currentBlocks = [];
+
+
             htmlCode.value =
                 "";
+
+
+            renderPublishedCodes();
 
 
             publishStatus.textContent =
@@ -1052,6 +1500,12 @@ async function loadSection() {
 
 
         console.error(error);
+
+
+        currentBlocks = [];
+
+
+        renderPublishedCodes();
 
 
         publishStatus.textContent =
@@ -1078,11 +1532,624 @@ sectionSelect.addEventListener(
 
         updateSectionInfo();
 
+        previewArea.style.display =
+            "none";
+
         loadSection();
 
     }
 
 );
+
+
+
+/*
+================================================
+RENDER PUBLISHED CODES
+================================================
+*/
+
+function renderPublishedCodes() {
+
+
+    publishedCodesList.innerHTML =
+        "";
+
+
+    if (
+        !currentBlocks ||
+        currentBlocks.length === 0
+    ) {
+
+
+        const empty =
+            document.createElement(
+                "div"
+            );
+
+
+        empty.className =
+            "emptyCodes";
+
+
+        empty.textContent =
+            "No HTML code has been published in this section yet.";
+
+
+        publishedCodesList.appendChild(
+            empty
+        );
+
+
+        return;
+
+    }
+
+
+    currentBlocks.forEach(
+
+        function(block, index) {
+
+
+            const codeBlock =
+                document.createElement(
+                    "div"
+                );
+
+
+            codeBlock.className =
+                "codeBlock";
+
+
+            /*
+            HEADER
+            */
+
+            const header =
+                document.createElement(
+                    "div"
+                );
+
+
+            header.className =
+                "codeBlockHeader";
+
+
+            const name =
+                document.createElement(
+                    "div"
+                );
+
+
+            name.className =
+                "codeBlockName";
+
+
+            name.textContent =
+                "HTML CODE " +
+                (index + 1);
+
+
+            const number =
+                document.createElement(
+                    "div"
+                );
+
+
+            number.className =
+                "codeBlockNumber";
+
+
+            number.textContent =
+                "Position " +
+                (index + 1) +
+                " of " +
+                currentBlocks.length;
+
+
+            header.appendChild(
+                name
+            );
+
+
+            header.appendChild(
+                number
+            );
+
+
+            /*
+            CODE PREVIEW
+            */
+
+            const preview =
+                document.createElement(
+                    "div"
+                );
+
+
+            preview.className =
+                "codeBlockPreview";
+
+
+            preview.textContent =
+                block.html;
+
+
+            /*
+            BUTTONS
+            */
+
+            const buttons =
+                document.createElement(
+                    "div"
+                );
+
+
+            buttons.className =
+                "codeBlockButtons";
+
+
+            /*
+            EDIT
+            */
+
+            const editButton =
+                document.createElement(
+                    "button"
+                );
+
+
+            editButton.type =
+                "button";
+
+
+            editButton.className =
+                "blockButton editBlockButton";
+
+
+            editButton.textContent =
+                "✏️ EDIT";
+
+
+            editButton.onclick =
+                function() {
+
+                    editBlock(block.id);
+
+                };
+
+
+            /*
+            MOVE UP
+            */
+
+            const upButton =
+                document.createElement(
+                    "button"
+                );
+
+
+            upButton.type =
+                "button";
+
+
+            upButton.className =
+                "blockButton upBlockButton";
+
+
+            upButton.textContent =
+                "⬆️ UP";
+
+
+            upButton.disabled =
+                index === 0;
+
+
+            upButton.style.opacity =
+                index === 0
+                    ? "0.4"
+                    : "1";
+
+
+            upButton.onclick =
+                function() {
+
+                    moveBlockUp(index);
+
+                };
+
+
+            /*
+            MOVE DOWN
+            */
+
+            const downButton =
+                document.createElement(
+                    "button"
+                );
+
+
+            downButton.type =
+                "button";
+
+
+            downButton.className =
+                "blockButton downBlockButton";
+
+
+            downButton.textContent =
+                "⬇️ DOWN";
+
+
+            downButton.disabled =
+                index ===
+                currentBlocks.length - 1;
+
+
+            downButton.style.opacity =
+                index ===
+                currentBlocks.length - 1
+                    ? "0.4"
+                    : "1";
+
+
+            downButton.onclick =
+                function() {
+
+                    moveBlockDown(index);
+
+                };
+
+
+            /*
+            DELETE
+            */
+
+            const deleteButton =
+                document.createElement(
+                    "button"
+                );
+
+
+            deleteButton.type =
+                "button";
+
+
+            deleteButton.className =
+                "blockButton deleteBlockButton";
+
+
+            deleteButton.textContent =
+                "🗑️ DELETE";
+
+
+            deleteButton.onclick =
+                function() {
+
+                    deleteBlock(block.id);
+
+                };
+
+
+            buttons.appendChild(
+                editButton
+            );
+
+
+            buttons.appendChild(
+                upButton
+            );
+
+
+            buttons.appendChild(
+                downButton
+            );
+
+
+            buttons.appendChild(
+                deleteButton
+            );
+
+
+            codeBlock.appendChild(
+                header
+            );
+
+
+            codeBlock.appendChild(
+                preview
+            );
+
+
+            codeBlock.appendChild(
+                buttons
+            );
+
+
+            publishedCodesList.appendChild(
+                codeBlock
+            );
+
+        }
+
+    );
+
+}
+
+
+
+/*
+================================================
+EDIT EXISTING BLOCK
+================================================
+*/
+
+function editBlock(blockId) {
+
+
+    const block =
+        currentBlocks.find(
+
+            function(item) {
+
+                return item.id === blockId;
+
+            }
+
+        );
+
+
+    if (!block) {
+
+        return;
+
+    }
+
+
+    editingBlockId =
+        blockId;
+
+
+    htmlCode.value =
+        block.html;
+
+
+    editingNotice.style.display =
+        "block";
+
+
+    editingNotice.textContent =
+        "✏️ You are editing HTML CODE " +
+        (
+            currentBlocks.findIndex(
+                function(item) {
+                    return item.id === blockId;
+                }
+            ) + 1
+        ) +
+        ". Click PUBLISH to update it.";
+
+
+    cancelEditButton.style.display =
+        "inline-block";
+
+
+    publishStatus.textContent =
+        "HTML code loaded into the editor. Make your changes and click PUBLISH.";
+
+
+    htmlCode.scrollIntoView({
+
+        behavior: "smooth",
+
+        block: "center"
+
+    });
+
+}
+
+
+
+/*
+================================================
+CANCEL EDIT
+================================================
+*/
+
+cancelEditButton.addEventListener(
+
+    "click",
+
+    function() {
+
+
+        editingBlockId =
+            null;
+
+
+        htmlCode.value =
+            "";
+
+
+        editingNotice.style.display =
+            "none";
+
+
+        cancelEditButton.style.display =
+            "none";
+
+
+        publishStatus.textContent =
+            "Edit cancelled. You can publish new HTML.";
+
+    }
+
+);
+
+
+
+/*
+================================================
+NEW HTML CODE
+================================================
+*/
+
+newCodeButton.addEventListener(
+
+    "click",
+
+    function() {
+
+
+        editingBlockId =
+            null;
+
+
+        htmlCode.value =
+            "";
+
+
+        editingNotice.style.display =
+            "none";
+
+
+        cancelEditButton.style.display =
+            "none";
+
+
+        htmlCode.focus();
+
+
+        publishStatus.textContent =
+            "Ready for a new HTML code.";
+
+    }
+
+);
+
+
+
+/*
+================================================
+SAVE ALL BLOCKS TO FIREBASE
+================================================
+*/
+
+async function saveAllBlocks() {
+
+
+    const section =
+        sectionSelect.value;
+
+
+    const user =
+        auth.currentUser;
+
+
+    if (!user) {
+
+        throw new Error(
+            "You are not logged in."
+        );
+
+    }
+
+
+    /*
+    ============================================
+    CREATE BLOCKS OBJECT
+    ============================================
+    */
+
+    const blocks = {};
+
+
+    currentBlocks.forEach(
+
+        function(block, index) {
+
+
+            blocks[block.id] = {
+
+                html:
+                    block.html,
+
+                order:
+                    index,
+
+                createdAt:
+                    block.createdAt ||
+                    Date.now(),
+
+                updatedAt:
+                    Date.now(),
+
+                updatedBy:
+                    user.uid
+
+            };
+
+        }
+
+    );
+
+
+    /*
+    ============================================
+    CREATE COMBINED HTML
+    ============================================
+    */
+
+    const combinedHTML =
+        currentBlocks
+        .map(
+
+            function(block) {
+
+                return block.html;
+
+            }
+
+        )
+        .join("\n\n");
+
+
+    /*
+    ============================================
+    SAVE FIREBASE
+    ============================================
+    */
+
+    await set(
+
+        ref(
+
+            db,
+
+            "kulzzyContent/" +
+            section
+
+        ),
+
+        {
+
+            html:
+                combinedHTML,
+
+            blocks:
+                blocks,
+
+            updatedAt:
+                Date.now(),
+
+            updatedBy:
+                user.uid
+
+        }
+
+    );
+
+}
 
 
 
@@ -1138,39 +2205,112 @@ document
 
 
         publishStatus.textContent =
-            "Publishing " +
-            section +
-            "...";
+            editingBlockId
+                ? "Updating HTML..."
+                : "Publishing new HTML...";
 
 
         try {
 
 
-            await set(
+            /*
+            ====================================
+            UPDATE EXISTING BLOCK
+            ====================================
+            */
 
-                ref(
+            if (editingBlockId) {
 
-                    db,
 
-                    "kulzzyContent/" +
-                    section
+                const blockIndex =
+                    currentBlocks.findIndex(
 
-                ),
+                        function(block) {
 
-                {
+                            return block.id ===
+                                editingBlockId;
+
+                        }
+
+                    );
+
+
+                if (blockIndex !== -1) {
+
+
+                    currentBlocks[
+                        blockIndex
+                    ].html =
+                        html;
+
+
+                    currentBlocks[
+                        blockIndex
+                    ].updatedAt =
+                        Date.now();
+
+                }
+
+
+            }
+
+            else {
+
+
+                /*
+                =================================
+                CREATE NEW BLOCK
+                =================================
+                */
+
+                currentBlocks.push({
+
+                    id:
+                        createBlockId(),
 
                     html:
                         html,
 
-                    updatedAt:
-                        Date.now(),
+                    createdAt:
+                        Date.now()
 
-                    updatedBy:
-                        user.uid
+                });
 
-                }
+            }
 
-            );
+
+            /*
+            ====================================
+            SAVE
+            ====================================
+            */
+
+            await saveAllBlocks();
+
+
+            /*
+            ====================================
+            RESET EDITOR
+            ====================================
+            */
+
+            editingBlockId =
+                null;
+
+
+            htmlCode.value =
+                "";
+
+
+            editingNotice.style.display =
+                "none";
+
+
+            cancelEditButton.style.display =
+                "none";
+
+
+            renderPublishedCodes();
 
 
             publishStatus.textContent =
@@ -1202,6 +2342,263 @@ document
 
 /*
 ================================================
+DELETE HTML BLOCK
+================================================
+*/
+
+async function deleteBlock(blockId) {
+
+
+    const blockIndex =
+        currentBlocks.findIndex(
+
+            function(block) {
+
+                return block.id === blockId;
+
+            }
+
+        );
+
+
+    if (blockIndex === -1) {
+
+        return;
+
+    }
+
+
+    const confirmDelete =
+        confirm(
+            "Are you sure you want to delete this HTML code?"
+        );
+
+
+    if (!confirmDelete) {
+
+        return;
+
+    }
+
+
+    const deletedNumber =
+        blockIndex + 1;
+
+
+    publishStatus.textContent =
+        "Deleting HTML CODE " +
+        deletedNumber +
+        "...";
+
+
+    try {
+
+
+        currentBlocks.splice(
+
+            blockIndex,
+
+            1
+
+        );
+
+
+        /*
+        ========================================
+        IF CURRENTLY EDITING THIS CODE
+        ========================================
+        */
+
+        if (
+            editingBlockId === blockId
+        ) {
+
+
+            editingBlockId =
+                null;
+
+
+            htmlCode.value =
+                "";
+
+
+            editingNotice.style.display =
+                "none";
+
+
+            cancelEditButton.style.display =
+                "none";
+
+        }
+
+
+        /*
+        ========================================
+        SAVE NEW ORDER / CONTENT
+        ========================================
+        */
+
+        await saveAllBlocks();
+
+
+        renderPublishedCodes();
+
+
+        publishStatus.textContent =
+            "🗑️ HTML CODE " +
+            deletedNumber +
+            " deleted successfully.";
+
+    }
+
+
+    catch(error) {
+
+
+        console.error(error);
+
+
+        publishStatus.textContent =
+            "❌ Delete failed: " +
+            error.message;
+
+    }
+
+}
+
+
+
+/*
+================================================
+MOVE BLOCK UP
+================================================
+*/
+
+async function moveBlockUp(index) {
+
+
+    if (index <= 0) {
+
+        return;
+
+    }
+
+
+    publishStatus.textContent =
+        "Moving HTML code up...";
+
+
+    try {
+
+
+        const temporary =
+            currentBlocks[index - 1];
+
+
+        currentBlocks[index - 1] =
+            currentBlocks[index];
+
+
+        currentBlocks[index] =
+            temporary;
+
+
+        await saveAllBlocks();
+
+
+        renderPublishedCodes();
+
+
+        publishStatus.textContent =
+            "⬆️ HTML code moved up successfully.";
+
+    }
+
+
+    catch(error) {
+
+
+        console.error(error);
+
+
+        publishStatus.textContent =
+            "❌ Move failed: " +
+            error.message;
+
+    }
+
+}
+
+
+
+/*
+================================================
+MOVE BLOCK DOWN
+================================================
+*/
+
+async function moveBlockDown(index) {
+
+
+    if (
+        index >=
+        currentBlocks.length - 1
+    ) {
+
+        return;
+
+    }
+
+
+    publishStatus.textContent =
+        "Moving HTML code down...";
+
+
+    try {
+
+
+        const temporary =
+            currentBlocks[index + 1];
+
+
+        currentBlocks[index + 1] =
+            currentBlocks[index];
+
+
+        currentBlocks[index] =
+            temporary;
+
+
+        await saveAllBlocks();
+
+
+        renderPublishedCodes();
+
+
+        publishStatus.textContent =
+            "⬇️ HTML code moved down successfully.";
+
+    }
+
+
+    catch(error) {
+
+
+        console.error(error);
+
+
+        publishStatus.textContent =
+            "❌ Move failed: " +
+            error.message;
+
+    }
+
+}
+
+
+
+/*
+================================================
 PREVIEW HTML
 ================================================
 */
@@ -1217,6 +2614,18 @@ document
 
         const html =
             htmlCode.value;
+
+
+        if (!html.trim()) {
+
+
+            publishStatus.textContent =
+                "There is no HTML code to preview.";
+
+
+            return;
+
+        }
 
 
         previewArea.style.display =
@@ -1265,6 +2674,7 @@ document
 
             console.error(error);
 
+
         }
 
     }
@@ -1277,4 +2687,4 @@ document
 
 </body>
 
-</html>
+</html> 
