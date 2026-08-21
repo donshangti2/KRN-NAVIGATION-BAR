@@ -16,7 +16,6 @@
     box-sizing: border-box;
 }
 
-
 body {
 
     margin: 0;
@@ -31,7 +30,6 @@ body {
 
 }
 
-
 .kulzzyPanel {
 
     width: 100%;
@@ -41,7 +39,6 @@ body {
     margin: auto;
 
 }
-
 
 .panelHeader {
 
@@ -57,7 +54,6 @@ body {
 
 }
 
-
 .panelHeader h1 {
 
     margin: 0;
@@ -66,7 +62,6 @@ body {
 
 }
 
-
 .panelHeader p {
 
     margin-bottom: 0;
@@ -74,7 +69,6 @@ body {
     line-height: 1.6;
 
 }
-
 
 .panelBox {
 
@@ -90,7 +84,6 @@ body {
 
 }
 
-
 label {
 
     display: block;
@@ -102,7 +95,6 @@ label {
     margin-bottom: 8px;
 
 }
-
 
 input,
 select,
@@ -124,7 +116,6 @@ textarea {
 
 }
 
-
 input:focus,
 select:focus,
 textarea:focus {
@@ -133,13 +124,11 @@ textarea:focus {
 
 }
 
-
 select {
 
     cursor: pointer;
 
 }
-
 
 textarea {
 
@@ -155,13 +144,11 @@ textarea {
 
 }
 
-
 .field {
 
     margin-bottom: 18px;
 
 }
-
 
 button {
 
@@ -177,6 +164,13 @@ button {
 
 }
 
+button:disabled {
+
+    opacity: 0.4;
+
+    cursor: not-allowed;
+
+}
 
 .loginButton {
 
@@ -186,7 +180,6 @@ button {
 
 }
 
-
 .publishButton {
 
     background: #ffd700;
@@ -194,7 +187,6 @@ button {
     color: #07152f;
 
 }
-
 
 .previewButton {
 
@@ -204,7 +196,6 @@ button {
 
 }
 
-
 .logoutButton {
 
     background: #b00020;
@@ -212,7 +203,6 @@ button {
     color: white;
 
 }
-
 
 .buttons {
 
@@ -223,7 +213,6 @@ button {
     flex-wrap: wrap;
 
 }
-
 
 .status {
 
@@ -239,13 +228,11 @@ button {
 
 }
 
-
 #editorArea {
 
     display: none;
 
 }
-
 
 #previewArea {
 
@@ -254,7 +241,6 @@ button {
     margin-top: 20px;
 
 }
-
 
 #previewFrame {
 
@@ -270,7 +256,6 @@ button {
 
 }
 
-
 .loggedIn {
 
     color: #7cff9b;
@@ -278,7 +263,6 @@ button {
     font-weight: bold;
 
 }
-
 
 .defaultNotice {
 
@@ -296,7 +280,6 @@ button {
 
 }
 
-
 .sectionInfo {
 
     background: #06132c;
@@ -311,17 +294,186 @@ button {
 
 }
 
+/* =========================================
+   MORE PAGE MANAGER
+========================================= */
+
+#morePageArea {
+
+    display: none;
+
+}
+
+.morePageNotice {
+
+    background: rgba(255,215,0,0.08);
+
+    border: 1px solid rgba(255,215,0,0.3);
+
+    padding: 14px;
+
+    border-radius: 10px;
+
+    margin-bottom: 18px;
+
+    line-height: 1.6;
+
+}
+
+.morePageTitle {
+
+    color: #ffd700;
+
+    margin-top: 0;
+
+}
+
+.morePageList {
+
+    margin-top: 20px;
+
+}
+
+.morePageItem {
+
+    background: #06132c;
+
+    border: 1px solid #405577;
+
+    border-radius: 12px;
+
+    padding: 14px;
+
+    margin-bottom: 12px;
+
+}
+
+.morePageItemHeader {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    gap: 10px;
+
+    flex-wrap: wrap;
+
+    margin-bottom: 10px;
+
+}
+
+.morePageItemTitle {
+
+    color: #ffd700;
+
+    font-weight: bold;
+
+    word-break: break-word;
+
+}
+
+.morePageItemNumber {
+
+    font-size: 12px;
+
+    opacity: 0.8;
+
+}
+
+.morePageButtons {
+
+    display: flex;
+
+    gap: 7px;
+
+    flex-wrap: wrap;
+
+}
+
+.moreEditButton {
+
+    background: #31598f;
+
+    color: white;
+
+}
+
+.moreDeleteButton {
+
+    background: #b00020;
+
+    color: white;
+
+}
+
+.moreUpButton,
+.moreDownButton {
+
+    background: #ffd700;
+
+    color: #07152f;
+
+}
+
+.moreNewButton {
+
+    background: #20a05a;
+
+    color: white;
+
+    margin-bottom: 15px;
+
+}
+
+.moreEmpty {
+
+    background: #06132c;
+
+    border-radius: 10px;
+
+    padding: 14px;
+
+    opacity: 0.85;
+
+    line-height: 1.5;
+
+}
+
+.moreEditingNotice {
+
+    background: rgba(49,89,143,0.25);
+
+    border: 1px solid #31598f;
+
+    border-radius: 10px;
+
+    padding: 12px;
+
+    margin-bottom: 15px;
+
+    line-height: 1.5;
+
+}
+
+.cancelMoreButton {
+
+    background: #555;
+
+    color: white;
+
+}
 
 /* =========================================
    PUBLISHED HTML BLOCKS
-   ========================================= */
+========================================= */
 
 #publishedCodesArea {
 
     margin-top: 25px;
 
 }
-
 
 .publishedCodesTitle {
 
@@ -330,7 +482,6 @@ button {
     margin-bottom: 12px;
 
 }
-
 
 .codeBlock {
 
@@ -345,7 +496,6 @@ button {
     margin-bottom: 12px;
 
 }
-
 
 .codeBlockHeader {
 
@@ -363,7 +513,6 @@ button {
 
 }
 
-
 .codeBlockName {
 
     color: #ffd700;
@@ -374,7 +523,6 @@ button {
 
 }
 
-
 .codeBlockNumber {
 
     color: #ffffff;
@@ -384,7 +532,6 @@ button {
     opacity: 0.8;
 
 }
-
 
 .codeBlockPreview {
 
@@ -412,7 +559,6 @@ button {
 
 }
 
-
 .codeBlockButtons {
 
     display: flex;
@@ -423,7 +569,6 @@ button {
 
 }
 
-
 .blockButton {
 
     padding: 9px 11px;
@@ -431,7 +576,6 @@ button {
     font-size: 12px;
 
 }
-
 
 .editBlockButton {
 
@@ -441,7 +585,6 @@ button {
 
 }
 
-
 .deleteBlockButton {
 
     background: #b00020;
@@ -449,7 +592,6 @@ button {
     color: white;
 
 }
-
 
 .upBlockButton {
 
@@ -459,7 +601,6 @@ button {
 
 }
 
-
 .downBlockButton {
 
     background: #ffd700;
@@ -467,7 +608,6 @@ button {
     color: #07152f;
 
 }
-
 
 .newCodeButton {
 
@@ -478,7 +618,6 @@ button {
     margin-bottom: 15px;
 
 }
-
 
 .emptyCodes {
 
@@ -496,7 +635,6 @@ button {
 
 }
 
-
 .editingNotice {
 
     background: rgba(49,89,143,0.25);
@@ -513,7 +651,6 @@ button {
 
 }
 
-
 .cancelEditButton {
 
     background: #555;
@@ -521,7 +658,6 @@ button {
     color: white;
 
 }
-
 
 @media(max-width:600px) {
 
@@ -531,13 +667,11 @@ button {
 
     }
 
-
     textarea {
 
         min-height: 280px;
 
     }
-
 
     .panelBox {
 
@@ -545,13 +679,12 @@ button {
 
     }
 
-
-    .codeBlockButtons {
+    .codeBlockButtons,
+    .morePageButtons {
 
         width: 100%;
 
     }
-
 
     .blockButton {
 
@@ -574,179 +707,152 @@ button {
 <div class="kulzzyPanel">
 
 
-    <!-- =====================================
-         HEADER
-         ===================================== -->
+<div class="panelHeader">
 
-    <div class="panelHeader">
+    <h1>
+        🎙️ KULZZY PANEL
+    </h1>
 
-        <h1>
-            🎙️ KULZZY PANEL
-        </h1>
+    <p>
+        Manage additional HTML content for
+        your Kulzzy Radio navigation sections.
+    </p>
 
-        <p>
-            Manage additional HTML content for
-            your Kulzzy Radio navigation sections.
-        </p>
+</div>
+
+
+<!-- LOGIN -->
+
+<div
+    class="panelBox"
+    id="loginBox">
+
+    <h2>
+        🔐 Admin Login
+    </h2>
+
+    <div class="field">
+
+        <label>
+            Email
+        </label>
+
+        <input
+            type="email"
+            id="email"
+            placeholder="Admin email"
+            autocomplete="email">
+
+    </div>
+
+    <div class="field">
+
+        <label>
+            Password
+        </label>
+
+        <input
+            type="password"
+            id="password"
+            placeholder="Password"
+            autocomplete="current-password">
+
+    </div>
+
+    <button
+        type="button"
+        class="loginButton"
+        id="loginButton">
+
+        LOGIN
+
+    </button>
+
+    <div
+        class="status"
+        id="loginStatus">
+
+        Please login.
+
+    </div>
+
+</div>
+
+
+<!-- EDITOR -->
+
+<div
+    class="panelBox"
+    id="editorArea">
+
+    <div class="loggedIn">
+        ● Logged in
+    </div>
+
+    <br>
+
+    <div class="defaultNotice">
+
+        <strong>
+            Important:
+        </strong>
+
+        Your original Kulzzy write-ups remain
+        on the website. HTML published here is
+        added inside the selected section.
 
     </div>
 
 
+    <!-- SECTION SELECTOR -->
 
-    <!-- =====================================
-         LOGIN
-         ===================================== -->
+    <div class="field">
 
-    <div
-        class="panelBox"
-        id="loginBox">
+        <label>
+            Select Section
+        </label>
 
-        <h2>
-            🔐 Admin Login
-        </h2>
+        <select id="section">
 
+            <option value="home">
+                Home
+            </option>
 
-        <div class="field">
+            <option value="request">
+                Request
+            </option>
 
-            <label>
-                Email
-            </label>
+            <option value="wishes">
+                Wishes
+            </option>
 
-            <input
-                type="email"
-                id="email"
-                placeholder="Admin email"
-                autocomplete="email">
+            <option value="market">
+                Market
+            </option>
 
-        </div>
+            <option value="more">
+                More
+            </option>
 
-
-        <div class="field">
-
-            <label>
-                Password
-            </label>
-
-            <input
-                type="password"
-                id="password"
-                placeholder="Password"
-                autocomplete="current-password">
-
-        </div>
-
-
-        <button
-            type="button"
-            class="loginButton"
-            id="loginButton">
-
-            LOGIN
-
-        </button>
-
-
-        <div
-            class="status"
-            id="loginStatus">
-
-            Please login.
-
-        </div>
+        </select>
 
     </div>
 
 
-
-    <!-- =====================================
-         EDITOR
-         ===================================== -->
-
     <div
-        class="panelBox"
-        id="editorArea">
+        class="sectionInfo"
+        id="sectionInfo">
+
+        You are editing the HOME section.
+
+    </div>
 
 
-        <div class="loggedIn">
+    <!-- =================================
+         NORMAL SECTION EDITOR
+    ================================= -->
 
-            ● Logged in
-
-        </div>
-
-
-        <br>
-
-
-        <div class="defaultNotice">
-
-            <strong>
-                Important:
-            </strong>
-
-            Your original Kulzzy write-ups remain
-            on the website. HTML published here is
-            added inside the selected section and
-            does not remove the original write-up.
-
-        </div>
-
-
-
-        <!-- =================================
-             SECTION SELECTOR
-             ================================= -->
-
-        <div class="field">
-
-            <label>
-                Select Section
-            </label>
-
-            <select id="section">
-
-                <option value="home">
-                    Home
-                </option>
-
-                <option value="request">
-                    Request
-                </option>
-
-                <option value="wishes">
-                    Wishes
-                </option>
-
-                <option value="market">
-                    Market
-                </option>
-
-                <option value="more">
-                    More
-                </option>
-
-            </select>
-
-        </div>
-
-
-
-        <!-- =================================
-             SECTION INFORMATION
-             ================================= -->
-
-        <div
-            class="sectionInfo"
-            id="sectionInfo">
-
-            You are editing the HOME section.
-
-        </div>
-
-
-
-        <!-- =================================
-             EDITING NOTICE
-             ================================= -->
+    <div id="normalEditorArea">
 
         <div
             class="editingNotice"
@@ -757,11 +863,6 @@ button {
 
         </div>
 
-
-
-        <!-- =================================
-             HTML EDITOR
-             ================================= -->
 
         <div class="field">
 
@@ -775,11 +876,6 @@ button {
 
         </div>
 
-
-
-        <!-- =================================
-             BUTTONS
-             ================================= -->
 
         <div class="buttons">
 
@@ -813,23 +909,8 @@ button {
 
             </button>
 
-
-            <button
-                type="button"
-                class="logoutButton"
-                id="logoutButton">
-
-                LOGOUT
-
-            </button>
-
         </div>
 
-
-
-        <!-- =================================
-             STATUS
-             ================================= -->
 
         <div
             class="status"
@@ -839,11 +920,6 @@ button {
 
         </div>
 
-
-
-        <!-- =================================
-             PUBLISHED CODES
-             ================================= -->
 
         <div id="publishedCodesArea">
 
@@ -866,99 +942,208 @@ button {
 
             <div
                 id="publishedCodesList">
-
             </div>
 
         </div>
 
+    </div>
 
 
-        <!-- =================================
-             PREVIEW
-             ================================= -->
+    <!-- =================================
+         MORE PAGE MANAGER
+    ================================= -->
 
-        <div
-            id="previewArea">
+    <div id="morePageArea">
 
-            <h3>
-                HTML PREVIEW
-            </h3>
+        <div class="morePageNotice">
 
-            <iframe
-                id="previewFrame"
-                sandbox="allow-scripts allow-forms allow-modals allow-popups">
-            </iframe>
+            <strong>
+                📚 MORE PAGE MANAGER
+            </strong>
+
+            <br><br>
+
+            Create pages such as:
+
+            <br><br>
+
+            📋 Community Guidelines<br>
+            📻 Our Programs<br>
+            🛎️ Our Services<br>
+            🎙️ About Kulzzy Radio<br>
+            📢 Advertise With Us<br>
+            📞 Contact Us
+
+            <br><br>
+
+            You can create as many MORE pages
+            as you want.
 
         </div>
 
 
+        <div
+            class="moreEditingNotice"
+            id="moreEditingNotice"
+            style="display:none;">
+
+            ✏️ Editing MORE page.
+
+        </div>
+
+
+        <div class="field">
+
+            <label>
+                MORE Page Name
+            </label>
+
+            <input
+                type="text"
+                id="morePageName"
+                placeholder="Example: Community Guidelines">
+
+        </div>
+
+
+        <div class="field">
+
+            <label>
+                HTML Code For This Page
+            </label>
+
+            <textarea
+                id="morePageHTML"
+                placeholder="Paste the HTML for this page here..."></textarea>
+
+        </div>
+
+
+        <div class="buttons">
+
+            <button
+                type="button"
+                class="publishButton"
+                id="publishMoreButton">
+
+                🚀 PUBLISH MORE PAGE
+
+            </button>
+
+
+            <button
+                type="button"
+                class="previewButton"
+                id="previewMoreButton">
+
+                👁️ PREVIEW
+
+            </button>
+
+
+            <button
+                type="button"
+                class="cancelMoreButton"
+                id="cancelMoreButton"
+                style="display:none;">
+
+                CANCEL EDIT
+
+            </button>
+
+
+            <button
+                type="button"
+                class="moreNewButton"
+                id="newMoreButton">
+
+                ➕ NEW MORE PAGE
+
+            </button>
+
+        </div>
+
+
+        <div
+            class="status"
+            id="morePageStatus">
+
+            Create your first MORE page.
+
+        </div>
+
+
+        <div class="morePageList">
+
+            <h3 class="publishedCodesTitle">
+
+                📚 PUBLISHED MORE PAGES
+
+            </h3>
+
+
+            <div id="morePagesList">
+            </div>
+
+        </div>
+
     </div>
+
+
+    <!-- PREVIEW -->
+
+    <div id="previewArea">
+
+        <h3>
+            HTML PREVIEW
+        </h3>
+
+        <iframe
+            id="previewFrame"
+            sandbox="allow-scripts allow-forms allow-modals allow-popups">
+        </iframe>
+
+    </div>
+
+
+    <br>
+
+
+    <button
+        type="button"
+        class="logoutButton"
+        id="logoutButton">
+
+        LOGOUT
+
+    </button>
+
+</div>
 
 </div>
 
 
-
-<!-- =========================================
-     FIREBASE
-     ========================================= -->
-
 <script type="module">
 
-
-/*
-================================================
-IMPORT FIREBASE APP
-================================================
-*/
-
 import {
-
     initializeApp
-
 } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-app.js";
 
-
-
-/*
-================================================
-IMPORT REALTIME DATABASE
-================================================
-*/
-
 import {
-
     getDatabase,
     ref,
     get,
     set,
     remove
-
 } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-database.js";
 
-
-
-/*
-================================================
-IMPORT FIREBASE AUTHENTICATION
-================================================
-*/
-
 import {
-
     getAuth,
     signInWithEmailAndPassword,
     onAuthStateChanged,
     signOut
-
 } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-auth.js";
 
-
-
-/*
-================================================
-YOUR KULZZY RADIO FIREBASE CONFIGURATION
-================================================
-*/
 
 const firebaseConfig = {
 
@@ -986,130 +1171,97 @@ const firebaseConfig = {
 };
 
 
-
-/*
-================================================
-INITIALIZE FIREBASE
-================================================
-*/
-
 const app =
     initializeApp(firebaseConfig);
 
-
-
-/*
-================================================
-INITIALIZE DATABASE
-================================================
-*/
-
 const db =
     getDatabase(app);
-
-
-
-/*
-================================================
-INITIALIZE AUTHENTICATION
-================================================
-*/
 
 const auth =
     getAuth(app);
 
 
-
-/*
-================================================
-ELEMENTS
-================================================
-*/
+/* =========================================
+   ELEMENTS
+========================================= */
 
 const loginBox =
-    document.getElementById(
-        "loginBox"
-    );
-
+    document.getElementById("loginBox");
 
 const editorArea =
-    document.getElementById(
-        "editorArea"
-    );
-
+    document.getElementById("editorArea");
 
 const loginStatus =
-    document.getElementById(
-        "loginStatus"
-    );
-
-
-const publishStatus =
-    document.getElementById(
-        "publishStatus"
-    );
-
+    document.getElementById("loginStatus");
 
 const sectionSelect =
-    document.getElementById(
-        "section"
-    );
-
+    document.getElementById("section");
 
 const sectionInfo =
-    document.getElementById(
-        "sectionInfo"
-    );
+    document.getElementById("sectionInfo");
 
+const normalEditorArea =
+    document.getElementById("normalEditorArea");
+
+const morePageArea =
+    document.getElementById("morePageArea");
 
 const htmlCode =
-    document.getElementById(
-        "htmlCode"
-    );
+    document.getElementById("htmlCode");
 
+const publishStatus =
+    document.getElementById("publishStatus");
 
 const previewArea =
-    document.getElementById(
-        "previewArea"
-    );
-
+    document.getElementById("previewArea");
 
 const previewFrame =
-    document.getElementById(
-        "previewFrame"
-    );
-
-
-const publishedCodesList =
-    document.getElementById(
-        "publishedCodesList"
-    );
-
+    document.getElementById("previewFrame");
 
 const editingNotice =
-    document.getElementById(
-        "editingNotice"
-    );
-
+    document.getElementById("editingNotice");
 
 const cancelEditButton =
-    document.getElementById(
-        "cancelEditButton"
-    );
+    document.getElementById("cancelEditButton");
+
+const publishedCodesList =
+    document.getElementById("publishedCodesList");
+
+const morePageName =
+    document.getElementById("morePageName");
+
+const morePageHTML =
+    document.getElementById("morePageHTML");
+
+const morePageStatus =
+    document.getElementById("morePageStatus");
+
+const morePagesList =
+    document.getElementById("morePagesList");
+
+const moreEditingNotice =
+    document.getElementById("moreEditingNotice");
+
+const cancelMoreButton =
+    document.getElementById("cancelMoreButton");
 
 
-const newCodeButton =
-    document.getElementById(
-        "newCodeButton"
-    );
+/* =========================================
+   VARIABLES
+========================================= */
+
+let currentBlocks = [];
+
+let editingBlockId = null;
+
+let morePages = [];
+
+let editingMorePageId = null;
 
 
-
-/*
-================================================
-SECTION DESCRIPTIONS
-================================================
-*/
+/* =========================================
+   SECTION INFORMATION
+========================================= */
 
 const sectionDescriptions = {
 
@@ -1126,75 +1278,59 @@ const sectionDescriptions = {
         "You are editing the MARKET section.",
 
     more:
-        "You are editing the MORE section."
+        "You are managing pages inside the MORE section."
 
 };
 
 
+/* =========================================
+   SECTION DISPLAY
+========================================= */
 
-/*
-================================================
-CURRENT EDITING INFORMATION
-================================================
-*/
-
-let editingBlockId = null;
-
-
-/*
-================================================
-CURRENT BLOCKS
-================================================
-*/
-
-let currentBlocks = [];
-
-
-
-/*
-================================================
-UPDATE SECTION INFORMATION
-================================================
-*/
-
-function updateSectionInfo() {
+function updateSectionInterface() {
 
     const section =
         sectionSelect.value;
 
 
     sectionInfo.textContent =
-        sectionDescriptions[section] ||
-        "You are editing this section.";
+        sectionDescriptions[section];
+
+
+    previewArea.style.display =
+        "none";
+
+
+    if (section === "more") {
+
+        normalEditorArea.style.display =
+            "none";
+
+        morePageArea.style.display =
+            "block";
+
+        loadMorePages();
+
+    }
+
+    else {
+
+        normalEditorArea.style.display =
+            "block";
+
+        morePageArea.style.display =
+            "none";
+
+        loadSection();
+
+    }
 
 }
 
 
-
-/*
-================================================
-CREATE UNIQUE BLOCK ID
-================================================
-*/
-
-function createBlockId() {
-
-    return "block_" +
-        Date.now() +
-        "_" +
-        Math.random()
-        .toString(36)
-        .substring(2, 9);
-
-}
-
-
-
-/*
-================================================
-LOGIN
-================================================
-*/
+/* =========================================
+   LOGIN
+========================================= */
 
 document
 .getElementById("loginButton")
@@ -1202,19 +1338,16 @@ document
     "click",
     async function() {
 
-
         const email =
             document
             .getElementById("email")
             .value
             .trim();
 
-
         const password =
             document
             .getElementById("password")
             .value;
-
 
         if (!email || !password) {
 
@@ -1225,37 +1358,25 @@ document
 
         }
 
-
         loginStatus.textContent =
             "Logging in...";
 
-
         try {
 
-
             await signInWithEmailAndPassword(
-
                 auth,
-
                 email,
-
                 password
-
             );
-
 
             loginStatus.textContent =
                 "Login successful.";
 
-
         }
-
 
         catch(error) {
 
-
             console.error(error);
-
 
             loginStatus.textContent =
                 "Login failed: " +
@@ -1264,49 +1385,33 @@ document
         }
 
     }
-
 );
 
 
-
-/*
-================================================
-AUTH STATE
-================================================
-*/
+/* =========================================
+   AUTH STATE
+========================================= */
 
 onAuthStateChanged(
-
     auth,
-
     function(user) {
 
-
         if (user) {
-
 
             loginBox.style.display =
                 "none";
 
-
             editorArea.style.display =
                 "block";
 
-
-            updateSectionInfo();
-
-
-            loadSection();
-
+            updateSectionInterface();
 
         }
 
         else {
 
-
             loginBox.style.display =
                 "block";
-
 
             editorArea.style.display =
                 "none";
@@ -1314,34 +1419,55 @@ onAuthStateChanged(
         }
 
     }
-
 );
 
 
+/* =========================================
+   SECTION CHANGED
+========================================= */
 
-/*
-================================================
-LOAD HTML FOR SELECTED SECTION
-================================================
-*/
+sectionSelect.addEventListener(
+    "change",
+    function() {
+
+        updateSectionInterface();
+
+    }
+);
+
+
+/* =========================================
+   NORMAL HTML BLOCKS
+========================================= */
+
+function createBlockId() {
+
+    return "block_" +
+        Date.now() +
+        "_" +
+        Math.random()
+        .toString(36)
+        .substring(2,9);
+
+}
+
 
 async function loadSection() {
-
 
     const section =
         sectionSelect.value;
 
-
-    updateSectionInfo();
-
+    if (section === "more") {
+        return;
+    }
 
     publishStatus.textContent =
         "Loading " +
         section +
         "...";
 
-
-    editingBlockId = null;
+    editingBlockId =
+        null;
 
     editingNotice.style.display =
         "none";
@@ -1349,39 +1475,23 @@ async function loadSection() {
     cancelEditButton.style.display =
         "none";
 
-
     try {
-
-
-        const contentRef =
-            ref(
-
-                db,
-
-                "kulzzyContent/" +
-                section
-
-            );
-
 
         const snapshot =
             await get(
-                contentRef
+                ref(
+                    db,
+                    "kulzzyContent/" +
+                    section
+                )
             );
 
+        currentBlocks = [];
 
         if (snapshot.exists()) {
 
-
             const data =
                 snapshot.val();
-
-
-            /*
-            ====================================
-            NEW MULTI-BLOCK FORMAT
-            ====================================
-            */
 
             if (
                 data.blocks &&
@@ -1389,9 +1499,7 @@ async function loadSection() {
             ) {
 
                 currentBlocks =
-                    Object.keys(
-                        data.blocks
-                    )
+                    Object.keys(data.blocks)
                     .map(function(id) {
 
                         return {
@@ -1408,29 +1516,23 @@ async function loadSection() {
 
                         };
 
+                    })
+                    .sort(function(a,b) {
+
+                        return (
+                            (a.order || 0) -
+                            (b.order || 0)
+                        );
+
                     });
 
             }
-
-            else {
-
-                currentBlocks = [];
-
-            }
-
-
-            /*
-            ====================================
-            OLD HTML FORMAT
-            ====================================
-            */
 
             if (
                 currentBlocks.length === 0 &&
                 typeof data.html === "string" &&
                 data.html.trim()
             ) {
-
 
                 currentBlocks = [
 
@@ -1453,60 +1555,21 @@ async function loadSection() {
 
             }
 
-
-            /*
-            ====================================
-            LOAD EDITOR
-            ====================================
-            */
-
-           htmlCode.value =
-                "";
-
-
-            publishStatus.textContent =
-                section.toUpperCase() +
-                " HTML loaded.";
-
-
-            renderPublishedCodes();
-
         }
 
-        else {
-
-
-            currentBlocks = [];
-
-
-            htmlCode.value =
-                "";
-
-
-            renderPublishedCodes();
-
-
-            publishStatus.textContent =
-                "No HTML published for " +
-                section +
-                " yet.";
-
-        }
-
-    }
-
-
-    catch(error) {
-
-
-        console.error(error);
-
-
-        currentBlocks = [];
-
+        htmlCode.value =
+            "";
 
         renderPublishedCodes();
 
+        publishStatus.textContent =
+            "Ready.";
+
+    }
+
+    catch(error) {
+
+        console.error(error);
 
         publishStatus.textContent =
             "Unable to load section: " +
@@ -1517,128 +1580,66 @@ async function loadSection() {
 }
 
 
-
-/*
-================================================
-SECTION CHANGED
-================================================
-*/
-
-sectionSelect.addEventListener(
-
-    "change",
-
-    function() {
-
-        updateSectionInfo();
-
-        previewArea.style.display =
-            "none";
-
-        loadSection();
-
-    }
-
-);
-
-
-
-/*
-================================================
-RENDER PUBLISHED CODES
-================================================
-*/
+/* =========================================
+   RENDER NORMAL BLOCKS
+========================================= */
 
 function renderPublishedCodes() {
-
 
     publishedCodesList.innerHTML =
         "";
 
-
     if (
-        !currentBlocks ||
         currentBlocks.length === 0
     ) {
 
-
         const empty =
-            document.createElement(
-                "div"
-            );
-
+            document.createElement("div");
 
         empty.className =
             "emptyCodes";
 
-
         empty.textContent =
             "No HTML code has been published in this section yet.";
-
 
         publishedCodesList.appendChild(
             empty
         );
 
-
         return;
 
     }
 
-
     currentBlocks.forEach(
-
-        function(block, index) {
-
+        function(block,index) {
 
             const codeBlock =
-                document.createElement(
-                    "div"
-                );
-
+                document.createElement("div");
 
             codeBlock.className =
                 "codeBlock";
 
-
-            /*
-            HEADER
-            */
-
             const header =
-                document.createElement(
-                    "div"
-                );
-
+                document.createElement("div");
 
             header.className =
                 "codeBlockHeader";
 
-
             const name =
-                document.createElement(
-                    "div"
-                );
-
+                document.createElement("div");
 
             name.className =
                 "codeBlockName";
-
 
             name.textContent =
                 "HTML CODE " +
                 (index + 1);
 
-
             const number =
-                document.createElement(
-                    "div"
-                );
-
+                document.createElement("div");
 
             number.className =
                 "codeBlockNumber";
-
 
             number.textContent =
                 "Position " +
@@ -1646,112 +1647,70 @@ function renderPublishedCodes() {
                 " of " +
                 currentBlocks.length;
 
-
-            header.appendChild(
-                name
-            );
-
-
-            header.appendChild(
-                number
-            );
-
-
-            /*
-            CODE PREVIEW
-            */
+            header.appendChild(name);
+            header.appendChild(number);
 
             const preview =
-                document.createElement(
-                    "div"
-                );
-
+                document.createElement("div");
 
             preview.className =
                 "codeBlockPreview";
 
-
             preview.textContent =
                 block.html;
 
-
-            /*
-            BUTTONS
-            */
-
             const buttons =
-                document.createElement(
-                    "div"
-                );
-
+                document.createElement("div");
 
             buttons.className =
                 "codeBlockButtons";
 
 
-            /*
-            EDIT
-            */
+            const edit =
+                document.createElement("button");
 
-            const editButton =
-                document.createElement(
-                    "button"
-                );
-
-
-            editButton.type =
-                "button";
-
-
-            editButton.className =
+            edit.className =
                 "blockButton editBlockButton";
 
-
-            editButton.textContent =
+            edit.textContent =
                 "✏️ EDIT";
 
-
-            editButton.onclick =
+            edit.onclick =
                 function() {
 
-                    editBlock(block.id);
+                    editingBlockId =
+                        block.id;
+
+                    htmlCode.value =
+                        block.html;
+
+                    editingNotice.style.display =
+                        "block";
+
+                    cancelEditButton.style.display =
+                        "inline-block";
+
+                    htmlCode.scrollIntoView({
+                        behavior:"smooth",
+                        block:"center"
+                    });
 
                 };
 
 
-            /*
-            MOVE UP
-            */
+            const up =
+                document.createElement("button");
 
-            const upButton =
-                document.createElement(
-                    "button"
-                );
-
-
-            upButton.type =
-                "button";
-
-
-            upButton.className =
+            up.className =
                 "blockButton upBlockButton";
 
-
-            upButton.textContent =
+            up.textContent =
                 "⬆️ UP";
 
-
-            upButton.disabled =
+            up.disabled =
                 index === 0;
 
-
-            upButton.style.opacity =
-                index === 0
-                    ? "0.4"
-                    : "1";
-
-
-            upButton.onclick =
+            up.onclick =
                 function() {
 
                     moveBlockUp(index);
@@ -1759,41 +1718,20 @@ function renderPublishedCodes() {
                 };
 
 
-            /*
-            MOVE DOWN
-            */
+            const down =
+                document.createElement("button");
 
-            const downButton =
-                document.createElement(
-                    "button"
-                );
-
-
-            downButton.type =
-                "button";
-
-
-            downButton.className =
+            down.className =
                 "blockButton downBlockButton";
 
-
-            downButton.textContent =
+            down.textContent =
                 "⬇️ DOWN";
 
-
-            downButton.disabled =
+            down.disabled =
                 index ===
                 currentBlocks.length - 1;
 
-
-            downButton.style.opacity =
-                index ===
-                currentBlocks.length - 1
-                    ? "0.4"
-                    : "1";
-
-
-            downButton.onclick =
+            down.onclick =
                 function() {
 
                     moveBlockDown(index);
@@ -1801,29 +1739,16 @@ function renderPublishedCodes() {
                 };
 
 
-            /*
-            DELETE
-            */
+            const del =
+                document.createElement("button");
 
-            const deleteButton =
-                document.createElement(
-                    "button"
-                );
-
-
-            deleteButton.type =
-                "button";
-
-
-            deleteButton.className =
+            del.className =
                 "blockButton deleteBlockButton";
 
-
-            deleteButton.textContent =
+            del.textContent =
                 "🗑️ DELETE";
 
-
-            deleteButton.onclick =
+            del.onclick =
                 function() {
 
                     deleteBlock(block.id);
@@ -1831,243 +1756,41 @@ function renderPublishedCodes() {
                 };
 
 
-            buttons.appendChild(
-                editButton
-            );
+            buttons.appendChild(edit);
+            buttons.appendChild(up);
+            buttons.appendChild(down);
+            buttons.appendChild(del);
 
-
-            buttons.appendChild(
-                upButton
-            );
-
-
-            buttons.appendChild(
-                downButton
-            );
-
-
-            buttons.appendChild(
-                deleteButton
-            );
-
-
-            codeBlock.appendChild(
-                header
-            );
-
-
-            codeBlock.appendChild(
-                preview
-            );
-
-
-            codeBlock.appendChild(
-                buttons
-            );
-
+            codeBlock.appendChild(header);
+            codeBlock.appendChild(preview);
+            codeBlock.appendChild(buttons);
 
             publishedCodesList.appendChild(
                 codeBlock
             );
 
         }
-
     );
 
 }
 
 
-
-/*
-================================================
-EDIT EXISTING BLOCK
-================================================
-*/
-
-function editBlock(blockId) {
-
-
-    const block =
-        currentBlocks.find(
-
-            function(item) {
-
-                return item.id === blockId;
-
-            }
-
-        );
-
-
-    if (!block) {
-
-        return;
-
-    }
-
-
-    editingBlockId =
-        blockId;
-
-
-    htmlCode.value =
-        block.html;
-
-
-    editingNotice.style.display =
-        "block";
-
-
-    editingNotice.textContent =
-        "✏️ You are editing HTML CODE " +
-        (
-            currentBlocks.findIndex(
-                function(item) {
-                    return item.id === blockId;
-                }
-            ) + 1
-        ) +
-        ". Click PUBLISH to update it.";
-
-
-    cancelEditButton.style.display =
-        "inline-block";
-
-
-    publishStatus.textContent =
-        "HTML code loaded into the editor. Make your changes and click PUBLISH.";
-
-
-    htmlCode.scrollIntoView({
-
-        behavior: "smooth",
-
-        block: "center"
-
-    });
-
-}
-
-
-
-/*
-================================================
-CANCEL EDIT
-================================================
-*/
-
-cancelEditButton.addEventListener(
-
-    "click",
-
-    function() {
-
-
-        editingBlockId =
-            null;
-
-
-        htmlCode.value =
-            "";
-
-
-        editingNotice.style.display =
-            "none";
-
-
-        cancelEditButton.style.display =
-            "none";
-
-
-        publishStatus.textContent =
-            "Edit cancelled. You can publish new HTML.";
-
-    }
-
-);
-
-
-
-/*
-================================================
-NEW HTML CODE
-================================================
-*/
-
-newCodeButton.addEventListener(
-
-    "click",
-
-    function() {
-
-
-        editingBlockId =
-            null;
-
-
-        htmlCode.value =
-            "";
-
-
-        editingNotice.style.display =
-            "none";
-
-
-        cancelEditButton.style.display =
-            "none";
-
-
-        htmlCode.focus();
-
-
-        publishStatus.textContent =
-            "Ready for a new HTML code.";
-
-    }
-
-);
-
-
-
-/*
-================================================
-SAVE ALL BLOCKS TO FIREBASE
-================================================
-*/
+/* =========================================
+   SAVE NORMAL BLOCKS
+========================================= */
 
 async function saveAllBlocks() {
-
 
     const section =
         sectionSelect.value;
 
-
     const user =
         auth.currentUser;
 
-
-    if (!user) {
-
-        throw new Error(
-            "You are not logged in."
-        );
-
-    }
-
-
-    /*
-    ============================================
-    CREATE BLOCKS OBJECT
-    ============================================
-    */
-
     const blocks = {};
 
-
     currentBlocks.forEach(
-
-        function(block, index) {
-
+        function(block,index) {
 
             blocks[block.id] = {
 
@@ -2090,47 +1813,23 @@ async function saveAllBlocks() {
             };
 
         }
-
     );
-
-
-    /*
-    ============================================
-    CREATE COMBINED HTML
-    ============================================
-    */
 
     const combinedHTML =
         currentBlocks
-        .map(
+        .map(function(block) {
 
-            function(block) {
+            return block.html;
 
-                return block.html;
-
-            }
-
-        )
+        })
         .join("\n\n");
 
-
-    /*
-    ============================================
-    SAVE FIREBASE
-    ============================================
-    */
-
     await set(
-
         ref(
-
             db,
-
             "kulzzyContent/" +
             section
-
         ),
-
         {
 
             html:
@@ -2146,122 +1845,57 @@ async function saveAllBlocks() {
                 user.uid
 
         }
-
     );
 
 }
 
 
-
-/*
-================================================
-PUBLISH HTML
-================================================
-*/
+/* =========================================
+   NORMAL PUBLISH
+========================================= */
 
 document
 .getElementById("publishButton")
 .addEventListener(
-
     "click",
-
     async function() {
-
-
-        const section =
-            sectionSelect.value;
-
 
         const html =
             htmlCode.value;
 
-
         if (!html.trim()) {
-
 
             publishStatus.textContent =
                 "Please paste HTML code first.";
 
-
             return;
 
         }
-
-
-        const user =
-            auth.currentUser;
-
-
-        if (!user) {
-
-
-            publishStatus.textContent =
-                "You are not logged in.";
-
-
-            return;
-
-        }
-
-
-        publishStatus.textContent =
-            editingBlockId
-                ? "Updating HTML..."
-                : "Publishing new HTML...";
-
 
         try {
 
-
-            /*
-            ====================================
-            UPDATE EXISTING BLOCK
-            ====================================
-            */
-
             if (editingBlockId) {
 
-
-                const blockIndex =
+                const index =
                     currentBlocks.findIndex(
-
                         function(block) {
 
                             return block.id ===
                                 editingBlockId;
 
                         }
-
                     );
 
+                if (index !== -1) {
 
-                if (blockIndex !== -1) {
-
-
-                    currentBlocks[
-                        blockIndex
-                    ].html =
+                    currentBlocks[index].html =
                         html;
 
-
-                    currentBlocks[
-                        blockIndex
-                    ].updatedAt =
-                        Date.now();
-
                 }
-
 
             }
 
             else {
-
-
-                /*
-                =================================
-                CREATE NEW BLOCK
-                =================================
-                */
 
                 currentBlocks.push({
 
@@ -2278,55 +1912,30 @@ document
 
             }
 
-
-            /*
-            ====================================
-            SAVE
-            ====================================
-            */
-
             await saveAllBlocks();
-
-
-            /*
-            ====================================
-            RESET EDITOR
-            ====================================
-            */
 
             editingBlockId =
                 null;
 
-
             htmlCode.value =
                 "";
-
 
             editingNotice.style.display =
                 "none";
 
-
             cancelEditButton.style.display =
                 "none";
 
-
             renderPublishedCodes();
 
-
             publishStatus.textContent =
-                "✅ " +
-                section.toUpperCase() +
-                " HTML published successfully.";
-
+                "✅ HTML published successfully.";
 
         }
 
-
         catch(error) {
 
-
             console.error(error);
-
 
             publishStatus.textContent =
                 "❌ Publish failed: " +
@@ -2335,214 +1944,676 @@ document
         }
 
     }
-
 );
 
 
+/* =========================================
+   DELETE NORMAL BLOCK
+========================================= */
 
-/*
-================================================
-DELETE HTML BLOCK
-================================================
-*/
+async function deleteBlock(id) {
 
-async function deleteBlock(blockId) {
+    if (
+        !confirm(
+            "Are you sure you want to delete this HTML code?"
+        )
+    ) {
 
+        return;
 
-    const blockIndex =
-        currentBlocks.findIndex(
+    }
 
+    currentBlocks =
+        currentBlocks.filter(
             function(block) {
 
-                return block.id === blockId;
+                return block.id !== id;
 
             }
-
         );
 
+    await saveAllBlocks();
 
-    if (blockIndex === -1) {
-
-        return;
-
-    }
-
-
-    const confirmDelete =
-        confirm(
-            "Are you sure you want to delete this HTML code?"
-        );
-
-
-    if (!confirmDelete) {
-
-        return;
-
-    }
-
-
-    const deletedNumber =
-        blockIndex + 1;
-
+    renderPublishedCodes();
 
     publishStatus.textContent =
-        "Deleting HTML CODE " +
-        deletedNumber +
-        "...";
-
-
-    try {
-
-
-        currentBlocks.splice(
-
-            blockIndex,
-
-            1
-
-        );
-
-
-        /*
-        ========================================
-        IF CURRENTLY EDITING THIS CODE
-        ========================================
-        */
-
-        if (
-            editingBlockId === blockId
-        ) {
-
-
-            editingBlockId =
-                null;
-
-
-            htmlCode.value =
-                "";
-
-
-            editingNotice.style.display =
-                "none";
-
-
-            cancelEditButton.style.display =
-                "none";
-
-        }
-
-
-        /*
-        ========================================
-        SAVE NEW ORDER / CONTENT
-        ========================================
-        */
-
-        await saveAllBlocks();
-
-
-        renderPublishedCodes();
-
-
-        publishStatus.textContent =
-            "🗑️ HTML CODE " +
-            deletedNumber +
-            " deleted successfully.";
-
-    }
-
-
-    catch(error) {
-
-
-        console.error(error);
-
-
-        publishStatus.textContent =
-            "❌ Delete failed: " +
-            error.message;
-
-    }
+        "🗑️ HTML code deleted successfully.";
 
 }
 
 
-
-/*
-================================================
-MOVE BLOCK UP
-================================================
-*/
+/* =========================================
+   MOVE NORMAL BLOCK UP
+========================================= */
 
 async function moveBlockUp(index) {
 
+    if (index <= 0) return;
 
-    if (index <= 0) {
+    const temp =
+        currentBlocks[index - 1];
 
-        return;
+    currentBlocks[index - 1] =
+        currentBlocks[index];
 
-    }
+    currentBlocks[index] =
+        temp;
 
+    await saveAllBlocks();
 
-    publishStatus.textContent =
-        "Moving HTML code up...";
-
-
-    try {
-
-
-        const temporary =
-            currentBlocks[index - 1];
-
-
-        currentBlocks[index - 1] =
-            currentBlocks[index];
-
-
-        currentBlocks[index] =
-            temporary;
-
-
-        await saveAllBlocks();
-
-
-        renderPublishedCodes();
-
-
-        publishStatus.textContent =
-            "⬆️ HTML code moved up successfully.";
-
-    }
-
-
-    catch(error) {
-
-
-        console.error(error);
-
-
-        publishStatus.textContent =
-            "❌ Move failed: " +
-            error.message;
-
-    }
+    renderPublishedCodes();
 
 }
 
 
-
-/*
-================================================
-MOVE BLOCK DOWN
-================================================
-*/
+/* =========================================
+   MOVE NORMAL BLOCK DOWN
+========================================= */
 
 async function moveBlockDown(index) {
-
 
     if (
         index >=
         currentBlocks.length - 1
+    ) return;
+
+    const temp =
+        currentBlocks[index + 1];
+
+    currentBlocks[index + 1] =
+        currentBlocks[index];
+
+    currentBlocks[index] =
+        temp;
+
+    await saveAllBlocks();
+
+    renderPublishedCodes();
+
+}
+
+
+/* =========================================
+   CANCEL NORMAL EDIT
+========================================= */
+
+document
+.getElementById("cancelEditButton")
+.addEventListener(
+    "click",
+    function() {
+
+        editingBlockId =
+            null;
+
+        htmlCode.value =
+            "";
+
+        editingNotice.style.display =
+            "none";
+
+        cancelEditButton.style.display =
+            "none";
+
+    }
+);
+
+
+/* =========================================
+   NEW NORMAL HTML
+========================================= */
+
+document
+.getElementById("newCodeButton")
+.addEventListener(
+    "click",
+    function() {
+
+        editingBlockId =
+            null;
+
+        htmlCode.value =
+            "";
+
+        editingNotice.style.display =
+            "none";
+
+        cancelEditButton.style.display =
+            "none";
+
+        htmlCode.focus();
+
+    }
+);
+
+
+/* =========================================
+   PREVIEW NORMAL HTML
+========================================= */
+
+document
+.getElementById("previewButton")
+.addEventListener(
+    "click",
+    function() {
+
+        const html =
+            htmlCode.value;
+
+        if (!html.trim()) {
+
+            publishStatus.textContent =
+                "There is no HTML code to preview.";
+
+            return;
+
+        }
+
+        previewArea.style.display =
+            "block";
+
+        previewFrame.srcdoc =
+            html;
+
+    }
+);
+
+
+/* =========================================
+   MORE PAGE ID
+========================================= */
+
+function createMorePageId() {
+
+    return "page_" +
+        Date.now() +
+        "_" +
+        Math.random()
+        .toString(36)
+        .substring(2,9);
+
+}
+
+
+/* =========================================
+   LOAD MORE PAGES
+========================================= */
+
+async function loadMorePages() {
+
+    try {
+
+        const snapshot =
+            await get(
+                ref(
+                    db,
+                    "kulzzyMorePages"
+                )
+            );
+
+        morePages = [];
+
+        if (snapshot.exists()) {
+
+            const data =
+                snapshot.val();
+
+            morePages =
+                Object.keys(data)
+                .map(function(id) {
+
+                    return {
+
+                        id:id,
+
+                        title:
+                            data[id].title ||
+                            "Untitled Page",
+
+                        html:
+                            data[id].html ||
+                            "",
+
+                        order:
+                            typeof data[id].order === "number"
+                                ? data[id].order
+                                : 0,
+
+                        createdAt:
+                            data[id].createdAt ||
+                            Date.now()
+
+                    };
+
+                })
+                .sort(function(a,b) {
+
+                    return a.order - b.order;
+
+                });
+
+        }
+
+        renderMorePages();
+
+    }
+
+    catch(error) {
+
+        console.error(error);
+
+        morePageStatus.textContent =
+            "Unable to load MORE pages: " +
+            error.message;
+
+    }
+
+}
+
+
+/* =========================================
+   RENDER MORE PAGES
+========================================= */
+
+function renderMorePages() {
+
+    morePagesList.innerHTML =
+        "";
+
+    if (morePages.length === 0) {
+
+        const empty =
+            document.createElement("div");
+
+        empty.className =
+            "moreEmpty";
+
+        empty.textContent =
+            "No MORE pages published yet.";
+
+        morePagesList.appendChild(
+            empty
+        );
+
+        return;
+
+    }
+
+    morePages.forEach(
+        function(page,index) {
+
+            const item =
+                document.createElement("div");
+
+            item.className =
+                "morePageItem";
+
+
+            const header =
+                document.createElement("div");
+
+            header.className =
+                "morePageItemHeader";
+
+
+            const title =
+                document.createElement("div");
+
+            title.className =
+                "morePageItemTitle";
+
+            title.textContent =
+                page.title;
+
+
+            const number =
+                document.createElement("div");
+
+            number.className =
+                "morePageItemNumber";
+
+            number.textContent =
+                "Page " +
+                (index + 1) +
+                " of " +
+                morePages.length;
+
+
+            header.appendChild(title);
+            header.appendChild(number);
+
+
+            const buttons =
+                document.createElement("div");
+
+            buttons.className =
+                "morePageButtons";
+
+
+            const edit =
+                document.createElement("button");
+
+            edit.className =
+                "moreEditButton";
+
+            edit.textContent =
+                "✏️ EDIT";
+
+            edit.onclick =
+                function() {
+
+                    editingMorePageId =
+                        page.id;
+
+                    morePageName.value =
+                        page.title;
+
+                    morePageHTML.value =
+                        page.html;
+
+                    moreEditingNotice.style.display =
+                        "block";
+
+                    moreEditingNotice.textContent =
+                        "✏️ Editing: " +
+                        page.title;
+
+                    cancelMoreButton.style.display =
+                        "inline-block";
+
+                    morePageHTML.scrollIntoView({
+                        behavior:"smooth",
+                        block:"center"
+                    });
+
+                };
+
+
+            const up =
+                document.createElement("button");
+
+            up.className =
+                "moreUpButton";
+
+            up.textContent =
+                "⬆️ UP";
+
+            up.disabled =
+                index === 0;
+
+            up.onclick =
+                function() {
+
+                    moveMorePageUp(index);
+
+                };
+
+
+            const down =
+                document.createElement("button");
+
+            down.className =
+                "moreDownButton";
+
+            down.textContent =
+                "⬇️ DOWN";
+
+            down.disabled =
+                index ===
+                morePages.length - 1;
+
+            down.onclick =
+                function() {
+
+                    moveMorePageDown(index);
+
+                };
+
+
+            const del =
+                document.createElement("button");
+
+            del.className =
+                "moreDeleteButton";
+
+            del.textContent =
+                "🗑️ DELETE";
+
+            del.onclick =
+                function() {
+
+                    deleteMorePage(page.id);
+
+                };
+
+
+            buttons.appendChild(edit);
+            buttons.appendChild(up);
+            buttons.appendChild(down);
+            buttons.appendChild(del);
+
+
+            item.appendChild(header);
+            item.appendChild(buttons);
+
+
+            morePagesList.appendChild(
+                item
+            );
+
+        }
+    );
+
+}
+
+
+/* =========================================
+   SAVE MORE PAGES
+========================================= */
+
+async function saveMorePages() {
+
+    const user =
+        auth.currentUser;
+
+    const pages = {};
+
+    morePages.forEach(
+        function(page,index) {
+
+            pages[page.id] = {
+
+                title:
+                    page.title,
+
+                html:
+                    page.html,
+
+                order:
+                    index,
+
+                createdAt:
+                    page.createdAt ||
+                    Date.now(),
+
+                updatedAt:
+                    Date.now(),
+
+                updatedBy:
+                    user.uid
+
+            };
+
+        }
+    );
+
+
+    await set(
+        ref(
+            db,
+            "kulzzyMorePages"
+        ),
+        pages
+    );
+
+}
+
+
+/* =========================================
+   PUBLISH MORE PAGE
+========================================= */
+
+document
+.getElementById("publishMoreButton")
+.addEventListener(
+    "click",
+    async function() {
+
+        const title =
+            morePageName.value.trim();
+
+        const html =
+            morePageHTML.value;
+
+        if (!title) {
+
+            morePageStatus.textContent =
+                "Please enter the MORE page name.";
+
+            return;
+
+        }
+
+        if (!html.trim()) {
+
+            morePageStatus.textContent =
+                "Please paste the HTML for this page.";
+
+            return;
+
+        }
+
+        try {
+
+            if (editingMorePageId) {
+
+                const index =
+                    morePages.findIndex(
+                        function(page) {
+
+                            return page.id ===
+                                editingMorePageId;
+
+                        }
+                    );
+
+                if (index !== -1) {
+
+                    morePages[index].title =
+                        title;
+
+                    morePages[index].html =
+                        html;
+
+                }
+
+                morePageStatus.textContent =
+                    "Updating MORE page...";
+
+            }
+
+            else {
+
+                morePages.push({
+
+                    id:
+                        createMorePageId(),
+
+                    title:
+                        title,
+
+                    html:
+                        html,
+
+                    order:
+                        morePages.length,
+
+                    createdAt:
+                        Date.now()
+
+                });
+
+                morePageStatus.textContent =
+                    "Publishing MORE page...";
+
+            }
+
+
+            await saveMorePages();
+
+
+            editingMorePageId =
+                null;
+
+            morePageName.value =
+                "";
+
+            morePageHTML.value =
+                "";
+
+            moreEditingNotice.style.display =
+                "none";
+
+            cancelMoreButton.style.display =
+                "none";
+
+
+            renderMorePages();
+
+
+            morePageStatus.textContent =
+                "✅ MORE page published successfully.";
+
+        }
+
+        catch(error) {
+
+            console.error(error);
+
+            morePageStatus.textContent =
+                "❌ Failed: " +
+                error.message;
+
+        }
+
+    }
+);
+
+
+/* =========================================
+   DELETE MORE PAGE
+========================================= */
+
+async function deleteMorePage(id) {
+
+    const page =
+        morePages.find(
+            function(item) {
+
+                return item.id === id;
+
+            }
+        );
+
+    if (!page) return;
+
+
+    if (
+        !confirm(
+            "Delete the MORE page \"" +
+            page.title +
+            "\"?"
+        )
     ) {
 
         return;
@@ -2550,141 +2621,204 @@ async function moveBlockDown(index) {
     }
 
 
-    publishStatus.textContent =
-        "Moving HTML code down...";
+    morePages =
+        morePages.filter(
+            function(item) {
+
+                return item.id !== id;
+
+            }
+        );
 
 
-    try {
+    await saveMorePages();
 
+    renderMorePages();
 
-        const temporary =
-            currentBlocks[index + 1];
-
-
-        currentBlocks[index + 1] =
-            currentBlocks[index];
-
-
-        currentBlocks[index] =
-            temporary;
-
-
-        await saveAllBlocks();
-
-
-        renderPublishedCodes();
-
-
-        publishStatus.textContent =
-            "⬇️ HTML code moved down successfully.";
-
-    }
-
-
-    catch(error) {
-
-
-        console.error(error);
-
-
-        publishStatus.textContent =
-            "❌ Move failed: " +
-            error.message;
-
-    }
+    morePageStatus.textContent =
+        "🗑️ MORE page deleted successfully.";
 
 }
 
 
+/* =========================================
+   MOVE MORE PAGE UP
+========================================= */
 
-/*
-================================================
-PREVIEW HTML
-================================================
-*/
+async function moveMorePageUp(index) {
+
+    if (index <= 0) return;
+
+    const temp =
+        morePages[index - 1];
+
+    morePages[index - 1] =
+        morePages[index];
+
+    morePages[index] =
+        temp;
+
+    await saveMorePages();
+
+    renderMorePages();
+
+}
+
+
+/* =========================================
+   MOVE MORE PAGE DOWN
+========================================= */
+
+async function moveMorePageDown(index) {
+
+    if (
+        index >=
+        morePages.length - 1
+    ) return;
+
+    const temp =
+        morePages[index + 1];
+
+    morePages[index + 1] =
+        morePages[index];
+
+    morePages[index] =
+        temp;
+
+    await saveMorePages();
+
+    renderMorePages();
+
+}
+
+
+/* =========================================
+   NEW MORE PAGE
+========================================= */
 
 document
-.getElementById("previewButton")
+.getElementById("newMoreButton")
 .addEventListener(
-
     "click",
-
     function() {
 
+        editingMorePageId =
+            null;
+
+        morePageName.value =
+            "";
+
+        morePageHTML.value =
+            "";
+
+        moreEditingNotice.style.display =
+            "none";
+
+        cancelMoreButton.style.display =
+            "none";
+
+        morePageName.focus();
+
+        morePageStatus.textContent =
+            "Ready to create a new MORE page.";
+
+    }
+);
+
+
+/* =========================================
+   CANCEL MORE EDIT
+========================================= */
+
+document
+.getElementById("cancelMoreButton")
+.addEventListener(
+    "click",
+    function() {
+
+        editingMorePageId =
+            null;
+
+        morePageName.value =
+            "";
+
+        morePageHTML.value =
+            "";
+
+        moreEditingNotice.style.display =
+            "none";
+
+        cancelMoreButton.style.display =
+            "none";
+
+        morePageStatus.textContent =
+            "Edit cancelled.";
+
+    }
+);
+
+
+/* =========================================
+   PREVIEW MORE PAGE
+========================================= */
+
+document
+.getElementById("previewMoreButton")
+.addEventListener(
+    "click",
+    function() {
 
         const html =
-            htmlCode.value;
-
+            morePageHTML.value;
 
         if (!html.trim()) {
 
-
-            publishStatus.textContent =
+            morePageStatus.textContent =
                 "There is no HTML code to preview.";
-
 
             return;
 
         }
 
-
         previewArea.style.display =
             "block";
-
 
         previewFrame.srcdoc =
             html;
 
     }
-
 );
 
 
-
-/*
-================================================
-LOGOUT
-================================================
-*/
+/* =========================================
+   LOGOUT
+========================================= */
 
 document
 .getElementById("logoutButton")
 .addEventListener(
-
     "click",
-
     async function() {
-
 
         try {
 
-
             await signOut(auth);
-
 
             loginStatus.textContent =
                 "Logged out successfully.";
 
-
         }
-
 
         catch(error) {
 
-
             console.error(error);
-
 
         }
 
     }
-
 );
-
 
 </script>
 
-
 </body>
-
-</html> 
+</html>    
