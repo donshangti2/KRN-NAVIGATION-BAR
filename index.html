@@ -404,7 +404,7 @@ body{
 
 
 /* =========================================
-   MORE PAGE LOADING
+   LOADING
 ========================================= */
 
 .kulzzyMoreLoading{
@@ -644,16 +644,13 @@ body{
         id="kulzzy-more"
         class="kulzzySection">
 
-
         <div
             id="kulzzyMorePagesMenu">
         </div>
 
-
         <div
             id="kulzzyMorePageContent">
         </div>
-
 
     </section>
 
@@ -663,7 +660,7 @@ body{
 
 
 <!-- =====================================
-     FIREBASE
+     FIREBASE + LAZY LOADING
 ===================================== -->
 
 <script type="module">
@@ -678,7 +675,7 @@ from
 import {
     getDatabase,
     ref,
-    onValue
+    get
 }
 from
 "https://www.gstatic.com/firebasejs/12.16.0/firebase-database.js";
@@ -714,6 +711,10 @@ const firebaseConfig = {
 };
 
 
+/* =========================================
+   INITIALIZE FIREBASE
+========================================= */
+
 const app =
     initializeApp(firebaseConfig);
 
@@ -722,7 +723,7 @@ const db =
 
 
 /* =========================================
-   NORMAL SECTIONS
+   SECTION LIST
 ========================================= */
 
 const normalSections = [
@@ -736,7 +737,16 @@ const normalSections = [
 
 
 /* =========================================
-   EXECUTE SCRIPTS
+   CACHE
+========================================= */
+
+const loadedSections = {};
+
+const loadingSections = {};
+
+
+/* =========================================
+   EXECUTE PUBLISHED SCRIPTS
 ========================================= */
 
 function executePublishedScripts(container){
@@ -787,12 +797,6 @@ function executePublishedScripts(container){
 
 function getPageHTML(page){
 
-    /*
-    -----------------------------------------
-    DIRECT HTML
-    -----------------------------------------
-    */
-
     if(
         typeof page.html === "string" &&
         page.html.trim()
@@ -802,12 +806,6 @@ function getPageHTML(page){
 
     }
 
-
-    /*
-    -----------------------------------------
-    OTHER POSSIBLE CONTENT FIELDS
-    -----------------------------------------
-    */
 
     const possibleFields = [
 
@@ -837,12 +835,6 @@ function getPageHTML(page){
 
     }
 
-
-    /*
-    -----------------------------------------
-    BLOCK FORMAT
-    -----------------------------------------
-    */
 
     if(
         page.blocks &&
@@ -904,10 +896,36 @@ function getPageHTML(page){
 
 
 /* =========================================
-   LOAD NORMAL SECTION
+   SHOW LOADING
 ========================================= */
 
-function loadNormalSection(section){
+function showSectionLoading(container){
+
+    if(!container){
+
+        return;
+
+    }
+
+
+    container.innerHTML = `
+
+        <div class="kulzzyMoreLoading">
+
+            Loading...
+
+        </div>
+
+    `;
+
+}
+
+
+/* =========================================
+   LOAD ONE NORMAL SECTION
+========================================= */
+
+async function loadNormalSection(section){
 
     const container =
         document.getElementById(
@@ -922,123 +940,217 @@ function loadNormalSection(section){
     }
 
 
-    const contentRef =
-        ref(
-            db,
-            "kulzzyContent/" + section
-        );
+    /* --------------------------------------
+       ALREADY LOADED
+    -------------------------------------- */
+
+    if(loadedSections[section]){
+
+        return;
+
+    }
 
 
-    onValue(
+    /* --------------------------------------
+       ALREADY LOADING
+    -------------------------------------- */
 
-        contentRef,
+    if(loadingSections[section]){
 
-        function(snapshot){
+        return;
 
-            container.innerHTML = "";
-
-
-            if(!snapshot.exists()){
-
-                return;
-
-            }
+    }
 
 
-            const data =
-                snapshot.val();
+    loadingSections[section] = true;
 
 
-            let html =
-                getPageHTML(data);
+    showSectionLoading(container);
 
 
-            if(!html.trim()){
+    try{
 
-                return;
-
-            }
-
-
-            const wrapper =
-                document.createElement("div");
-
-
-            wrapper.innerHTML =
-                html;
-
-
-            container.appendChild(
-                wrapper
+        const contentRef =
+            ref(
+                db,
+                "kulzzyContent/" + section
             );
 
 
-            executePublishedScripts(
-                wrapper
-            );
+        const snapshot =
+            await get(contentRef);
 
-        },
 
-        function(error){
+        container.innerHTML = "";
 
-            console.error(
-                "Firebase error:",
-                section,
-                error
-            );
+
+        if(!snapshot.exists()){
+
+            loadedSections[section] = true;
+
+            loadingSections[section] = false;
+
+            return;
 
         }
 
-    );
+
+        const data =
+            snapshot.val();
+
+
+        const html =
+            getPageHTML(data);
+
+
+        if(!html.trim()){
+
+            loadedSections[section] = true;
+
+            loadingSections[section] = false;
+
+            return;
+
+        }
+
+
+        const wrapper =
+            document.createElement("div");
+
+
+        wrapper.innerHTML =
+            html;
+
+
+        container.appendChild(
+            wrapper
+        );
+
+
+        executePublishedScripts(
+            wrapper
+        );
+
+
+        loadedSections[section] = true;
+
+    }
+
+    catch(error){
+
+        console.error(
+            "Firebase error:",
+            section,
+            error
+        );
+
+
+        container.innerHTML = `
+
+            <div class="kulzzyStatus">
+
+                <strong>
+                    Content could not be loaded.
+                </strong>
+
+            </div>
+
+        `;
+
+    }
+
+
+    loadingSections[section] = false;
 
 }
 
 
 /* =========================================
-   LOAD NORMAL SECTIONS
+   MORE PAGE CACHE
 ========================================= */
 
-normalSections.forEach(function(section){
+let morePagesLoaded = false;
 
-    loadNormalSection(section);
+let morePagesLoading = false;
 
-});
+let morePagesData = [];
 
 
 /* =========================================
-   MORE PAGE SYSTEM
+   LOAD MORE PAGE MENU
 ========================================= */
 
-const morePagesRef =
-    ref(
-        db,
-        "kulzzyMorePages"
-    );
+async function loadMorePages(){
+
+    const menu =
+        document.getElementById(
+            "kulzzyMorePagesMenu"
+        );
 
 
-onValue(
+    const content =
+        document.getElementById(
+            "kulzzyMorePageContent"
+        );
 
-    morePagesRef,
 
-    function(snapshot){
+    if(!menu || !content){
 
-        const menu =
-            document.getElementById(
-                "kulzzyMorePagesMenu"
+        return;
+
+    }
+
+
+    /* --------------------------------------
+       ALREADY LOADED
+    -------------------------------------- */
+
+    if(morePagesLoaded){
+
+        return;
+
+    }
+
+
+    /* --------------------------------------
+       CURRENTLY LOADING
+    -------------------------------------- */
+
+    if(morePagesLoading){
+
+        return;
+
+    }
+
+
+    morePagesLoading = true;
+
+
+    menu.innerHTML = `
+
+        <div class="kulzzyMoreLoading">
+
+            Loading MORE pages...
+
+        </div>
+
+    `;
+
+
+    content.innerHTML = "";
+
+
+    try{
+
+        const morePagesRef =
+            ref(
+                db,
+                "kulzzyMorePages"
             );
 
 
-        const content =
-            document.getElementById(
-                "kulzzyMorePageContent"
-            );
-
-
-        if(!menu || !content){
-
-            return;
-
-        }
+        const snapshot =
+            await get(morePagesRef);
 
 
         menu.innerHTML = "";
@@ -1046,11 +1158,9 @@ onValue(
         content.innerHTML = "";
 
 
-        /*
-        -------------------------------------
-        NO PAGES
-        -------------------------------------
-        */
+        /* ----------------------------------
+           NO PAGES
+        ---------------------------------- */
 
         if(!snapshot.exists()){
 
@@ -1071,6 +1181,10 @@ onValue(
             );
 
 
+            morePagesLoaded = true;
+
+            morePagesLoading = false;
+
             return;
 
         }
@@ -1080,13 +1194,11 @@ onValue(
             snapshot.val();
 
 
-        /*
-        -------------------------------------
-        CONVERT FIREBASE DATA TO ARRAY
-        -------------------------------------
-        */
+        /* ----------------------------------
+           CONVERT DATA TO ARRAY
+        ---------------------------------- */
 
-        const pages =
+        morePagesData =
             Object.keys(data)
             .map(function(id){
 
@@ -1121,13 +1233,11 @@ onValue(
             });
 
 
-        /*
-        -------------------------------------
-        CREATE PAGE BUTTONS
-        -------------------------------------
-        */
+        /* ----------------------------------
+           CREATE BUTTONS
+        ---------------------------------- */
 
-        pages.forEach(function(page){
+        morePagesData.forEach(function(page){
 
             const button =
                 document.createElement("button");
@@ -1165,9 +1275,11 @@ onValue(
         });
 
 
-    },
+        morePagesLoaded = true;
 
-    function(error){
+    }
+
+    catch(error){
 
         console.error(
             "Firebase MORE page error:",
@@ -1175,38 +1287,36 @@ onValue(
         );
 
 
-        const menu =
-            document.getElementById(
-                "kulzzyMorePagesMenu"
-            );
+        menu.innerHTML = "";
 
 
-        if(menu){
-
-            menu.innerHTML = "";
-
-
-            const errorBox =
-                document.createElement("div");
+        const errorBox =
+            document.createElement("div");
 
 
-            errorBox.className =
-                "kulzzyStatus";
+        errorBox.className =
+            "kulzzyStatus";
 
 
-            errorBox.innerHTML =
-                "<strong>MORE pages could not be loaded.</strong>";
+        errorBox.innerHTML = `
+
+            <strong>
+                MORE pages could not be loaded.
+            </strong>
+
+        `;
 
 
-            menu.appendChild(
-                errorBox
-            );
-
-        }
+        menu.appendChild(
+            errorBox
+        );
 
     }
 
-);
+
+    morePagesLoading = false;
+
+}
 
 
 /* =========================================
@@ -1228,11 +1338,9 @@ function showMorePage(page,button){
     }
 
 
-    /*
-    -----------------------------------------
-    ACTIVE BUTTON
-    -----------------------------------------
-    */
+    /* --------------------------------------
+       ACTIVE BUTTON
+    -------------------------------------- */
 
     document
     .querySelectorAll(
@@ -1256,30 +1364,24 @@ function showMorePage(page,button){
     }
 
 
-    /*
-    -----------------------------------------
-    CLEAR OLD CONTENT
-    -----------------------------------------
-    */
+    /* --------------------------------------
+       CLEAR OLD CONTENT
+    -------------------------------------- */
 
     content.innerHTML = "";
 
 
-    /*
-    -----------------------------------------
-    GET WRITE-UP
-    -----------------------------------------
-    */
+    /* --------------------------------------
+       GET WRITE-UP
+    -------------------------------------- */
 
     const html =
         getPageHTML(page);
 
 
-    /*
-    -----------------------------------------
-    EMPTY WRITE-UP CHECK
-    -----------------------------------------
-    */
+    /* --------------------------------------
+       EMPTY WRITE-UP
+    -------------------------------------- */
 
     if(!html.trim()){
 
@@ -1307,11 +1409,9 @@ function showMorePage(page,button){
     }
 
 
-    /*
-    -----------------------------------------
-    CREATE PAGE CONTENT
-    -----------------------------------------
-    */
+    /* --------------------------------------
+       CREATE PAGE CONTENT
+    -------------------------------------- */
 
     const pageBox =
         document.createElement("div");
@@ -1330,22 +1430,18 @@ function showMorePage(page,button){
     );
 
 
-    /*
-    -----------------------------------------
-    EXECUTE SCRIPTS
-    -----------------------------------------
-    */
+    /* --------------------------------------
+       EXECUTE PAGE SCRIPTS
+    -------------------------------------- */
 
     executePublishedScripts(
         pageBox
     );
 
 
-    /*
-    -----------------------------------------
-    SCROLL TO CONTENT
-    -----------------------------------------
-    */
+    /* --------------------------------------
+       SCROLL TO CONTENT
+    -------------------------------------- */
 
     setTimeout(function(){
 
@@ -1363,28 +1459,24 @@ function showMorePage(page,button){
 
 
 /* =========================================
-   FIREBASE MESSAGE
+   INITIAL LOAD
 ========================================= */
 
-console.log(
-    "KULZZY RADIO: Firebase connected."
-);
+/*
+   ONLY HOME LOADS WHEN THE WEBSITE OPENS.
+   REQUEST, WISHES, MARKET AND MORE
+   WAIT UNTIL THE VISITOR OPENS THEM.
+*/
 
-console.log(
-    "KULZZY RADIO: Reading MORE pages from kulzzyMorePages."
-);
-
-</script>
+loadNormalSection("home");
 
 
+/* =========================================
+   NAVIGATION FUNCTION
+========================================= */
 
-<!-- =====================================
-     NAVIGATION
-===================================== -->
-
-<script>
-
-function kulzzyOpen(section,button){
+window.kulzzyOpen =
+async function(section,button){
 
     const sections =
         document.querySelectorAll(
@@ -1440,6 +1532,36 @@ function kulzzyOpen(section,button){
     }
 
 
+    /* --------------------------------------
+       LOAD ONLY THE SECTION VISITED
+    -------------------------------------- */
+
+    if(
+        normalSections.includes(section)
+    ){
+
+        await loadNormalSection(
+            section
+        );
+
+    }
+
+
+    /* --------------------------------------
+       LOAD MORE ONLY WHEN OPENED
+    -------------------------------------- */
+
+    if(section === "more"){
+
+        await loadMorePages();
+
+    }
+
+
+    /* --------------------------------------
+       RETURN TO TOP
+    -------------------------------------- */
+
     window.scrollTo({
 
         top:0,
@@ -1448,7 +1570,20 @@ function kulzzyOpen(section,button){
 
     });
 
-}
+};
+
+
+/* =========================================
+   FIREBASE READY MESSAGE
+========================================= */
+
+console.log(
+    "KULZZY RADIO: Optimized Firebase navigation loaded."
+);
+
+console.log(
+    "KULZZY RADIO: Home loads first; other sections load on demand."
+);
 
 </script>
 
