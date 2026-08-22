@@ -895,31 +895,6 @@ function getPageHTML(page){
 }
 
 
-/* =========================================
-   SHOW LOADING
-========================================= */
-
-function showSectionLoading(container){
-
-    if(!container){
-
-        return;
-
-    }
-
-
-    container.innerHTML = `
-
-        <div class="kulzzyMoreLoading">
-
-            Loading...
-
-        </div>
-
-    `;
-
-}
-
 
 /* =========================================
    LOAD ONE NORMAL SECTION
@@ -965,9 +940,7 @@ async function loadNormalSection(section){
     loadingSections[section] = true;
 
 
-    showSectionLoading(container);
-
-
+    
     try{
 
         const contentRef =
@@ -1124,17 +1097,6 @@ async function loadMorePages(){
 
 
     morePagesLoading = true;
-
-
-    menu.innerHTML = `
-
-        <div class="kulzzyMoreLoading">
-
-            Loading MORE pages...
-
-        </div>
-
-    `;
 
 
     content.innerHTML = "";
