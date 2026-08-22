@@ -264,20 +264,12 @@ body {
 }
 
 
-/*
-Published content must fit the website.
-*/
-
 .kulzzyPublishedContent * {
 
     max-width: 100%;
 
 }
 
-
-/*
-Images inside published HTML.
-*/
 
 .kulzzyPublishedContent img {
 
@@ -288,10 +280,6 @@ Images inside published HTML.
 }
 
 
-/*
-Videos inside published HTML.
-*/
-
 .kulzzyPublishedContent video {
 
     max-width: 100%;
@@ -300,10 +288,6 @@ Videos inside published HTML.
 
 }
 
-
-/*
-Iframes published from the panel.
-*/
 
 .kulzzyPublishedContent iframe {
 
@@ -318,13 +302,179 @@ Iframes published from the panel.
 }
 
 
-/*
-Tables should not break the page.
-*/
-
 .kulzzyPublishedContent table {
 
     max-width: 100%;
+
+}
+
+
+/* =========================================
+   MORE PAGE MENU
+========================================= */
+
+#kulzzyMorePagesMenu {
+
+    width: 100%;
+
+    margin-top: 15px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 10px;
+
+}
+
+
+.kulzzyMorePageButton {
+
+    width: 100%;
+
+    border: 1px solid rgba(255,215,0,0.35);
+
+    border-radius: 12px;
+
+    padding: 14px 15px;
+
+    background: #07152f;
+
+    color: white;
+
+    text-align: left;
+
+    font-size: 14px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+    transition: 0.2s ease;
+
+    -webkit-tap-highlight-color: transparent;
+
+}
+
+
+.kulzzyMorePageButton:hover {
+
+    background: rgba(255,215,0,0.12);
+
+    color: #ffd700;
+
+}
+
+
+.kulzzyMorePageButton.active {
+
+    background: #ffd700;
+
+    color: #07152f;
+
+}
+
+
+/* =========================================
+   MORE PAGE CONTENT
+========================================= */
+
+#kulzzyMorePageContent {
+
+    width: 100%;
+
+    margin-top: 15px;
+
+}
+
+
+.kulzzyMorePageContentBox {
+
+    width: 100%;
+
+    background: #07152f;
+
+    color: white;
+
+    border-radius: 15px;
+
+    padding: 0;
+
+    border: 1px solid rgba(255,215,0,0.35);
+
+    overflow: visible;
+
+}
+
+
+.kulzzyMorePageContentBox img {
+
+    max-width: 100%;
+
+    height: auto;
+
+}
+
+
+.kulzzyMorePageContentBox video {
+
+    max-width: 100%;
+
+    height: auto;
+
+}
+
+
+.kulzzyMorePageContentBox iframe {
+
+    display: block;
+
+    width: 100%;
+
+    max-width: 100%;
+
+    border: 0;
+
+}
+
+
+.kulzzyMorePageContentBox table {
+
+    max-width: 100%;
+
+}
+
+
+/* =========================================
+   MORE LOADING / EMPTY MESSAGE
+========================================= */
+
+.kulzzyMoreStatus {
+
+    width: 100%;
+
+    margin-top: 15px;
+
+    padding: 15px;
+
+    background: #07152f;
+
+    color: white;
+
+    border-radius: 12px;
+
+    border: 1px solid rgba(255,215,0,0.25);
+
+    text-align: center;
+
+    line-height: 1.6;
+
+}
+
+
+.kulzzyMoreStatus strong {
+
+    color: #ffd700;
 
 }
 
@@ -485,8 +635,6 @@ Tables should not break the page.
         </div>
 
 
-        <!-- FIREBASE HOME CONTENT -->
-
         <div
             id="kulzzyPublished-home"
             class="kulzzyPublishedContent">
@@ -543,8 +691,6 @@ Tables should not break the page.
 
         </div>
 
-
-        <!-- FIREBASE REQUEST CONTENT -->
 
         <div
             id="kulzzyPublished-request"
@@ -604,8 +750,6 @@ Tables should not break the page.
         </div>
 
 
-        <!-- FIREBASE WISHES CONTENT -->
-
         <div
             id="kulzzyPublished-wishes"
             class="kulzzyPublishedContent">
@@ -662,8 +806,6 @@ Tables should not break the page.
 
         </div>
 
-
-        <!-- FIREBASE MARKET CONTENT -->
 
         <div
             id="kulzzyPublished-market"
@@ -722,7 +864,36 @@ Tables should not break the page.
         </div>
 
 
-        <!-- FIREBASE MORE CONTENT -->
+        <!-- =================================
+             MORE PAGES FROM ADMIN PANEL
+        ================================= -->
+
+        <div
+            id="kulzzyMorePagesMenu">
+
+            <div
+                class="kulzzyMoreStatus">
+
+                Loading MORE pages...
+
+            </div>
+
+        </div>
+
+
+        <!-- =================================
+             SELECTED MORE PAGE
+        ================================= -->
+
+        <div
+            id="kulzzyMorePageContent">
+
+        </div>
+
+
+        <!-- =================================
+             OLD MORE CONTENT SUPPORT
+        ================================= -->
 
         <div
             id="kulzzyPublished-more"
@@ -761,7 +932,6 @@ from
 "https://www.gstatic.com/firebasejs/12.16.0/firebase-app.js";
 
 
-
 /*
 ================================================
 FIREBASE REALTIME DATABASE
@@ -780,10 +950,9 @@ from
 "https://www.gstatic.com/firebasejs/12.16.0/firebase-database.js";
 
 
-
 /*
 ================================================
-YOUR FIREBASE CONFIGURATION
+FIREBASE CONFIGURATION
 ================================================
 */
 
@@ -813,7 +982,6 @@ const firebaseConfig = {
 };
 
 
-
 /*
 ================================================
 INITIALIZE FIREBASE
@@ -826,7 +994,6 @@ const app =
     );
 
 
-
 /*
 ================================================
 INITIALIZE DATABASE
@@ -837,32 +1004,25 @@ const db =
     getDatabase(app);
 
 
-
 /*
 ================================================
-SECTIONS TO LOAD
+NORMAL KULZZY SECTIONS
 ================================================
 */
 
 const kulzzySections = [
 
     "home",
-
     "request",
-
     "wishes",
-
-    "market",
-
-    "more"
+    "market"
 
 ];
 
 
-
 /*
 ================================================
-LOAD ONE PUBLISHED SECTION
+LOAD NORMAL PUBLISHED SECTION
 ================================================
 */
 
@@ -896,12 +1056,6 @@ function loadKulzzySection(section) {
         function(snapshot) {
 
 
-            /*
-            ========================================
-            NOTHING PUBLISHED
-            ========================================
-            */
-
             if (!snapshot.exists()) {
 
                 container.innerHTML = "";
@@ -915,15 +1069,59 @@ function loadKulzzySection(section) {
                 snapshot.val();
 
 
-            const html =
+            let html =
                 data.html || "";
 
 
             /*
             ========================================
-            EMPTY HTML
+            SUPPORT BLOCK DATA
             ========================================
             */
+
+            if (
+                !html.trim() &&
+                data.blocks &&
+                typeof data.blocks === "object"
+            ) {
+
+                const blocks =
+                    Object.keys(data.blocks)
+                    .map(function(id) {
+
+                        return {
+
+                            id: id,
+
+                            html:
+                                data.blocks[id].html || "",
+
+                            order:
+                                typeof data.blocks[id].order === "number"
+                                    ? data.blocks[id].order
+                                    : 0
+
+                        };
+
+                    })
+                    .sort(function(a,b) {
+
+                        return a.order - b.order;
+
+                    });
+
+
+                html =
+                    blocks
+                    .map(function(block) {
+
+                        return block.html;
+
+                    })
+                    .join("\n\n");
+
+            }
+
 
             if (!html.trim()) {
 
@@ -933,12 +1131,6 @@ function loadKulzzySection(section) {
 
             }
 
-
-            /*
-            ========================================
-            CREATE A NEW CONTAINER
-            ========================================
-            */
 
             container.innerHTML = "";
 
@@ -958,12 +1150,6 @@ function loadKulzzySection(section) {
             );
 
 
-            /*
-            ========================================
-            RUN SCRIPTS FROM PUBLISHED HTML
-            ========================================
-            */
-
             executePublishedScripts(
                 published
             );
@@ -973,7 +1159,6 @@ function loadKulzzySection(section) {
 
 
         function(error) {
-
 
             console.error(
 
@@ -992,16 +1177,13 @@ function loadKulzzySection(section) {
 }
 
 
-
 /*
 ================================================
 EXECUTE PUBLISHED SCRIPTS
 ================================================
 */
 
-function executePublishedScripts(
-    container
-) {
+function executePublishedScripts(container) {
 
 
     const scripts =
@@ -1021,16 +1203,11 @@ function executePublishedScripts(
                 );
 
 
-            /*
-            Copy script attributes
-            */
-
             Array.from(
                 oldScript.attributes
             ).forEach(
 
                 function(attribute) {
-
 
                     newScript.setAttribute(
 
@@ -1045,17 +1222,9 @@ function executePublishedScripts(
             );
 
 
-            /*
-            Copy script code
-            */
-
             newScript.textContent =
                 oldScript.textContent;
 
-
-            /*
-            Replace old script
-            */
 
             if (
                 oldScript.parentNode
@@ -1078,10 +1247,9 @@ function executePublishedScripts(
 }
 
 
-
 /*
 ================================================
-START ALL FIVE FIREBASE LISTENERS
+START NORMAL SECTION LISTENERS
 ================================================
 */
 
@@ -1096,6 +1264,420 @@ kulzzySections.forEach(
     }
 
 );
+
+
+/*
+================================================
+MORE PAGE SYSTEM
+================================================
+
+IMPORTANT:
+
+The Admin Panel saves MORE pages here:
+
+    kulzzyMorePages
+
+This listener reads that exact location.
+================================================
+*/
+
+const morePagesRef =
+    ref(
+        db,
+        "kulzzyMorePages"
+    );
+
+
+onValue(
+
+    morePagesRef,
+
+    function(snapshot) {
+
+
+        const menu =
+            document.getElementById(
+                "kulzzyMorePagesMenu"
+            );
+
+
+        const content =
+            document.getElementById(
+                "kulzzyMorePageContent"
+            );
+
+
+        if (!menu || !content) {
+
+            return;
+
+        }
+
+
+        /*
+        ========================================
+        CLEAR CURRENT MORE PAGES
+        ========================================
+        */
+
+        menu.innerHTML = "";
+
+        content.innerHTML = "";
+
+
+        /*
+        ========================================
+        NO MORE PAGES
+        ========================================
+        */
+
+        if (!snapshot.exists()) {
+
+            const empty =
+                document.createElement(
+                    "div"
+                );
+
+
+            empty.className =
+                "kulzzyMoreStatus";
+
+
+            empty.innerHTML =
+                "<strong>No MORE pages published yet.</strong><br><br>" +
+                "Pages created from the Admin Panel will appear here automatically.";
+
+
+            menu.appendChild(
+                empty
+            );
+
+
+            return;
+
+        }
+
+
+        const data =
+            snapshot.val();
+
+
+        /*
+        ========================================
+        CONVERT FIREBASE DATA TO ARRAY
+        ========================================
+        */
+
+        const pages =
+            Object.keys(data)
+            .map(function(id) {
+
+                return {
+
+                    id: id,
+
+                    title:
+                        data[id].title ||
+                        "Untitled Page",
+
+                    html:
+                        data[id].html ||
+                        "",
+
+                    order:
+                        typeof data[id].order === "number"
+                            ? data[id].order
+                            : 0
+
+                };
+
+            })
+            .sort(function(a,b) {
+
+                return a.order - b.order;
+
+            });
+
+
+        /*
+        ========================================
+        CREATE PAGE BUTTONS
+        ========================================
+        */
+
+        pages.forEach(
+
+            function(page,index) {
+
+
+                const button =
+                    document.createElement(
+                        "button"
+                    );
+
+
+                button.type =
+                    "button";
+
+
+                button.className =
+                    "kulzzyMorePageButton";
+
+
+                button.textContent =
+                    "📄 " +
+                    page.title;
+
+
+                button.addEventListener(
+
+                    "click",
+
+                    function() {
+
+                        showMorePage(
+
+                            page,
+
+                            button
+
+                        );
+
+                    }
+
+                );
+
+
+                menu.appendChild(
+                    button
+                );
+
+
+                /*
+                =================================
+                FIRST PAGE OPENS AUTOMATICALLY
+                =================================
+                */
+
+                if (index === 0) {
+
+                    setTimeout(
+
+                        function() {
+
+                            showMorePage(
+
+                                page,
+
+                                button
+
+                            );
+
+                        },
+
+                        0
+
+                    );
+
+                }
+
+            }
+
+        );
+
+
+    },
+
+
+    function(error) {
+
+        console.error(
+
+            "Kulzzy MORE pages Firebase error:",
+
+            error
+
+        );
+
+
+        const menu =
+            document.getElementById(
+                "kulzzyMorePagesMenu"
+            );
+
+
+        if (menu) {
+
+            menu.innerHTML = "";
+
+
+            const errorBox =
+                document.createElement(
+                    "div"
+                );
+
+
+            errorBox.className =
+                "kulzzyMoreStatus";
+
+
+            errorBox.innerHTML =
+                "<strong>Unable to load MORE pages.</strong><br><br>" +
+                "Please check your Firebase Database rules.";
+
+
+            menu.appendChild(
+                errorBox
+            );
+
+        }
+
+    }
+
+);
+
+
+/*
+================================================
+SHOW SELECTED MORE PAGE
+================================================
+*/
+
+function showMorePage(
+    page,
+    clickedButton
+) {
+
+
+    const content =
+        document.getElementById(
+            "kulzzyMorePageContent"
+        );
+
+
+    if (!content) {
+
+        return;
+
+    }
+
+
+    /*
+    ========================================
+    REMOVE ACTIVE FROM ALL PAGE BUTTONS
+    ========================================
+    */
+
+    const buttons =
+        document.querySelectorAll(
+            ".kulzzyMorePageButton"
+        );
+
+
+    buttons.forEach(
+
+        function(button) {
+
+            button.classList.remove(
+                "active"
+            );
+
+        }
+
+    );
+
+
+    /*
+    ========================================
+    ACTIVATE SELECTED BUTTON
+    ========================================
+    */
+
+    if (clickedButton) {
+
+        clickedButton.classList.add(
+            "active"
+        );
+
+    }
+
+
+    /*
+    ========================================
+    CLEAR OLD PAGE
+    ========================================
+    */
+
+    content.innerHTML = "";
+
+
+    /*
+    ========================================
+    CREATE PAGE CONTENT BOX
+    ========================================
+    */
+
+    const pageBox =
+        document.createElement(
+            "div"
+        );
+
+
+    pageBox.className =
+        "kulzzyMorePageContentBox";
+
+
+    /*
+    ========================================
+    INSERT ADMIN PANEL HTML
+    ========================================
+    */
+
+    pageBox.innerHTML =
+        page.html || "";
+
+
+    content.appendChild(
+        pageBox
+    );
+
+
+    /*
+    ========================================
+    RUN SCRIPTS
+    ========================================
+    */
+
+    executePublishedScripts(
+        pageBox
+    );
+
+
+    /*
+    ========================================
+    SCROLL TO PAGE
+    ========================================
+    */
+
+    setTimeout(
+
+        function() {
+
+            content.scrollIntoView({
+
+                behavior: "smooth",
+
+                block: "start"
+
+            });
+
+        },
+
+        50
+
+    );
+
+}
 
 
 </script>
@@ -1194,7 +1776,7 @@ function kulzzyOpen(
 
     /*
     ============================================
-    ACTIVATE BUTTON
+    ACTIVATE NAV BUTTON
     ============================================
     */
 
@@ -1224,7 +1806,6 @@ function kulzzyOpen(
 }
 
 
-
 /*
 ================================================
 REQUEST BUTTON
@@ -1248,7 +1829,6 @@ function kulzzyRequest() {
     }
 
 }
-
 
 
 /*
@@ -1276,7 +1856,6 @@ function kulzzyWish() {
 }
 
 
-
 /*
 ================================================
 MARKET BUTTON
@@ -1302,7 +1881,6 @@ function kulzzyMarket() {
 }
 
 
-
 /*
 ================================================
 MORE BUTTON
@@ -1322,6 +1900,39 @@ function kulzzyMore() {
 
         box.style.display =
             "block";
+
+    }
+
+
+    /*
+    Bring the MORE page list into view.
+    */
+
+    const menu =
+        document.getElementById(
+            "kulzzyMorePagesMenu"
+        );
+
+
+    if (menu) {
+
+        setTimeout(
+
+            function() {
+
+                menu.scrollIntoView({
+
+                    behavior: "smooth",
+
+                    block: "start"
+
+                });
+
+            },
+
+            50
+
+        );
 
     }
 
