@@ -585,9 +585,8 @@ body{
 
 
         <!--
-        ONLY PAGES FROM FIREBASE ARE SHOWN HERE.
-        NO OLD COMMUNITY GUIDELINES.
-        NO OLD INTRO WRITE-UP.
+        MORE PAGE TITLES ARE SHOWN HERE.
+        PAGE CONTENT OPENS ONLY AFTER CLICKING.
         -->
 
         <div
@@ -884,14 +883,7 @@ normalSections.forEach(function(section){
 
 
 /* =========================================
-   IMPORTANT MORE PAGE SYSTEM
-=========================================
-
-   ADMIN PANEL SAVES HERE:
-
-   kulzzyMorePages
-
-   THIS INDEX READS THE SAME LOCATION.
+   MORE PAGE SYSTEM
 ========================================= */
 
 const morePagesRef =
@@ -925,6 +917,10 @@ onValue(
 
         }
 
+
+        /*
+        CLEAR EVERYTHING
+        */
 
         menu.innerHTML = "";
 
@@ -999,10 +995,10 @@ onValue(
 
 
         /* =====================================
-           CREATE PAGE BUTTONS
+           CREATE PAGE BUTTONS ONLY
         ===================================== */
 
-        pages.forEach(function(page,index){
+        pages.forEach(function(page){
 
             const button =
                 document.createElement("button");
@@ -1020,6 +1016,11 @@ onValue(
                 page.title;
 
 
+            /*
+            CONTENT DOES NOT OPEN UNTIL
+            THE USER CLICKS THE BUTTON.
+            */
+
             button.addEventListener(
                 "click",
                 function(){
@@ -1036,24 +1037,6 @@ onValue(
             menu.appendChild(
                 button
             );
-
-
-            /*
-            First page opens automatically.
-            */
-
-            if(index === 0){
-
-                setTimeout(function(){
-
-                    showMorePage(
-                        page,
-                        button
-                    );
-
-                },50);
-
-            }
 
         });
 
@@ -1103,7 +1086,7 @@ onValue(
 
 
 /* =========================================
-   DISPLAY MORE PAGE
+   DISPLAY MORE PAGE AFTER CLICK
 ========================================= */
 
 function showMorePage(page,button){
@@ -1122,7 +1105,7 @@ function showMorePage(page,button){
 
 
     /*
-    Remove active state.
+    REMOVE ACTIVE STATE
     */
 
     document
@@ -1139,7 +1122,7 @@ function showMorePage(page,button){
 
 
     /*
-    Activate selected page.
+    ACTIVATE CLICKED PAGE
     */
 
     if(button){
@@ -1152,14 +1135,14 @@ function showMorePage(page,button){
 
 
     /*
-    Clear previous page.
+    CLEAR PREVIOUS CONTENT
     */
 
     content.innerHTML = "";
 
 
     /*
-    Create page container.
+    CREATE CONTENT BOX
     */
 
     const pageBox =
@@ -1171,7 +1154,7 @@ function showMorePage(page,button){
 
 
     /*
-    Insert EXACT HTML from Admin Panel.
+    INSERT PAGE WRITE-UP
     */
 
     pageBox.innerHTML =
@@ -1184,18 +1167,35 @@ function showMorePage(page,button){
 
 
     /*
-    Run scripts if the page contains them.
+    RUN PAGE SCRIPTS
     */
 
     executePublishedScripts(
         pageBox
     );
 
+
+    /*
+    MOVE TO THE OPENED PAGE
+    */
+
+    setTimeout(function(){
+
+        content.scrollIntoView({
+
+            behavior:"smooth",
+
+            block:"start"
+
+        });
+
+    },50);
+
 }
 
 
 /* =========================================
-   DEBUG INFORMATION
+   FIREBASE CONNECTION MESSAGE
 ========================================= */
 
 console.log(
