@@ -26,6 +26,10 @@ body{
     background:transparent;
 }
 
+body{
+    overflow-x:hidden;
+}
+
 
 /* =========================================
    FLOATING NAVIGATION
@@ -313,10 +317,18 @@ body{
 
     overflow:visible;
 
+    line-height:1.6;
+
 }
 
 
+/* =========================================
+   MORE PAGE ELEMENTS
+========================================= */
+
 .kulzzyMorePageContentBox *{
+
+    box-sizing:border-box;
 
     max-width:100%;
 
@@ -324,17 +336,17 @@ body{
 
 .kulzzyMorePageContentBox img{
 
-    max-width:100%;
+    max-width:100% !important;
 
-    height:auto;
+    height:auto !important;
 
 }
 
 .kulzzyMorePageContentBox video{
 
-    max-width:100%;
+    max-width:100% !important;
 
-    height:auto;
+    height:auto !important;
 
 }
 
@@ -342,9 +354,9 @@ body{
 
     display:block;
 
-    width:100%;
+    width:100% !important;
 
-    max-width:100%;
+    max-width:100% !important;
 
     border:0;
 
@@ -352,7 +364,66 @@ body{
 
 .kulzzyMorePageContentBox table{
 
+    width:100%;
+
     max-width:100%;
+
+    overflow:auto;
+
+    display:block;
+
+}
+
+.kulzzyMorePageContentBox h1,
+.kulzzyMorePageContentBox h2,
+.kulzzyMorePageContentBox h3,
+.kulzzyMorePageContentBox h4{
+
+    max-width:100%;
+
+}
+
+.kulzzyMorePageContentBox p{
+
+    line-height:1.7;
+
+}
+
+.kulzzyMorePageContentBox a{
+
+    word-break:break-word;
+
+}
+
+.kulzzyMorePageContentBox ul,
+.kulzzyMorePageContentBox ol{
+
+    padding-left:25px;
+
+}
+
+
+/* =========================================
+   MORE PAGE LOADING
+========================================= */
+
+.kulzzyMoreLoading{
+
+    width:100%;
+
+    padding:15px;
+
+    margin:0;
+
+    background:#07152f;
+
+    color:white;
+
+    border:1px solid rgba(255,215,0,0.35);
+
+    border-radius:12px;
+
+    text-align:center;
 
 }
 
@@ -507,9 +578,7 @@ body{
 <div id="kulzzyContent">
 
 
-    <!-- =================================
-         HOME
-    ================================= -->
+    <!-- HOME -->
 
     <section
         id="kulzzy-home"
@@ -524,9 +593,7 @@ body{
 
 
 
-    <!-- =================================
-         REQUEST
-    ================================= -->
+    <!-- REQUEST -->
 
     <section
         id="kulzzy-request"
@@ -541,9 +608,7 @@ body{
 
 
 
-    <!-- =================================
-         WISHES
-    ================================= -->
+    <!-- WISHES -->
 
     <section
         id="kulzzy-wishes"
@@ -558,9 +623,7 @@ body{
 
 
 
-    <!-- =================================
-         MARKET
-    ================================= -->
+    <!-- MARKET -->
 
     <section
         id="kulzzy-market"
@@ -575,19 +638,12 @@ body{
 
 
 
-    <!-- =================================
-         MORE
-    ================================= -->
+    <!-- MORE -->
 
     <section
         id="kulzzy-more"
         class="kulzzySection">
 
-
-        <!--
-        MORE PAGE TITLES ARE SHOWN HERE.
-        PAGE CONTENT OPENS ONLY AFTER CLICKING.
-        -->
 
         <div
             id="kulzzyMorePagesMenu">
@@ -658,13 +714,8 @@ const firebaseConfig = {
 };
 
 
-/* =========================================
-   INITIALIZE
-========================================= */
-
 const app =
     initializeApp(firebaseConfig);
-
 
 const db =
     getDatabase(app);
@@ -685,7 +736,7 @@ const normalSections = [
 
 
 /* =========================================
-   EXECUTE PUBLISHED SCRIPTS
+   EXECUTE SCRIPTS
 ========================================= */
 
 function executePublishedScripts(container){
@@ -726,6 +777,128 @@ function executePublishedScripts(container){
         }
 
     });
+
+}
+
+
+/* =========================================
+   GET PAGE HTML
+========================================= */
+
+function getPageHTML(page){
+
+    /*
+    -----------------------------------------
+    DIRECT HTML
+    -----------------------------------------
+    */
+
+    if(
+        typeof page.html === "string" &&
+        page.html.trim()
+    ){
+
+        return page.html;
+
+    }
+
+
+    /*
+    -----------------------------------------
+    OTHER POSSIBLE CONTENT FIELDS
+    -----------------------------------------
+    */
+
+    const possibleFields = [
+
+        "content",
+        "writeUp",
+        "writeup",
+        "body",
+        "description",
+        "pageContent",
+        "htmlContent"
+
+    ];
+
+
+    for(
+        const field of possibleFields
+    ){
+
+        if(
+            typeof page[field] === "string" &&
+            page[field].trim()
+        ){
+
+            return page[field];
+
+        }
+
+    }
+
+
+    /*
+    -----------------------------------------
+    BLOCK FORMAT
+    -----------------------------------------
+    */
+
+    if(
+        page.blocks &&
+        typeof page.blocks === "object"
+    ){
+
+        const blocks =
+            Object.keys(page.blocks)
+            .map(function(id){
+
+                return {
+
+                    id:id,
+
+                    html:
+                        page.blocks[id].html ||
+                        page.blocks[id].content ||
+                        page.blocks[id].writeUp ||
+                        "",
+
+                    order:
+                        typeof page.blocks[id].order === "number"
+                        ? page.blocks[id].order
+                        : 0
+
+                };
+
+            })
+            .filter(function(block){
+
+                return block.html.trim();
+
+            })
+            .sort(function(a,b){
+
+                return a.order - b.order;
+
+            });
+
+
+        if(blocks.length){
+
+            return blocks
+                .map(function(block){
+
+                    return block.html;
+
+                })
+                .join("\n\n");
+
+        }
+
+    }
+
+
+    return "";
 
 }
 
@@ -777,57 +950,7 @@ function loadNormalSection(section){
 
 
             let html =
-                data.html || "";
-
-
-            /*
-            -------------------------------------
-            IF ADMIN PANEL SAVED BLOCKS
-            -------------------------------------
-            */
-
-            if(
-                !html.trim() &&
-                data.blocks &&
-                typeof data.blocks === "object"
-            ){
-
-                const blocks =
-                    Object.keys(data.blocks)
-                    .map(function(id){
-
-                        return {
-
-                            id:id,
-
-                            html:
-                                data.blocks[id].html || "",
-
-                            order:
-                                typeof data.blocks[id].order === "number"
-                                ? data.blocks[id].order
-                                : 0
-
-                        };
-
-                    })
-                    .sort(function(a,b){
-
-                        return a.order - b.order;
-
-                    });
-
-
-                html =
-                    blocks
-                    .map(function(block){
-
-                        return block.html;
-
-                    })
-                    .join("\n\n");
-
-            }
+                getPageHTML(data);
 
 
             if(!html.trim()){
@@ -872,7 +995,7 @@ function loadNormalSection(section){
 
 
 /* =========================================
-   LOAD HOME / REQUEST / WISHES / MARKET
+   LOAD NORMAL SECTIONS
 ========================================= */
 
 normalSections.forEach(function(section){
@@ -918,18 +1041,16 @@ onValue(
         }
 
 
-        /*
-        CLEAR EVERYTHING
-        */
-
         menu.innerHTML = "";
 
         content.innerHTML = "";
 
 
-        /* =====================================
-           NO PAGES
-        ===================================== */
+        /*
+        -------------------------------------
+        NO PAGES
+        -------------------------------------
+        */
 
         if(!snapshot.exists()){
 
@@ -959,29 +1080,35 @@ onValue(
             snapshot.val();
 
 
-        /* =====================================
-           CONVERT TO ARRAY
-        ===================================== */
+        /*
+        -------------------------------------
+        CONVERT FIREBASE DATA TO ARRAY
+        -------------------------------------
+        */
 
         const pages =
             Object.keys(data)
             .map(function(id){
+
+                const page =
+                    data[id] || {};
+
 
                 return {
 
                     id:id,
 
                     title:
-                        data[id].title ||
+                        page.title ||
+                        page.name ||
                         "Untitled Page",
 
                     html:
-                        data[id].html ||
-                        "",
+                        getPageHTML(page),
 
                     order:
-                        typeof data[id].order === "number"
-                        ? data[id].order
+                        typeof page.order === "number"
+                        ? page.order
                         : 0
 
                 };
@@ -994,9 +1121,11 @@ onValue(
             });
 
 
-        /* =====================================
-           CREATE PAGE BUTTONS ONLY
-        ===================================== */
+        /*
+        -------------------------------------
+        CREATE PAGE BUTTONS
+        -------------------------------------
+        */
 
         pages.forEach(function(page){
 
@@ -1015,11 +1144,6 @@ onValue(
             button.textContent =
                 page.title;
 
-
-            /*
-            CONTENT DOES NOT OPEN UNTIL
-            THE USER CLICKS THE BUTTON.
-            */
 
             button.addEventListener(
                 "click",
@@ -1086,7 +1210,7 @@ onValue(
 
 
 /* =========================================
-   DISPLAY MORE PAGE AFTER CLICK
+   DISPLAY MORE PAGE
 ========================================= */
 
 function showMorePage(page,button){
@@ -1105,7 +1229,9 @@ function showMorePage(page,button){
 
 
     /*
-    REMOVE ACTIVE STATE
+    -----------------------------------------
+    ACTIVE BUTTON
+    -----------------------------------------
     */
 
     document
@@ -1121,10 +1247,6 @@ function showMorePage(page,button){
     });
 
 
-    /*
-    ACTIVATE CLICKED PAGE
-    */
-
     if(button){
 
         button.classList.add(
@@ -1135,14 +1257,60 @@ function showMorePage(page,button){
 
 
     /*
-    CLEAR PREVIOUS CONTENT
+    -----------------------------------------
+    CLEAR OLD CONTENT
+    -----------------------------------------
     */
 
     content.innerHTML = "";
 
 
     /*
-    CREATE CONTENT BOX
+    -----------------------------------------
+    GET WRITE-UP
+    -----------------------------------------
+    */
+
+    const html =
+        getPageHTML(page);
+
+
+    /*
+    -----------------------------------------
+    EMPTY WRITE-UP CHECK
+    -----------------------------------------
+    */
+
+    if(!html.trim()){
+
+        const empty =
+            document.createElement("div");
+
+
+        empty.className =
+            "kulzzyStatus";
+
+
+        empty.innerHTML =
+            "<strong>" +
+            "This MORE page has no write-up content." +
+            "</strong>";
+
+
+        content.appendChild(
+            empty
+        );
+
+
+        return;
+
+    }
+
+
+    /*
+    -----------------------------------------
+    CREATE PAGE CONTENT
+    -----------------------------------------
     */
 
     const pageBox =
@@ -1153,12 +1321,8 @@ function showMorePage(page,button){
         "kulzzyMorePageContentBox";
 
 
-    /*
-    INSERT PAGE WRITE-UP
-    */
-
     pageBox.innerHTML =
-        page.html || "";
+        html;
 
 
     content.appendChild(
@@ -1167,7 +1331,9 @@ function showMorePage(page,button){
 
 
     /*
-    RUN PAGE SCRIPTS
+    -----------------------------------------
+    EXECUTE SCRIPTS
+    -----------------------------------------
     */
 
     executePublishedScripts(
@@ -1176,7 +1342,9 @@ function showMorePage(page,button){
 
 
     /*
-    MOVE TO THE OPENED PAGE
+    -----------------------------------------
+    SCROLL TO CONTENT
+    -----------------------------------------
     */
 
     setTimeout(function(){
@@ -1189,13 +1357,13 @@ function showMorePage(page,button){
 
         });
 
-    },50);
+    },100);
 
 }
 
 
 /* =========================================
-   FIREBASE CONNECTION MESSAGE
+   FIREBASE MESSAGE
 ========================================= */
 
 console.log(
