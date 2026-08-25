@@ -8,9 +8,16 @@
 <meta name="viewport"
       content="width=device-width, initial-scale=1.0">
 
+<meta name="theme-color"
+      content="#07152f">
+
 <title>Kulzzy Radio Navigation</title>
 
 <style>
+
+/* =========================================
+   FAST GLOBAL CSS
+========================================= */
 
 *{
     box-sizing:border-box;
@@ -67,6 +74,9 @@ body{
     box-shadow:
         0 4px 18px rgba(0,0,0,0.25);
 
+    /* Helps browser render fixed bar efficiently */
+    contain:layout paint;
+
 }
 
 
@@ -96,9 +106,13 @@ body{
 
     white-space:nowrap;
 
-    transition:0.2s ease;
+    transition:
+        background 0.15s ease,
+        color 0.15s ease;
 
     -webkit-tap-highlight-color:transparent;
+
+    touch-action:manipulation;
 
 }
 
@@ -185,6 +199,8 @@ body{
 
     height:auto;
 
+    display:block;
+
 }
 
 .kulzzyPublishedContent video{
@@ -261,9 +277,13 @@ body{
 
     cursor:pointer;
 
-    transition:0.2s ease;
+    transition:
+        background 0.15s ease,
+        color 0.15s ease;
 
     -webkit-tap-highlight-color:transparent;
+
+    touch-action:manipulation;
 
 }
 
@@ -299,6 +319,10 @@ body{
 }
 
 
+/* =========================================
+   MORE PAGE CONTENT BOX
+========================================= */
+
 .kulzzyMorePageContentBox{
 
     width:100%;
@@ -321,11 +345,6 @@ body{
 
 }
 
-
-/* =========================================
-   MORE PAGE ELEMENTS
-========================================= */
-
 .kulzzyMorePageContentBox *{
 
     box-sizing:border-box;
@@ -339,6 +358,8 @@ body{
     max-width:100% !important;
 
     height:auto !important;
+
+    display:block;
 
 }
 
@@ -660,25 +681,38 @@ body{
 
 
 <!-- =====================================
-     FIREBASE + LAZY LOADING
+     OPTIMIZED FIREBASE SYSTEM
 ===================================== -->
 
 <script type="module">
 
-import {
-    initializeApp
-}
-from
-"https://www.gstatic.com/firebasejs/12.16.0/firebase-app.js";
+/*
+================================================
+ KULZZY RADIO NAVIGATION
+ FAST FIREBASE LOADING VERSION
+================================================
 
+IMPORTANT:
 
-import {
-    getDatabase,
-    ref,
-    get
-}
-from
-"https://www.gstatic.com/firebasejs/12.16.0/firebase-database.js";
+Firebase is NOT initialized immediately.
+
+The navigation is rendered first.
+
+Firebase SDK is loaded only when content
+needs to be retrieved.
+
+Normal pages:
+Home
+Request
+Wishes
+Market
+
+More pages:
+Loaded only when More is opened.
+
+Each page is cached after loading.
+================================================
+*/
 
 
 /* =========================================
@@ -712,14 +746,99 @@ const firebaseConfig = {
 
 
 /* =========================================
-   INITIALIZE FIREBASE
+   FIREBASE STATE
 ========================================= */
 
-const app =
-    initializeApp(firebaseConfig);
+let firebaseReady = null;
 
-const db =
-    getDatabase(app);
+let db = null;
+
+
+/* =========================================
+   LAZY FIREBASE INITIALIZATION
+========================================= */
+
+async function getFirebaseDatabase(){
+
+    /*
+     * If Firebase is already initialized,
+     * immediately return the existing database.
+     */
+
+    if(db){
+
+        return db;
+
+    }
+
+
+    /*
+     * If another request is already initializing
+     * Firebase, wait for that same request.
+     *
+     * This prevents multiple Firebase downloads
+     * or multiple initializeApp() calls.
+     */
+
+    if(firebaseReady){
+
+        return firebaseReady;
+
+    }
+
+
+    firebaseReady =
+        (async function(){
+
+            const [
+
+                firebaseAppModule,
+                firebaseDatabaseModule
+
+            ] =
+            await Promise.all([
+
+                import(
+                    "https://www.gstatic.com/firebasejs/12.16.0/firebase-app.js"
+                ),
+
+                import(
+                    "https://www.gstatic.com/firebasejs/12.16.0/firebase-database.js"
+                )
+
+            ]);
+
+
+            const app =
+                firebaseAppModule.initializeApp(
+                    firebaseConfig
+                );
+
+
+            db =
+                firebaseDatabaseModule.getDatabase(
+                    app
+                );
+
+
+            return {
+
+                db:db,
+
+                ref:
+                    firebaseDatabaseModule.ref,
+
+                get:
+                    firebaseDatabaseModule.get
+
+            };
+
+        })();
+
+
+    return firebaseReady;
+
+}
 
 
 /* =========================================
@@ -740,9 +859,22 @@ const normalSections = [
    CACHE
 ========================================= */
 
-const loadedSections = {};
+const loadedSections =
+    Object.create(null);
 
-const loadingSections = {};
+const loadingSections =
+    Object.create(null);
+
+
+/* =========================================
+   MORE PAGE CACHE
+========================================= */
+
+let morePagesLoaded = false;
+
+let morePagesLoading = false;
+
+let morePagesData = [];
 
 
 /* =========================================
@@ -750,6 +882,13 @@ const loadingSections = {};
 ========================================= */
 
 function executePublishedScripts(container){
+
+    if(!container){
+
+        return;
+
+    }
+
 
     const scripts =
         container.querySelectorAll("script");
@@ -797,6 +936,13 @@ function executePublishedScripts(container){
 
 function getPageHTML(page){
 
+    if(!page){
+
+        return "";
+
+    }
+
+
     if(
         typeof page.html === "string" &&
         page.html.trim()
@@ -843,31 +989,41 @@ function getPageHTML(page){
 
         const blocks =
             Object.keys(page.blocks)
+
             .map(function(id){
+
+                const block =
+                    page.blocks[id] || {};
+
 
                 return {
 
                     id:id,
 
                     html:
-                        page.blocks[id].html ||
-                        page.blocks[id].content ||
-                        page.blocks[id].writeUp ||
+                        block.html ||
+                        block.content ||
+                        block.writeUp ||
                         "",
 
                     order:
-                        typeof page.blocks[id].order === "number"
-                        ? page.blocks[id].order
+                        typeof block.order === "number"
+                        ? block.order
                         : 0
 
                 };
 
             })
+
             .filter(function(block){
 
-                return block.html.trim();
+                return (
+                    typeof block.html === "string" &&
+                    block.html.trim()
+                );
 
             })
+
             .sort(function(a,b){
 
                 return a.order - b.order;
@@ -878,11 +1034,13 @@ function getPageHTML(page){
         if(blocks.length){
 
             return blocks
+
                 .map(function(block){
 
                     return block.html;
 
                 })
+
                 .join("\n\n");
 
         }
@@ -894,6 +1052,31 @@ function getPageHTML(page){
 
 }
 
+
+/* =========================================
+   SHOW LOADING
+========================================= */
+
+function showSectionLoading(container){
+
+    if(!container){
+
+        return;
+
+    }
+
+
+    container.innerHTML = `
+
+        <div class="kulzzyMoreLoading">
+
+            Loading...
+
+        </div>
+
+    `;
+
+}
 
 
 /* =========================================
@@ -915,9 +1098,9 @@ async function loadNormalSection(section){
     }
 
 
-    /* --------------------------------------
-       ALREADY LOADED
-    -------------------------------------- */
+    /*
+     * Already loaded.
+     */
 
     if(loadedSections[section]){
 
@@ -926,131 +1109,171 @@ async function loadNormalSection(section){
     }
 
 
-    /* --------------------------------------
-       ALREADY LOADING
-    -------------------------------------- */
+    /*
+     * Already loading.
+     */
 
     if(loadingSections[section]){
 
-        return;
+        return loadingSections[section];
 
     }
 
 
-    loadingSections[section] = true;
+    /*
+     * Create one loading promise.
+     */
+
+    loadingSections[section] =
+        (async function(){
+
+            try{
+
+                /*
+                 * Show loading immediately.
+                 */
+
+                showSectionLoading(
+                    container
+                );
 
 
-    
+                /*
+                 * Load Firebase only now.
+                 */
+
+                const firebase =
+                    await getFirebaseDatabase();
+
+
+                /*
+                 * Read ONLY the requested section.
+                 */
+
+                const contentRef =
+                    firebase.ref(
+                        db,
+                        "kulzzyContent/" + section
+                    );
+
+
+                const snapshot =
+                    await firebase.get(
+                        contentRef
+                    );
+
+
+                container.innerHTML = "";
+
+
+                /*
+                 * No content.
+                 */
+
+                if(!snapshot.exists()){
+
+                    loadedSections[section] = true;
+
+                    return;
+
+                }
+
+
+                const data =
+                    snapshot.val();
+
+
+                const html =
+                    getPageHTML(data);
+
+
+                /*
+                 * Empty content.
+                 */
+
+                if(!html.trim()){
+
+                    loadedSections[section] = true;
+
+                    return;
+
+                }
+
+
+                /*
+                 * Insert content.
+                 */
+
+                const wrapper =
+                    document.createElement("div");
+
+
+                wrapper.innerHTML =
+                    html;
+
+
+                container.appendChild(
+                    wrapper
+                );
+
+
+                /*
+                 * Execute scripts contained
+                 * inside published content.
+                 */
+
+                executePublishedScripts(
+                    wrapper
+                );
+
+
+                loadedSections[section] = true;
+
+            }
+
+            catch(error){
+
+                console.error(
+                    "Firebase error:",
+                    section,
+                    error
+                );
+
+
+                container.innerHTML = `
+
+                    <div class="kulzzyStatus">
+
+                        <strong>
+                            Content could not be loaded.
+                        </strong>
+
+                    </div>
+
+                `;
+
+            }
+
+        })();
+
+
     try{
 
-        const contentRef =
-            ref(
-                db,
-                "kulzzyContent/" + section
-            );
-
-
-        const snapshot =
-            await get(contentRef);
-
-
-        container.innerHTML = "";
-
-
-        if(!snapshot.exists()){
-
-            loadedSections[section] = true;
-
-            loadingSections[section] = false;
-
-            return;
-
-        }
-
-
-        const data =
-            snapshot.val();
-
-
-        const html =
-            getPageHTML(data);
-
-
-        if(!html.trim()){
-
-            loadedSections[section] = true;
-
-            loadingSections[section] = false;
-
-            return;
-
-        }
-
-
-        const wrapper =
-            document.createElement("div");
-
-
-        wrapper.innerHTML =
-            html;
-
-
-        container.appendChild(
-            wrapper
-        );
-
-
-        executePublishedScripts(
-            wrapper
-        );
-
-
-        loadedSections[section] = true;
+        await loadingSections[section];
 
     }
 
-    catch(error){
+    finally{
 
-        console.error(
-            "Firebase error:",
-            section,
-            error
-        );
-
-
-        container.innerHTML = `
-
-            <div class="kulzzyStatus">
-
-                <strong>
-                    Content could not be loaded.
-                </strong>
-
-            </div>
-
-        `;
+        delete loadingSections[section];
 
     }
-
-
-    loadingSections[section] = false;
 
 }
 
 
 /* =========================================
-   MORE PAGE CACHE
-========================================= */
-
-let morePagesLoaded = false;
-
-let morePagesLoading = false;
-
-let morePagesData = [];
-
-
-/* =========================================
-   LOAD MORE PAGE MENU
+   LOAD MORE PAGES
 ========================================= */
 
 async function loadMorePages(){
@@ -1074,9 +1297,9 @@ async function loadMorePages(){
     }
 
 
-    /* --------------------------------------
-       ALREADY LOADED
-    -------------------------------------- */
+    /*
+     * Already loaded.
+     */
 
     if(morePagesLoaded){
 
@@ -1085,9 +1308,9 @@ async function loadMorePages(){
     }
 
 
-    /* --------------------------------------
-       CURRENTLY LOADING
-    -------------------------------------- */
+    /*
+     * Already loading.
+     */
 
     if(morePagesLoading){
 
@@ -1099,20 +1322,42 @@ async function loadMorePages(){
     morePagesLoading = true;
 
 
+    menu.innerHTML = `
+
+        <div class="kulzzyMoreLoading">
+
+            Loading More Pages...
+
+        </div>
+
+    `;
+
+
     content.innerHTML = "";
 
 
     try{
 
+        /*
+         * Firebase is loaded only when
+         * More is actually opened.
+         */
+
+        const firebase =
+            await getFirebaseDatabase();
+
+
         const morePagesRef =
-            ref(
+            firebase.ref(
                 db,
                 "kulzzyMorePages"
             );
 
 
         const snapshot =
-            await get(morePagesRef);
+            await firebase.get(
+                morePagesRef
+            );
 
 
         menu.innerHTML = "";
@@ -1120,9 +1365,9 @@ async function loadMorePages(){
         content.innerHTML = "";
 
 
-        /* ----------------------------------
-           NO PAGES
-        ---------------------------------- */
+        /*
+         * No More pages.
+         */
 
         if(!snapshot.exists()){
 
@@ -1145,8 +1390,6 @@ async function loadMorePages(){
 
             morePagesLoaded = true;
 
-            morePagesLoading = false;
-
             return;
 
         }
@@ -1156,12 +1399,14 @@ async function loadMorePages(){
             snapshot.val();
 
 
-        /* ----------------------------------
-           CONVERT DATA TO ARRAY
-        ---------------------------------- */
+        /*
+         * Convert Firebase object
+         * into sorted array.
+         */
 
         morePagesData =
             Object.keys(data)
+
             .map(function(id){
 
                 const page =
@@ -1188,6 +1433,7 @@ async function loadMorePages(){
                 };
 
             })
+
             .sort(function(a,b){
 
                 return a.order - b.order;
@@ -1195,9 +1441,13 @@ async function loadMorePages(){
             });
 
 
-        /* ----------------------------------
-           CREATE BUTTONS
-        ---------------------------------- */
+        /*
+         * Create More buttons.
+         */
+
+        const fragment =
+            document.createDocumentFragment();
+
 
         morePagesData.forEach(function(page){
 
@@ -1230,11 +1480,16 @@ async function loadMorePages(){
             );
 
 
-            menu.appendChild(
+            fragment.appendChild(
                 button
             );
 
         });
+
+
+        menu.appendChild(
+            fragment
+        );
 
 
         morePagesLoaded = true;
@@ -1275,8 +1530,11 @@ async function loadMorePages(){
 
     }
 
+    finally{
 
-    morePagesLoading = false;
+        morePagesLoading = false;
+
+    }
 
 }
 
@@ -1300,22 +1558,26 @@ function showMorePage(page,button){
     }
 
 
-    /* --------------------------------------
-       ACTIVE BUTTON
-    -------------------------------------- */
+    /*
+     * Remove active state.
+     */
 
     document
-    .querySelectorAll(
-        ".kulzzyMorePageButton"
-    )
-    .forEach(function(item){
+        .querySelectorAll(
+            ".kulzzyMorePageButton"
+        )
+        .forEach(function(item){
 
-        item.classList.remove(
-            "active"
-        );
+            item.classList.remove(
+                "active"
+            );
 
-    });
+        });
 
+
+    /*
+     * Activate selected button.
+     */
 
     if(button){
 
@@ -1326,24 +1588,24 @@ function showMorePage(page,button){
     }
 
 
-    /* --------------------------------------
-       CLEAR OLD CONTENT
-    -------------------------------------- */
+    /*
+     * Clear old content.
+     */
 
     content.innerHTML = "";
 
 
-    /* --------------------------------------
-       GET WRITE-UP
-    -------------------------------------- */
+    /*
+     * Get page HTML.
+     */
 
     const html =
         getPageHTML(page);
 
 
-    /* --------------------------------------
-       EMPTY WRITE-UP
-    -------------------------------------- */
+    /*
+     * Empty page.
+     */
 
     if(!html.trim()){
 
@@ -1371,9 +1633,9 @@ function showMorePage(page,button){
     }
 
 
-    /* --------------------------------------
-       CREATE PAGE CONTENT
-    -------------------------------------- */
+    /*
+     * Create content box.
+     */
 
     const pageBox =
         document.createElement("div");
@@ -1392,83 +1654,71 @@ function showMorePage(page,button){
     );
 
 
-    /* --------------------------------------
-       EXECUTE PAGE SCRIPTS
-    -------------------------------------- */
+    /*
+     * Execute scripts.
+     */
 
     executePublishedScripts(
         pageBox
     );
 
-
-    /* --------------------------------------
-       SCROLL TO CONTENT
-    -------------------------------------- */
-
-    setTimeout(function(){
-
-        content.scrollIntoView({
-
-            behavior:"smooth",
-
-            block:"start"
-
-        });
-
-    },100);
-
 }
 
 
 /* =========================================
-   INITIAL LOAD
-========================================= */
-
-/*
-   ONLY HOME LOADS WHEN THE WEBSITE OPENS.
-   REQUEST, WISHES, MARKET AND MORE
-   WAIT UNTIL THE VISITOR OPENS THEM.
-*/
-
-loadNormalSection("home");
-
-
-/* =========================================
-   NAVIGATION FUNCTION
+   NAVIGATION
 ========================================= */
 
 window.kulzzyOpen =
 async function(section,button){
 
-    const sections =
-        document.querySelectorAll(
-            ".kulzzySection"
-        );
+    /*
+     * Immediately change active button.
+     * Do NOT wait for Firebase.
+     */
 
-
-    sections.forEach(function(item){
-
-        item.classList.remove(
-            "active"
-        );
-
-    });
-
-
-    const buttons =
-        document.querySelectorAll(
+    document
+        .querySelectorAll(
             ".kulzzyNavBtn"
-        );
+        )
+        .forEach(function(item){
+
+            item.classList.remove(
+                "active"
+            );
+
+        });
 
 
-    buttons.forEach(function(item){
+    if(button){
 
-        item.classList.remove(
+        button.classList.add(
             "active"
         );
 
-    });
+    }
 
+
+    /*
+     * Hide all sections immediately.
+     */
+
+    document
+        .querySelectorAll(
+            ".kulzzySection"
+        )
+        .forEach(function(item){
+
+            item.classList.remove(
+                "active"
+            );
+
+        });
+
+
+    /*
+     * Show selected section immediately.
+     */
 
     const selected =
         document.getElementById(
@@ -1485,18 +1735,9 @@ async function(section,button){
     }
 
 
-    if(button){
-
-        button.classList.add(
-            "active"
-        );
-
-    }
-
-
-    /* --------------------------------------
-       LOAD ONLY THE SECTION VISITED
-    -------------------------------------- */
+    /*
+     * Load only what was requested.
+     */
 
     if(
         normalSections.includes(section)
@@ -1506,12 +1747,14 @@ async function(section,button){
             section
         );
 
+        return;
+
     }
 
 
-    /* --------------------------------------
-       LOAD MORE ONLY WHEN OPENED
-    -------------------------------------- */
+    /*
+     * More is loaded only when opened.
+     */
 
     if(section === "more"){
 
@@ -1519,33 +1762,70 @@ async function(section,button){
 
     }
 
-
-    /* --------------------------------------
-       RETURN TO TOP
-    -------------------------------------- */
-
-    window.scrollTo({
-
-        top:0,
-
-        behavior:"smooth"
-
-    });
-
 };
 
 
 /* =========================================
-   FIREBASE READY MESSAGE
+   START HOME IMMEDIATELY
 ========================================= */
 
-console.log(
-    "KULZZY RADIO: Optimized Firebase navigation loaded."
-);
+/*
+ * The navigation is already visible before
+ * this function runs.
+ *
+ * Home is the ONLY Firebase content requested
+ * automatically.
+ */
 
-console.log(
-    "KULZZY RADIO: Home loads first; other sections load on demand."
-);
+requestAnimationFrame(function(){
+
+    loadNormalSection("home");
+
+});
+
+
+/* =========================================
+   OPTIONAL BACKGROUND WARM-UP
+========================================= */
+
+/*
+ * Start downloading Firebase after the browser
+ * has had an opportunity to paint the page.
+ *
+ * This does NOT read Firebase data.
+ *
+ * It simply prepares Firebase so that when Home
+ * needs it, initialization is already underway.
+ */
+
+if(
+    "requestIdleCallback" in window
+){
+
+    requestIdleCallback(
+        function(){
+
+            getFirebaseDatabase();
+
+        },
+        {
+            timeout:1500
+        }
+    );
+
+}
+else{
+
+    setTimeout(
+        function(){
+
+            getFirebaseDatabase();
+
+        },
+        300
+    );
+
+}
 
 </script>
 
@@ -1553,3 +1833,5 @@ console.log(
 </body>
 
 </html>
+
+        
