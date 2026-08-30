@@ -1267,35 +1267,141 @@ async function loadNormalSection(
 }
 
 
-
 /* =========================================
-   LOAD ALL NORMAL PAGES IN PARALLEL
+   FAST FIREBASE SECTION LOADING
+   Kulzzy Radio Navigation
 ========================================= */
 
-function preloadAllNormalSections(){
+const sectionCache = {};
+const sectionLoading = {};
 
-    normalSections.forEach(
-        function(section){
 
-            loadNormalSection(
-                section
+/* =========================================
+   LOAD SECTION ONLY WHEN NEEDED
+========================================= */
+
+function loadNormalSectionFast(section){
+
+    /* Already loaded */
+    if(sectionCache[section]){
+
+        const target =
+            document.getElementById(
+                "kulzzy-" + section
             );
 
+        if(target){
+
+            target.innerHTML =
+                sectionCache[section];
+
         }
-    );
+
+        return;
+
+    }
+
+
+    /* Already loading */
+    if(sectionLoading[section]){
+
+        return;
+
+    }
+
+
+    sectionLoading[section] = true;
+
+
+    const target =
+        document.getElementById(
+            "kulzzy-" + section
+        );
+
+
+    if(!target){
+
+        sectionLoading[section] = false;
+
+        return;
+
+    }
+
+
+    /* Show loading immediately */
+
+    target.innerHTML = `
+        <div class="kulzzy-loading">
+            <div class="kulzzy-loading-spinner"></div>
+            <div>Loading...</div>
+        </div>
+    `;
+
+
+    /*
+       Use the existing Firebase
+       loader already defined in
+       your navigation system.
+    */
+
+    Promise.resolve(
+        loadNormalSection(section)
+    )
+
+    .then(function(){
+
+        /*
+           Give Firebase/DOM a moment
+           to finish rendering.
+        */
+
+        setTimeout(function(){
+
+            sectionCache[section] =
+                target.innerHTML;
+
+            sectionLoading[section] = false;
+
+        }, 0);
+
+    })
+
+    .catch(function(error){
+
+        console.error(
+            "Kulzzy Firebase loading error:",
+            error
+        );
+
+        sectionLoading[section] = false;
+
+        target.innerHTML = `
+            <div class="kulzzy-error">
+                Unable to load this section.
+                <br>
+                <button onclick="loadNormalSectionFast('${section}')">
+                    🔄 Try Again
+                </button>
+            </div>
+        `;
+
+    });
 
 }
 
 
-
 /* =========================================
-   SHOW SECTION
+   SHOW SECTION — FAST VERSION
 ========================================= */
 
 function openSection(
     section,
     button
 ){
+
+    /*
+       Hide all sections immediately.
+    */
 
     document
         .querySelectorAll(
@@ -1310,10 +1416,13 @@ function openSection(
         });
 
 
+    /*
+       Show requested section.
+    */
+
     const target =
         document.getElementById(
-            "kulzzy-" +
-            section
+            "kulzzy-" + section
         );
 
 
@@ -1325,6 +1434,10 @@ function openSection(
 
     }
 
+
+    /*
+       Update navigation buttons.
+    */
 
     document
         .querySelectorAll(
@@ -1348,18 +1461,27 @@ function openSection(
     }
 
 
+    /*
+       Load Firebase content ONLY
+       when the section is opened.
+    */
+
     if(
         normalSections.includes(
             section
         )
     ){
 
-        loadNormalSection(
+        loadNormalSectionFast(
             section
         );
 
     }
 
+
+    /*
+       More pages remain lazy-loaded.
+    */
 
     if(
         section === "more"
@@ -1372,6 +1494,26 @@ function openSection(
 }
 
 
+/* =========================================
+   DISABLE OLD FULL PRELOAD
+========================================= */
+
+function preloadAllNormalSections(){
+
+    /*
+       Intentionally empty.
+
+       Sections are now loaded
+       only when the user opens them.
+
+       This prevents Firebase from
+       downloading unnecessary data
+       during startup.
+    */
+
+    return;
+
+}
 
 /* =========================================
    PUBLIC NAVIGATION FUNCTION
