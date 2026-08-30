@@ -17,29 +17,20 @@
     box-sizing:border-box;
 }
 
-
 html,
 body{
 
     margin:0;
-
     padding:0;
-
     width:100%;
-
     min-height:100%;
-
     font-family:Arial,Helvetica,sans-serif;
-
     background:transparent;
 
 }
 
-
 body{
-
     overflow-x:hidden;
-
 }
 
 
@@ -117,7 +108,6 @@ body{
 
 }
 
-
 .kulzzyNavBtn:hover{
 
     background:
@@ -126,7 +116,6 @@ body{
     color:#ffd700;
 
 }
-
 
 .kulzzyNavBtn.active{
 
@@ -168,7 +157,6 @@ body{
 
 }
 
-
 .kulzzySection.active{
 
     display:block;
@@ -192,13 +180,11 @@ body{
 
 }
 
-
 .kulzzyPublishedContent *{
 
     max-width:100%;
 
 }
-
 
 .kulzzyPublishedContent img{
 
@@ -208,7 +194,6 @@ body{
 
 }
 
-
 .kulzzyPublishedContent video{
 
     max-width:100%;
@@ -216,7 +201,6 @@ body{
     height:auto;
 
 }
-
 
 .kulzzyPublishedContent iframe{
 
@@ -229,7 +213,6 @@ body{
     border:0;
 
 }
-
 
 .kulzzyPublishedContent table{
 
@@ -292,7 +275,6 @@ body{
 
 }
 
-
 .kulzzyMorePageButton:hover{
 
     background:
@@ -301,7 +283,6 @@ body{
     color:#ffd700;
 
 }
-
 
 .kulzzyMorePageButton.active{
 
@@ -325,7 +306,6 @@ body{
     padding:0;
 
 }
-
 
 .kulzzyMorePageContentBox{
 
@@ -362,7 +342,6 @@ body{
 
 }
 
-
 .kulzzyMorePageContentBox img{
 
     max-width:100% !important;
@@ -371,7 +350,6 @@ body{
 
 }
 
-
 .kulzzyMorePageContentBox video{
 
     max-width:100% !important;
@@ -379,7 +357,6 @@ body{
     height:auto !important;
 
 }
-
 
 .kulzzyMorePageContentBox iframe{
 
@@ -393,7 +370,6 @@ body{
 
 }
 
-
 .kulzzyMorePageContentBox table{
 
     width:100%;
@@ -406,7 +382,6 @@ body{
 
 }
 
-
 .kulzzyMorePageContentBox h1,
 .kulzzyMorePageContentBox h2,
 .kulzzyMorePageContentBox h3,
@@ -416,20 +391,17 @@ body{
 
 }
 
-
 .kulzzyMorePageContentBox p{
 
     line-height:1.7;
 
 }
 
-
 .kulzzyMorePageContentBox a{
 
     word-break:break-word;
 
 }
-
 
 .kulzzyMorePageContentBox ul,
 .kulzzyMorePageContentBox ol{
@@ -510,7 +482,6 @@ and (max-width:600px){
     </button>
 
 
-
     <button
         type="button"
         class="kulzzyNavBtn"
@@ -519,7 +490,6 @@ and (max-width:600px){
         Request
 
     </button>
-
 
 
     <button
@@ -532,7 +502,6 @@ and (max-width:600px){
     </button>
 
 
-
     <button
         type="button"
         class="kulzzyNavBtn"
@@ -541,7 +510,6 @@ and (max-width:600px){
         Market
 
     </button>
-
 
 
     <button
@@ -555,7 +523,6 @@ and (max-width:600px){
 
 
 </nav>
-
 
 
 <!-- =====================================
@@ -579,7 +546,6 @@ and (max-width:600px){
     </section>
 
 
-
     <!-- REQUEST -->
 
     <section
@@ -592,7 +558,6 @@ and (max-width:600px){
         </div>
 
     </section>
-
 
 
     <!-- WISHES -->
@@ -609,7 +574,6 @@ and (max-width:600px){
     </section>
 
 
-
     <!-- MARKET -->
 
     <section
@@ -622,7 +586,6 @@ and (max-width:600px){
         </div>
 
     </section>
-
 
 
     <!-- MORE -->
@@ -644,7 +607,6 @@ and (max-width:600px){
 
 
 </div>
-
 
 
 <!-- =====================================
@@ -682,59 +644,44 @@ from
 "https://www.gstatic.com/firebasejs/12.16.0/firebase-database.js";
 
 
-
 /* =========================================
-   EXISTING FIREBASE CONFIGURATION
+   FIREBASE CONFIGURATION
 ========================================= */
 
 const firebaseConfig = {
 
-
     apiKey:
-
         "AIzaSyBH85NGWsSAK5cubbPdnmunwYZFZpj_CB0",
 
-
     authDomain:
-
         "kulzzy-radio-chat.firebaseapp.com",
 
-
     databaseURL:
-
         "https://kulzzy-radio-chat-default-rtdb.europe-west1.firebasedatabase.app",
 
-
     projectId:
-
         "kulzzy-radio-chat",
 
-
     storageBucket:
-
         "kulzzy-radio-chat.firebasestorage.app",
 
-
     messagingSenderId:
-
         "510100635134",
 
-
     appId:
-
         "1:510100635134:web:9d3b2e983eb6e9a385d4af"
 
 };
 
 
-
 /* =========================================
-   INITIALIZE FIREBASE IMMEDIATELY
+   INITIALIZE FIREBASE
 ========================================= */
 
-let app;
+let app = null;
 
-let db;
+let db = null;
+
 
 try{
 
@@ -761,7 +708,6 @@ catch(error){
 }
 
 
-
 /* =========================================
    NORMAL SECTIONS
 ========================================= */
@@ -776,35 +722,27 @@ const normalSections = [
 ];
 
 
-
 /* =========================================
-   CACHE
+   FAST MEMORY CACHE
 ========================================= */
 
-const loadedSections =
+const sectionCache =
     Object.create(null);
 
 
-const loadingSections =
+const sectionLoading =
     Object.create(null);
-
 
 
 /* =========================================
    MORE CACHE
 ========================================= */
 
-let morePagesLoaded =
-    false;
+let morePagesLoaded = false;
 
+let morePagesLoading = null;
 
-let morePagesLoading =
-    false;
-
-
-let morePagesData =
-    [];
-
+let morePagesData = [];
 
 
 /* =========================================
@@ -836,26 +774,18 @@ function getPageHTML(page){
     const possibleFields = [
 
         "content",
-
         "writeUp",
-
         "writeup",
-
         "body",
-
         "description",
-
         "pageContent",
-
         "htmlContent"
 
     ];
 
 
     for(
-
         const field of possibleFields
-
     ){
 
         if(
@@ -907,7 +837,6 @@ function getPageHTML(page){
 
                         "",
 
-
                     order:
 
                         typeof block.order === "number"
@@ -940,9 +869,7 @@ function getPageHTML(page){
             });
 
 
-        if(
-            blocks.length
-        ){
+        if(blocks.length){
 
             return blocks
 
@@ -962,7 +889,6 @@ function getPageHTML(page){
     return "";
 
 }
-
 
 
 /* =========================================
@@ -1017,9 +943,7 @@ function executePublishedScripts(
             oldScript.textContent;
 
 
-        if(
-            oldScript.parentNode
-        ){
+        if(oldScript.parentNode){
 
             oldScript.parentNode
                 .replaceChild(
@@ -1034,9 +958,8 @@ function executePublishedScripts(
 }
 
 
-
 /* =========================================
-   DISPLAY PAGE CONTENT
+   DISPLAY NORMAL CONTENT
 ========================================= */
 
 function displayNormalContent(
@@ -1061,17 +984,11 @@ function displayNormalContent(
     }
 
 
-    container.innerHTML =
-        "";
+    if(!html || !html.trim()){
 
+        container.innerHTML = "";
 
-    if(
-        !html ||
-        !html.trim()
-    ){
-
-        loadedSections[section] =
-            true;
+        sectionCache[section] = "";
 
         return;
 
@@ -1088,25 +1005,37 @@ function displayNormalContent(
         html;
 
 
+    container.innerHTML = "";
+
+
     container.appendChild(
         wrapper
     );
 
+
+    /*
+       Execute scripts only after
+       the content has been inserted.
+    */
 
     executePublishedScripts(
         wrapper
     );
 
 
-    loadedSections[section] =
-        true;
+    /*
+       Save the rendered HTML in memory
+       so returning to the section is instant.
+    */
+
+    sectionCache[section] =
+        container.innerHTML;
 
 }
 
 
-
 /* =========================================
-   LOAD NORMAL PAGE
+   LOAD NORMAL SECTION
 ========================================= */
 
 async function loadNormalSection(
@@ -1141,158 +1070,24 @@ async function loadNormalSection(
     }
 
 
-    if(
-        loadedSections[section]
-    ){
-
-        return;
-
-    }
-
+    /*
+       Already successfully loaded.
+    */
 
     if(
-        loadingSections[section]
+        Object.prototype.hasOwnProperty.call(
+            sectionCache,
+            section
+        )
     ){
 
-        return loadingSections[section];
+        if(
+            container.innerHTML === ""
+            &&
+            sectionCache[section]
+        ){
 
-    }
-
-
-    if(!db){
-
-        console.error(
-            "Firebase database is unavailable."
-        );
-
-        return;
-
-    }
-
-
-    loadingSections[section] =
-
-        (async function(){
-
-            try{
-
-                const snapshot =
-
-                    await get(
-
-                        ref(
-
-                            db,
-
-                            "kulzzyContent/" +
-                            section
-
-                        )
-
-                    );
-
-
-                if(
-                    !snapshot.exists()
-                ){
-
-                    loadedSections[section] =
-                        true;
-
-                    return;
-
-                }
-
-
-                const data =
-                    snapshot.val();
-
-
-                const html =
-                    getPageHTML(
-                        data
-                    );
-
-
-                displayNormalContent(
-                    section,
-                    html
-                );
-
-            }
-
-            catch(error){
-
-                console.error(
-
-                    "Firebase read error:",
-                    section,
-                    error
-
-                );
-
-
-                /*
-                 * IMPORTANT:
-                 *
-                 * Nothing is displayed to
-                 * visitors here.
-                 *
-                 * No "Loading..."
-                 *
-                 * No "Could not load..."
-                 */
-
-            }
-
-        })();
-
-
-    try{
-
-        await loadingSections[
-            section
-        ];
-
-    }
-
-    finally{
-
-        delete loadingSections[
-            section
-        ];
-
-    }
-
-}
-
-
-/* =========================================
-   FAST FIREBASE SECTION LOADING
-   Kulzzy Radio Navigation
-========================================= */
-
-const sectionCache = {};
-const sectionLoading = {};
-
-
-/* =========================================
-   LOAD SECTION ONLY WHEN NEEDED
-========================================= */
-
-function loadNormalSectionFast(section){
-
-    /* Already loaded */
-    if(sectionCache[section]){
-
-        const target =
-            document.getElementById(
-                "kulzzy-" + section
-            );
-
-        if(target){
-
-            target.innerHTML =
+            container.innerHTML =
                 sectionCache[section];
 
         }
@@ -1302,96 +1097,111 @@ function loadNormalSectionFast(section){
     }
 
 
-    /* Already loading */
-    if(sectionLoading[section]){
+    /*
+       If this section is already
+       being downloaded, wait for it.
+    */
 
-        return;
+    if(
+        sectionLoading[section]
+    ){
 
-    }
-
-
-    sectionLoading[section] = true;
-
-
-    const target =
-        document.getElementById(
-            "kulzzy-" + section
-        );
-
-
-    if(!target){
-
-        sectionLoading[section] = false;
-
-        return;
+        return sectionLoading[section];
 
     }
 
 
-    /* Show loading immediately */
+    if(!db){
 
-    target.innerHTML = `
-        <div class="kulzzy-loading">
-            <div class="kulzzy-loading-spinner"></div>
-            <div>Loading...</div>
-        </div>
-    `;
+        return;
+
+    }
 
 
     /*
-       Use the existing Firebase
-       loader already defined in
-       your navigation system.
+       Start Firebase request.
     */
 
-    Promise.resolve(
-        loadNormalSection(section)
-    )
+    sectionLoading[section] =
 
-    .then(function(){
+        get(
 
-        /*
-           Give Firebase/DOM a moment
-           to finish rendering.
-        */
+            ref(
 
-        setTimeout(function(){
+                db,
 
-            sectionCache[section] =
-                target.innerHTML;
+                "kulzzyContent/" +
+                section
 
-            sectionLoading[section] = false;
+            )
 
-        }, 0);
+        )
 
-    })
+        .then(function(snapshot){
 
-    .catch(function(error){
+            if(
+                !snapshot.exists()
+            ){
 
-        console.error(
-            "Kulzzy Firebase loading error:",
-            error
-        );
+                container.innerHTML = "";
 
-        sectionLoading[section] = false;
+                sectionCache[section] = "";
 
-        target.innerHTML = `
-            <div class="kulzzy-error">
-                Unable to load this section.
-                <br>
-                <button onclick="loadNormalSectionFast('${section}')">
-                    🔄 Try Again
-                </button>
-            </div>
-        `;
+                return;
 
-    });
+            }
+
+
+            const data =
+                snapshot.val();
+
+
+            const html =
+                getPageHTML(
+                    data
+                );
+
+
+            displayNormalContent(
+                section,
+                html
+            );
+
+        })
+
+        .catch(function(error){
+
+            /*
+               Keep the screen clean.
+               No loading text.
+               No Firebase error shown
+               to visitors.
+            */
+
+            console.error(
+                "Firebase section error:",
+                section,
+                error
+            );
+
+        })
+
+        .finally(function(){
+
+            delete sectionLoading[
+                section
+            ];
+
+        });
+
+
+    return sectionLoading[section];
 
 }
 
 
 /* =========================================
-   SHOW SECTION — FAST VERSION
+   OPEN SECTION
 ========================================= */
 
 function openSection(
@@ -1400,7 +1210,8 @@ function openSection(
 ){
 
     /*
-       Hide all sections immediately.
+       Switch the visible section
+       immediately.
     */
 
     document
@@ -1416,13 +1227,10 @@ function openSection(
         });
 
 
-    /*
-       Show requested section.
-    */
-
     const target =
         document.getElementById(
-            "kulzzy-" + section
+            "kulzzy-" +
+            section
         );
 
 
@@ -1436,7 +1244,7 @@ function openSection(
 
 
     /*
-       Update navigation buttons.
+       Update active navigation button.
     */
 
     document
@@ -1462,8 +1270,8 @@ function openSection(
 
 
     /*
-       Load Firebase content ONLY
-       when the section is opened.
+       Firebase content is loaded
+       only when needed.
     */
 
     if(
@@ -1472,7 +1280,7 @@ function openSection(
         )
     ){
 
-        loadNormalSectionFast(
+        loadNormalSection(
             section
         );
 
@@ -1480,7 +1288,7 @@ function openSection(
 
 
     /*
-       More pages remain lazy-loaded.
+       More is lazy-loaded.
     */
 
     if(
@@ -1495,28 +1303,7 @@ function openSection(
 
 
 /* =========================================
-   DISABLE OLD FULL PRELOAD
-========================================= */
-
-function preloadAllNormalSections(){
-
-    /*
-       Intentionally empty.
-
-       Sections are now loaded
-       only when the user opens them.
-
-       This prevents Firebase from
-       downloading unnecessary data
-       during startup.
-    */
-
-    return;
-
-}
-
-/* =========================================
-   PUBLIC NAVIGATION FUNCTION
+   PUBLIC NAVIGATION
 ========================================= */
 
 window.kulzzyOpen =
@@ -1532,7 +1319,6 @@ window.kulzzyOpen =
         );
 
     };
-
 
 
 /* =========================================
@@ -1563,12 +1349,11 @@ document
     });
 
 
-
 /* =========================================
    LOAD MORE PAGES
 ========================================= */
 
-   async function loadMorePages(){
+async function loadMorePages(){
 
     const menu =
 
@@ -1621,193 +1406,167 @@ document
 
     morePagesLoading =
 
-        (async function(){
+        get(
 
-            try{
+            ref(
 
-                const snapshot =
+                db,
 
-                    await get(
+                "kulzzyMorePages"
 
-                        ref(
+            )
 
-                            db,
+        )
 
-                            "kulzzyMorePages"
+        .then(function(snapshot){
 
-                        )
+            menu.innerHTML = "";
 
+            content.innerHTML = "";
+
+
+            if(
+                !snapshot.exists()
+            ){
+
+                morePagesLoaded = true;
+
+                return;
+
+            }
+
+
+            const data =
+                snapshot.val();
+
+
+            morePagesData =
+
+                Object.keys(
+                    data
+                )
+
+                .map(function(id){
+
+                    const page =
+                        data[id] || {};
+
+
+                    return {
+
+                        id:id,
+
+                        title:
+
+                            page.title ||
+
+                            page.name ||
+
+                            "Untitled Page",
+
+                        html:
+
+                            getPageHTML(
+                                page
+                            ),
+
+                        order:
+
+                            typeof page.order ===
+                            "number"
+
+                            ? page.order
+
+                            : 0
+
+                    };
+
+                })
+
+                .sort(function(a,b){
+
+                    return a.order -
+                           b.order;
+
+                });
+
+
+            const fragment =
+                document.createDocumentFragment();
+
+
+            morePagesData.forEach(
+                function(page){
+
+                    const button =
+                        document.createElement(
+                            "button"
+                        );
+
+
+                    button.type =
+                        "button";
+
+
+                    button.className =
+                        "kulzzyMorePageButton";
+
+
+                    button.textContent =
+                        page.title;
+
+
+                    button.addEventListener(
+                        "click",
+                        function(){
+
+                            showMorePage(
+                                page,
+                                button
+                            );
+
+                        }
                     );
 
 
-                menu.innerHTML =
-                    "";
-
-
-                content.innerHTML =
-                    "";
-
-
-                if(
-                    !snapshot.exists()
-                ){
-
-                    morePagesLoaded =
-                        true;
-
-                    return;
+                    fragment.appendChild(
+                        button
+                    );
 
                 }
+            );
 
 
-                const data =
-                    snapshot.val();
+            menu.appendChild(
+                fragment
+            );
 
 
-                morePagesData =
+            morePagesLoaded =
+                true;
 
-                    Object.keys(
-                        data
-                    )
+        })
 
-                    .map(function(id){
+        .catch(function(error){
 
-                        const page =
-                            data[id] || {};
+            console.error(
+                "Firebase More pages error:",
+                error
+            );
 
+        })
 
-                        return {
+        .finally(function(){
 
-                            id:id,
+            morePagesLoading =
+                null;
 
-                            title:
-
-                                page.title ||
-
-                                page.name ||
-
-                                "Untitled Page",
-
-
-                            html:
-
-                                getPageHTML(
-                                    page
-                                ),
-
-
-                            order:
-
-                                typeof page.order ===
-                                "number"
-
-                                ? page.order
-
-                                : 0
-
-                        };
-
-                    })
-
-                    .sort(function(a,b){
-
-                        return a.order -
-                               b.order;
-
-                    });
-
-
-                const fragment =
-                    document.createDocumentFragment();
-
-
-                morePagesData.forEach(
-                    function(page){
-
-                        const button =
-                            document.createElement(
-                                "button"
-                            );
-
-
-                        button.type =
-                            "button";
-
-
-                        button.className =
-                            "kulzzyMorePageButton";
-
-
-                        button.textContent =
-                            page.title;
-
-
-                        button.addEventListener(
-                            "click",
-                            function(){
-
-                                showMorePage(
-
-                                    page,
-
-                                    button
-
-                                );
-
-                            }
-                        );
-
-
-                        fragment.appendChild(
-                            button
-                        );
-
-                    }
-                );
-
-
-                menu.appendChild(
-                    fragment
-                );
-
-
-                morePagesLoaded =
-                    true;
-
-            }
-
-            catch(error){
-
-                console.error(
-
-                    "Firebase More pages error:",
-
-                    error
-
-                );
-
-
-                /*
-                 * Do not display an error
-                 * message to visitors.
-                 */
-
-            }
-
-            finally{
-
-                morePagesLoading =
-                    false;
-
-            }
-
-        })();
+        });
 
 
     return morePagesLoading;
 
 }
-
 
 
 /* =========================================
@@ -1834,11 +1593,9 @@ function showMorePage(
 
 
     document
-
         .querySelectorAll(
             ".kulzzyMorePageButton"
         )
-
         .forEach(function(item){
 
             item.classList.remove(
@@ -1857,8 +1614,7 @@ function showMorePage(
     }
 
 
-    content.innerHTML =
-        "";
+    content.innerHTML = "";
 
 
     const html =
@@ -1903,28 +1659,84 @@ function showMorePage(
 }
 
 
-
 /* =========================================
-   START FIREBASE LOADING IMMEDIATELY
+   STARTUP
 ========================================= */
 
 /*
- * There is intentionally NO loading
- * message here.
- *
- * Firebase starts in the background as soon
- * as the page is ready.
- */
+   IMPORTANT:
+
+   Only HOME is requested immediately.
+
+   Request, Wishes and Market are
+   downloaded when the visitor taps them.
+
+   More is downloaded when More is opened.
+
+   There is NO loading message.
+*/
 
 if(db){
 
-    preloadAllNormalSections();
+    loadNormalSection(
+        "home"
+    );
 
 }
+
+
+/* =========================================
+   OPTIONAL BACKGROUND PRELOAD
+========================================= */
+
+/*
+   After Home has been requested, we quietly
+   prepare the other sections in the background.
+
+   This does NOT display "Loading...".
+
+   The visitor can therefore tap a section
+   while Firebase is already preparing it.
+*/
+
+setTimeout(function(){
+
+    if(!db){
+
+        return;
+
+    }
+
+
+    [
+        "request",
+        "wishes",
+        "market"
+    ]
+
+    .forEach(function(section){
+
+        if(
+            !Object.prototype.hasOwnProperty.call(
+                sectionCache,
+                section
+            )
+        ){
+
+            loadNormalSection(
+                section
+            );
+
+        }
+
+    });
+
+}, 1200);
+
 
 </script>
 
 
 </body>
 
-</html>                     
+</html>
