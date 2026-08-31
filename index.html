@@ -133,9 +133,16 @@ body{
 ========================================= */
 
 #kulzzyContent{
-    width:100%;
-    margin:0;
-    padding:75px 0 230px;
+    width:100% !important;
+    max-width:none !important;
+
+    margin:0 !important;
+
+    padding:75px 0 230px !important;
+
+    box-sizing:border-box;
+
+    overflow:visible;
 }
 
 
@@ -145,9 +152,21 @@ body{
 
 .kulzzySection{
     display:none;
-    width:100%;
-    max-width:700px;
-    margin:0 auto;
+
+    width:100% !important;
+    max-width:none !important;
+
+    margin:0 !important;
+    padding:0 !important;
+
+    position:relative;
+
+    left:0;
+
+    box-sizing:border-box;
+
+    overflow:visible;
+
     animation:kulzzySectionIn .25s ease;
 }
 
