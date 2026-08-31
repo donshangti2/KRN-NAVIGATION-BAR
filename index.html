@@ -1221,7 +1221,10 @@ function openSection(
     section,
     button
 ){
-
+localStorage.setItem(
+    "kulzzyLastSection",
+    section
+);
     /*
        Switch the visible section
        immediately.
@@ -1264,6 +1267,34 @@ function openSection(
         .querySelectorAll(
             ".kulzzyNavBtn"
         )
+          /* =========================================
+   RESTORE LAST OPENED SECTION
+========================================= */
+
+const savedSection =
+    localStorage.getItem(
+        "kulzzyLastSection"
+    );
+
+if(savedSection){
+
+    const savedButton =
+        document.querySelector(
+            '.kulzzyNavBtn[data-section="' +
+            savedSection +
+            '"]'
+        );
+
+    if(savedButton){
+
+        openSection(
+            savedSection,
+            savedButton
+        );
+
+    }
+
+}
         .forEach(function(item){
 
             item.classList.remove(
